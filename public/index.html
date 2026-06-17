@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>boom Payroll — India</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cg transform='rotate(-26 32 32)'%3E%3Cpath d='M8,32 A24,13 0 0 1 56,32' fill='none' stroke='%23F47C20' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M56,32 A24,13 0 0 1 8,32' fill='none' stroke='%231660BE' stroke-width='7' stroke-linecap='round'/%3E%3C/g%3E%3Cpath d='M16,48 L41,25' fill='none' stroke='%231660BE' stroke-width='6' stroke-linecap='round'/%3E%3Cpath d='M48,18 L37,22 L43,31 Z' fill='%231660BE'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0B2547; --ink:#0E2440; --steel:#5A6B80; --steel-l:#8493A6;
+    --line:#E3EAF2; --cloud:#F4F7FB; --cloud-2:#EAF1F8;
+    --blue:#1660BE; --blue-d:#114E9C; --azure:#2BA6E8; --orange:#F47C20; --orange-d:#D9661A;
+    --green:#1F9D6B; --green-bg:#E6F6EF; --red:#D8442F; --red-bg:#FCEBE8; --amber:#C98A12; --amber-bg:#FCF3E2;
+    --r:14px; --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'IBM Plex Sans',system-ui,sans-serif;background:var(--cloud);color:var(--ink);font-size:11.2px;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;margin:0;letter-spacing:-.01em}
+  .mono{font-family:'IBM Plex Mono',monospace}
+  button{font-family:inherit;cursor:pointer}
+  input,select,textarea{font-family:inherit}
+
+  .app{display:grid;grid-template-columns:252px 1fr;min-height:100vh}
+  .side{background:var(--navy);color:#fff;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+  .brand{display:flex;align-items:center;gap:10px;padding:20px 22px 16px}
+  .brand .mk{width:38px;height:38px;flex:none}
+  .brand .wm{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:17.6px;line-height:1;display:flex;align-items:baseline;gap:1px}
+  .brand .wm .b{color:#fff}.brand .wm .p{color:var(--orange);font-size:12.8px}
+  .side .reg{font-family:'IBM Plex Mono',monospace;font-size:7.6px;letter-spacing:.18em;color:rgba(255,255,255,.5);padding:0 24px 14px;text-transform:uppercase}
+  .nav{display:flex;flex-direction:column;gap:3px;padding:6px 12px;flex:1}
+  .nav a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;color:rgba(255,255,255,.72);font-weight:500;font-size:11.2px;transition:background .15s,color .15s}
+  .nav a:hover{background:rgba(255,255,255,.06);color:#fff}
+  .nav a.active{background:linear-gradient(120deg,var(--blue),var(--azure));color:#fff}
+  .nav a svg,.nav .grp>button svg.ic{width:18px;height:18px;flex:none}
+  .nav .grp>button{display:flex;align-items:center;gap:11px;width:100%;background:none;border:0;color:rgba(255,255,255,.72);padding:10px 12px;border-radius:9px;font:inherit;font-weight:500;font-size:11.2px;text-align:left}
+  .nav .grp>button:hover{background:rgba(255,255,255,.06);color:#fff}
+  .nav .grp>button.has-active{color:#fff}
+  .nav .grp>button .chev{margin-left:auto;width:14px;height:14px;transition:transform .2s}
+  .nav .grp.open>button .chev{transform:rotate(90deg)}
+  .nav .grp .sub{display:none;flex-direction:column;gap:2px;padding:2px 0 4px 30px}
+  .nav .grp.open .sub{display:flex}
+  .nav .grp .sub a{padding:8px 12px;font-size:10.4px;color:rgba(255,255,255,.6)}
+  .nav .grp .sub a.active{background:linear-gradient(120deg,var(--blue),var(--azure));color:#fff}
+  .side-foot{padding:14px 20px;border-top:1px solid rgba(255,255,255,.1);font-size:9.6px;color:rgba(255,255,255,.55)}
+  .side-foot b{color:#fff;font-weight:600}
+
+  .main{display:flex;flex-direction:column;min-width:0}
+  .top{display:flex;align-items:center;justify-content:space-between;padding:16px 28px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20}
+  .top .tt h1{font-size:16px}.top .tt p{margin:2px 0 0;color:var(--steel);font-size:10px}
+  .top .actions{display:flex;align-items:center;gap:12px}
+  .pill{font-family:'IBM Plex Mono',monospace;font-size:8.8px;background:var(--cloud);border:1px solid var(--line);border-radius:20px;padding:6px 12px;color:var(--steel);font-weight:600}
+  .avatar{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--azure));color:#fff;display:grid;place-items:center;font-weight:700;font-size:10.4px;font-family:'Space Grotesk'}
+  .content{padding:26px 28px 60px;max-width:1300px}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:10.8px;padding:10px 16px;border-radius:9px;border:1px solid transparent;transition:transform .15s var(--ease),background .15s,box-shadow .2s}
+  .btn:active{transform:translateY(1px)}
+  .btn-primary{background:linear-gradient(120deg,var(--blue),var(--azure));color:#fff;box-shadow:0 8px 20px -10px rgba(22,96,190,.6)}
+  .btn-orange{background:var(--orange);color:#fff}.btn-orange:hover{background:var(--orange-d)}
+  .btn-ghost{background:#fff;border-color:var(--line);color:var(--ink)}.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+  .btn-sm{padding:7px 11px;font-size:10px}
+  .btn svg{width:16px;height:16px}
+
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+  .kpi{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
+  .kpi .l{font-size:9.6px;color:var(--steel);font-weight:500;display:flex;align-items:center;gap:7px}
+  .kpi .l .ic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center}
+  .kpi .v{font-family:'Space Grotesk';font-weight:700;font-size:20px;margin-top:10px;letter-spacing:-.02em}
+  .kpi .s{font-size:9.2px;color:var(--steel-l);margin-top:3px}
+  .grid2{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;margin-bottom:22px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px}
+  .panel.flush{padding:0;overflow:hidden}
+  .panel h3{font-size:12px;font-weight:600;margin-bottom:2px}
+  .panel .sub{color:var(--steel);font-size:9.6px;margin-bottom:16px}
+
+  table{width:100%;border-collapse:collapse}
+  th{text-align:left;font-size:8.8px;text-transform:uppercase;letter-spacing:.06em;color:var(--steel-l);font-weight:600;padding:10px 12px;border-bottom:1px solid var(--line)}
+  td{padding:12px;border-bottom:1px solid var(--line);font-size:10.8px}
+  tr:last-child td{border-bottom:0}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tbody tr:hover{background:var(--cloud)}
+  .emp{display:flex;align-items:center;gap:11px}
+  .emp .av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:9.6px;font-family:'Space Grotesk';flex:none}
+  .emp .nm{font-weight:600}.emp .rl{font-size:9.2px;color:var(--steel)}
+  .tag{display:inline-block;font-size:8.8px;font-weight:600;padding:3px 9px;border-radius:20px}
+  .tag.g{background:var(--green-bg);color:var(--green)}.tag.b{background:var(--cloud-2);color:var(--blue)}
+  .tag.o{background:#FDEEDF;color:var(--orange-d)}.tag.r{background:var(--red-bg);color:var(--red)}.tag.a{background:var(--amber-bg);color:var(--amber)}
+  .tfoot td{font-weight:700;background:var(--cloud);border-top:2px solid var(--line)}
+  .row-between{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .sec-title{font-size:10.4px;font-weight:600;color:var(--steel);text-transform:uppercase;letter-spacing:.05em;margin:0 0 12px}
+
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:9.6px;font-weight:600;color:var(--steel);margin-bottom:6px}
+  .field input,.field select,.field textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:9px;font-size:11.2px;background:#fff;color:var(--ink)}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,96,190,.12)}
+  .inwrap{position:relative}.inwrap .cur{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--steel);font-weight:600;pointer-events:none}.inwrap input{padding-left:26px!important}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+  .form-grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 16px}
+  .lop-in{width:64px;padding:6px 8px;border:1px solid var(--line);border-radius:7px;text-align:right;font-variant-numeric:tabular-nums}
+
+  .legend{display:flex;flex-direction:column;gap:9px;font-size:10.4px}
+  .legend .li{display:flex;align-items:center;justify-content:space-between;gap:10px}
+  .legend .dot{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:8px}
+
+  .comp{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .comp .c{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;border-left:4px solid var(--blue)}
+  .comp .c.o{border-left-color:var(--orange)}.comp .c.g{border-left-color:var(--green)}.comp .c.a{border-left-color:var(--amber)}
+  .comp .c .h{display:flex;align-items:center;justify-content:space-between}
+  .comp .c .nm{font-weight:700;font-family:'Space Grotesk';font-size:12px}
+  .comp .c .amt{font-family:'Space Grotesk';font-weight:700;font-size:19.2px;margin:10px 0 2px}
+  .comp .c .due{font-size:9.6px;color:var(--steel)}
+
+  .req{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .req:last-child{border-bottom:0}
+  .req .ri{font-size:9.6px;color:var(--steel)}
+
+  .slip{background:#fff;border:1px solid var(--line);border-radius:var(--r);max-width:760px;overflow:hidden}
+  .slip .sh{background:var(--navy);color:#fff;padding:20px 24px;display:flex;justify-content:space-between;align-items:center}
+  .slip .sh .co{font-family:'Space Grotesk';font-weight:700;font-size:14.4px}.slip .sh .mo{font-size:9.6px;color:rgba(255,255,255,.7)}
+  .slip .body{padding:22px 24px}
+  .slip .who{display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;padding-bottom:16px;border-bottom:1px solid var(--line);margin-bottom:16px}
+  .slip .who .f{font-size:9.6px;color:var(--steel)}.slip .who .f b{display:block;color:var(--ink);font-size:11.2px;font-weight:600;margin-top:2px}
+  .slip .cols{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .slip .cols h4{font-size:9.6px;text-transform:uppercase;letter-spacing:.05em;color:var(--steel-l);margin-bottom:8px}
+  .slip .ln{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px dashed var(--line);font-size:10.8px}
+  .slip .ln.tot{font-weight:700;border-bottom:0;border-top:2px solid var(--line);margin-top:4px;padding-top:9px}
+  .slip .net{margin-top:18px;background:var(--cloud-2);border-radius:10px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center}
+  .slip .net .nv{font-family:'Space Grotesk';font-weight:700;font-size:19.2px;color:var(--blue)}
+  .slip .words{font-size:9.6px;color:var(--steel);margin-top:8px}
+  .slip .foot{padding:14px 24px;border-top:1px solid var(--line);font-size:8.8px;color:var(--steel-l);display:flex;justify-content:space-between}
+
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:10px;font-size:10.8px;font-weight:500;box-shadow:0 16px 40px -12px rgba(0,0,0,.5);opacity:0;transition:opacity .25s,transform .25s;z-index:50;display:flex;align-items:center;gap:9px}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast .dot{width:8px;height:8px;border-radius:50%;background:var(--green)}
+  .note{font-size:9.2px;color:var(--steel-l);margin-top:10px;line-height:1.5}
+  .switch{position:relative;display:inline-block;width:42px;height:24px;flex:none}
+  .switch input{opacity:0;width:0;height:0}
+  .slider{position:absolute;inset:0;background:var(--line);border-radius:24px;transition:.2s}
+  .slider:before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s}
+  .switch input:checked + .slider{background:var(--blue)}
+  .switch input:checked + .slider:before{transform:translateX(18px)}
+  .drop{border:2px dashed var(--line);border-radius:12px;padding:24px;text-align:center;color:var(--steel);background:var(--cloud)}
+  .drop b{color:var(--blue)}
+  textarea.code{font-family:'IBM Plex Mono',monospace;font-size:10px;min-height:120px;resize:vertical}
+
+  @media(max-width:960px){
+    .app{grid-template-columns:1fr}
+    .side{position:fixed;left:-262px;width:252px;z-index:60;transition:left .25s;box-shadow:0 0 40px rgba(0,0,0,.3)}
+    .side.open{left:0}
+    .kpis{grid-template-columns:1fr 1fr}.grid2,.comp{grid-template-columns:1fr}.form-grid,.form-grid3{grid-template-columns:1fr}
+    .menu-toggle{display:inline-flex!important}
+  }
+  .menu-toggle{display:none;background:none;border:1px solid var(--line);border-radius:8px;padding:8px;align-items:center}
+  @media print{.side,.top,.note,.no-print{display:none!important}.app{display:block}.content{padding:0}.slip{border:0;max-width:100%}}
+
+  .login{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0B2547,#143765);z-index:100;padding:20px}
+  .login-card{background:#fff;border-radius:18px;padding:28px 30px 24px;width:100%;max-width:404px;box-shadow:0 30px 80px -20px rgba(0,0,0,.5)}
+  .login-brand{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .login-brand .wm{font-size:17.6px;line-height:1}
+  .login-card h2{font-size:16px}.login-card .sub{color:var(--steel);font-size:10.4px;margin:2px 0 18px}
+  .lg-err{color:var(--red);font-size:10px;min-height:16px;margin-bottom:4px}
+  .demo{margin-top:20px;border-top:1px solid var(--line);padding-top:14px}
+  .demo-h{font-size:8.8px;text-transform:uppercase;letter-spacing:.06em;color:var(--steel-l);font-weight:600;margin-bottom:8px}
+  .demo-row{display:flex;flex-direction:column;align-items:flex-start;width:100%;text-align:left;background:var(--cloud);border:1px solid var(--line);border-radius:9px;padding:9px 12px;margin-bottom:7px}
+  .demo-row:hover{border-color:var(--blue);background:var(--cloud-2)}
+  .demo-row b{font-size:10px}.demo-row span{font-size:8.8px;color:var(--steel)}
+  .pill-sel{font-family:'IBM Plex Mono',monospace;font-size:8.8px;background:var(--cloud);border:1px solid var(--line);border-radius:20px;padding:6px 12px;color:var(--ink);font-weight:600}
+  .uchip{display:flex;align-items:center;gap:8px}
+  .ro-pill{background:var(--amber-bg);color:var(--amber);font-weight:600;font-size:8.8px;padding:6px 11px;border-radius:20px}
+  .signout{background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);border-radius:8px;padding:8px 12px;font-size:10px;margin-top:12px;width:100%;cursor:pointer}
+  .signout:hover{background:rgba(255,255,255,.08);color:#fff}
+
+  /* ===== mobile capability ===== */
+  .panel.flush{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .scrim{display:none;position:fixed;inset:0;background:rgba(8,20,40,.45);z-index:55}
+  .scrim.show{display:block}
+  @media(min-width:961px){.scrim{display:none!important}}
+  @media(max-width:640px){
+    .top{padding:10px 14px;gap:10px;flex-wrap:wrap}
+    .actions{gap:8px;flex-wrap:wrap;margin-left:auto}
+    .content{padding:16px 14px 56px}
+    .kpis{grid-template-columns:1fr 1fr;gap:10px}
+    .cols{grid-template-columns:1fr;gap:16px}
+    .panel{padding:16px}
+    .panel.flush table{min-width:600px}
+    .uchip>div:not(.avatar){display:none}
+    .pill-sel,.pill{max-width:42vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .brand{padding:16px 18px 12px}
+    .slip{max-width:100%}
+    .who{gap:10px}
+    .login-card{padding:22px 20px}
+  }
+  @media(max-width:420px){
+    .kpis{grid-template-columns:1fr}
+    .actions .btn{padding:8px 10px}
+    .tt p{display:none}
+  }
+
+  .edet-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+  .etabs{display:flex;gap:2px;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:18px}
+  .etab{background:none;border:none;padding:9px 13px;font-size:11px;font-weight:600;color:var(--steel);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap}
+  .etab:hover{color:var(--ink)}
+  .etab.on{color:var(--blue);border-bottom-color:var(--blue)}
+  .epane .form-grid{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px}
+  @media(max-width:640px){.etab{padding:8px 10px}}
+
+  /* ===== formal statutory payslip ===== */
+  #slipHost{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .ps{max-width:860px;margin:0 auto;background:#fff;border:1px solid #333;color:#111;font-size:10px}
+  .ps table{width:100%;border-collapse:collapse}
+  .ps td,.ps th{border:1px solid #bcbcbc;padding:4px 7px;vertical-align:top;line-height:1.3}
+  .ps .hd{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid #333}
+  .ps .hd .nm{font-weight:700;font-size:13px;color:#0B2547}
+  .ps .hd .ad{font-size:9px;color:#555;margin-top:1px}
+  .ps .ttl{text-align:center;font-weight:700;background:#eef2f7;padding:5px;border-bottom:1px solid #bcbcbc;font-size:10.5px}
+  .ps .lbl{background:#f6f8fb;font-weight:600;white-space:nowrap}
+  .ps .sec td{background:#e7edf5;font-weight:700;text-align:center}
+  .ps .r{text-align:right}.ps .c{text-align:center}
+  .ps .tot td{font-weight:700;background:#f6f8fb}
+  .ps .net td{font-weight:700;background:#eaf7ef;font-size:10.5px}
+  .ps .two{display:flex}
+  .ps .two>.half{flex:1;min-width:0}
+  .ps .two>.half:first-child{border-right:1px solid #bcbcbc}
+  .ps .att td{font-size:9.5px}
+  .ps .foot{text-align:center;font-size:9px;color:#667;padding:9px}
+  @media(max-width:640px){.ps{min-width:700px}}
+  @media print{.ps{border:0;max-width:100%}}
+
+  /* uploads + challans */
+  .photo-wrap{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .photo-box{width:84px;height:98px;border:1px solid var(--line);border-radius:8px;background:var(--cloud);display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none}
+  .photo-box img{width:100%;height:100%;object-fit:cover}
+  .photo-ph{font-size:9px;color:var(--steel-l)}
+  img.av{display:inline-block}
+  .docrow{display:flex;justify-content:space-between;align-items:center;gap:10px;border:1px solid var(--line);border-radius:8px;padding:7px 11px;margin-bottom:6px;font-size:10.4px}
+  .docrow .dn b{color:var(--ink)}
+  .docrow .dl{color:var(--blue);font-weight:600;margin-right:10px;text-decoration:none}
+
+  /* salary structure components (Cost tab) */
+  .comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .comp-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#fff}
+  .comp-card.net{background:var(--green-bg);border-color:#bfe6d2}
+  .comp-h{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--steel-l);font-weight:700;margin-bottom:8px}
+  .comp-ln{display:flex;justify-content:space-between;gap:10px;padding:3px 0;font-size:11px}
+  .comp-ln b{font-weight:600}
+  .comp-ln.tot{border-top:1px solid var(--line);margin-top:4px;padding-top:6px;font-weight:700}
+  @media(max-width:640px){.comp-grid{grid-template-columns:1fr}}
+
+  /* list search + pagination */
+  .srch{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 12px;font-size:12px;font-family:inherit;background:var(--cloud);color:var(--ink)}
+  .srch:focus{outline:none;border-color:var(--blue);background:#fff}
+  .pager{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 2px;font-size:11px;color:var(--steel);flex-wrap:wrap}
+  .pgs{display:flex;gap:4px}
+  .pgbtn{border:1px solid var(--line);background:#fff;border-radius:7px;min-width:30px;height:28px;cursor:pointer;font-size:13px;color:var(--ink)}
+  .pgbtn:hover:not([disabled]){border-color:var(--blue);color:var(--blue)}
+  .pgbtn[disabled]{opacity:.4;cursor:default}
+</style>
+</head>
+<body>
+<div id="login" class="login">
+  <div class="login-card">
+    <div class="login-brand"><svg width="38" height="38" viewBox="0 0 120 120"><g transform="rotate(-26 60 60)"><path d="M15,60 A45,25 0 0 1 105,60" fill="none" stroke="#F47C20" stroke-width="12" stroke-linecap="round"/><path d="M105,60 A45,25 0 0 1 15,60" fill="none" stroke="#2BA6E8" stroke-width="12" stroke-linecap="round"/></g><path d="M30,90 L75.9,44.1" fill="none" stroke="#2BA6E8" stroke-width="11" stroke-linecap="round"/><path d="M90,30 L84.3,52.6 L67.4,35.7 Z" fill="#2BA6E8"/></svg><span class="wm"><span style="font-family:'Baloo 2',sans-serif;font-weight:800;color:#0B2547">boom</span><span style="font-family:'Baloo 2',sans-serif;font-weight:800;color:#F47C20;font-size:13.6px">Payroll</span></span></div>
+    <h2>Sign in</h2>
+    <p class="sub">Plant &amp; role based payroll console</p>
+    <div class="field"><label>Username</label><input id="lg_u" placeholder="username"></div>
+    <div class="field"><label>Password</label><input id="lg_p" type="password" placeholder="password" onkeydown="if(event.key==='Enter')submitLogin()"></div>
+    <div id="lg_err" class="lg-err"></div>
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="submitLogin()">Sign in</button>
+    <div class="demo"><div class="demo-h">Demo accounts — tap to sign in</div><div id="lg_demo"></div></div>
+  </div>
+</div>
+<div class="app" style="display:none">
+  <aside class="side" id="side">
+    <div class="brand">
+      <svg class="mk" viewBox="0 0 120 120"><g transform="rotate(-26 60 60)"><path d="M15,60 A45,25 0 0 1 105,60" fill="none" stroke="#F47C20" stroke-width="12" stroke-linecap="round"/><path d="M105,60 A45,25 0 0 1 15,60" fill="none" stroke="#2BA6E8" stroke-width="12" stroke-linecap="round"/></g><path d="M30,90 L75.9,44.1" fill="none" stroke="#2BA6E8" stroke-width="11" stroke-linecap="round"/><path d="M90,30 L84.3,52.6 L67.4,35.7 Z" fill="#2BA6E8"/></svg>
+      <span class="wm"><span class="b">boom</span><span class="p">Payroll</span></span>
+    </div>
+    <div class="reg">India · Statutory ready</div>
+    <nav class="nav" id="nav"></nav>
+    <div class="side-foot" id="sideFoot"></div>
+  </aside>
+  <div class="scrim" id="scrim" onclick="toggleSide()"></div>
+  <div class="main">
+    <div class="top">
+      <div style="display:flex;align-items:center;gap:14px">
+        <button class="menu-toggle" onclick="toggleSide()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+        <div class="tt"><h1 id="pageTitle">Dashboard</h1><p id="pageSub"></p></div>
+      </div>
+      <div class="actions" id="topActions"></div>
+    </div>
+    <div class="content" id="content"></div>
+  </div>
+</div>
+<div class="toast" id="toast"><span class="dot"></span><span id="toastMsg"></span></div>
+
+<script>
+/* ============================ STATE ============================ */
+const MONTHS=['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar'];
+const STATES=['Maharashtra','Karnataka','Telangana','Tamil Nadu','West Bengal','Gujarat','Andhra Pradesh','Madhya Pradesh','Kerala','Delhi','Haryana','Uttar Pradesh','Rajasthan'];
+const PT_RULES=[
+  ['Maharashtra','> ₹10,000 → ₹200/mo (₹300 in Feb)'],
+  ['Karnataka','≥ ₹25,000 → ₹200/mo'],
+  ['Telangana','₹15,001–20,000 → ₹150 · > ₹20,000 → ₹200'],
+  ['Tamil Nadu','half-yearly slabs (~₹130–₹208/mo)'],
+  ['West Bengal','slabs ₹110–₹200/mo'],
+  ['Gujarat','≥ ₹12,000 → ₹200/mo'],
+  ['Andhra Pradesh','₹15,001–20,000 → ₹150 · > ₹20,000 → ₹200'],
+  ['Madhya Pradesh','≥ ₹15,001 → ~₹208/mo'],
+  ['Kerala','≥ ₹25,000 → ~₹208/mo (half-yearly)'],
+  ['Delhi / Haryana / UP / Rajasthan','No professional tax'],
+];
+const PLANTS=[{id:'P1',name:'Pune Plant',city:'Pune, MH'},{id:'P2',name:'Bengaluru R&D',city:'Bengaluru, KA'},{id:'P3',name:'Chennai Unit',city:'Chennai, TN'}];
+const ALLVIEWS=['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance','audit','settings'];
+const ROLES={
+  sysadmin:{name:'System Admin',allow:ALLVIEWS,edit:true},
+  payroll:{name:'Payroll Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance'],edit:true},
+  hr:{name:'HR Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','payslips'],edit:true},
+  manager:{name:'Reporting Manager',allow:['dashboard','leave-apply','leave-balance','payslips'],edit:true},
+  finance:{name:'Finance',allow:['dashboard','challans','pf-master','esi-master','pt-master','lwf-master','tds-master','register','fnf','compliance','payslips'],edit:false},
+  ess:{name:'Employee (ESS)',allow:['leave-apply','leave-balance','payslips'],edit:false,self:true},
+};
+const USERS=[
+  {u:'admin',p:'admin',name:'Anita Rao',role:'sysadmin',plants:'all'},
+  {u:'payroll',p:'payroll',name:'Meera Shah',role:'payroll',plants:'all'},
+  {u:'pune',p:'pune',name:'Rohan Joshi',role:'hr',plants:['P1']},
+  {u:'mgr',p:'mgr',name:'Kiran Rao',role:'manager',plants:['P1']},
+  {u:'finance',p:'finance',name:'Dev Kulkarni',role:'finance',plants:'all'},
+  {u:'priya',p:'priya',name:'Priya Sharma',role:'ess',plants:['P2'],empId:1},
+];
+const state={
+  view:'dashboard', company:'Acme Robotics Pvt Ltd', fy:'2026–27',
+  payMonth:'Jun', payYear:2026, lastRun:null, monthDays:30, basicPct:0.5, metro:true,
+  pf:{on:true, eeRate:12, erRate:12, ceiling:15000, epsCap:1250, admin:0.5},
+  esi:{on:true, eeRate:0.75, erRate:3.25, threshold:21000},
+  pt:{on:true},
+  tds:{regime:'new', sd:75000, sdOld:50000, rebateNew:1200000, rebateOld:500000, cess:4},
+  expand:{master:true, attendance:false, payroll:false},
+  employees:[
+    {id:1,name:'Priya Sharma',role:'Engineering Manager',ctc:2400000,state:'Karnataka',pan:'ABCPS1234D',uan:'100200300401'},
+    {id:2,name:'Rahul Verma',role:'Senior Developer',ctc:1400000,state:'Maharashtra',pan:'ABCPV2234E',uan:'100200300402'},
+    {id:3,name:'Ananya Iyer',role:'Product Designer',ctc:1100000,state:'Telangana',pan:'ABCPI3234F',uan:'100200300403'},
+    {id:4,name:'Vikram Singh',role:'Sales Executive',ctc:600000,state:'Maharashtra',pan:'ABCPS4234G',uan:'100200300404'},
+    {id:5,name:'Sneha Patil',role:'HR Associate',ctc:420000,state:'Maharashtra',pan:'ABCPP5234H',uan:'100200300405'},
+    {id:6,name:'Arjun Nair',role:'Support Engineer',ctc:264000,state:'Tamil Nadu',pan:'ABCPN6234I',uan:'100200300406'},
+  ],
+  attendance:{},
+  regReqs:[
+    {id:101,empId:2,date:'12 Jun',reason:'Missed punch-in (client on-site)',type:'present',days:1},
+    {id:102,empId:4,date:'5–6 Jun',reason:'Uninformed absence',type:'lop',days:2},
+    {id:103,empId:6,date:'18 Jun',reason:'WFH not logged',type:'present',days:1},
+  ],
+};
+let seq=7;
+state.auth=null; state.plantScope='all';
+const EMP_PLANT={1:'P2',2:'P1',3:'P2',4:'P1',5:'P1',6:'P3'};
+state.employees.forEach(e=>e.plant=EMP_PLANT[e.id]||'P1');
+const LWF={Maharashtra:{ee:25,er:75,freq:'Half-yearly'},Karnataka:{ee:20,er:40,freq:'Yearly'},'Tamil Nadu':{ee:20,er:40,freq:'Half-yearly'},Gujarat:{ee:6,er:12,freq:'Half-yearly'},'West Bengal':{ee:3,er:15,freq:'Half-yearly'},'Madhya Pradesh':{ee:10,er:30,freq:'Half-yearly'},'Andhra Pradesh':{ee:30,er:70,freq:'Yearly'}};
+state.lwfOn=true; state.wageMinPct=0.5;
+state.bonus={on:true,pct:8.33,wageCap:7000,eligibilityGross:21000};
+state.audit=[];
+state.leaveTypes=[
+  {code:'EL',name:'Earned / Privilege Leave',paid:true,lop:false,annual:18,accrual:'Monthly',encashable:true},
+  {code:'CL',name:'Casual Leave',paid:true,lop:false,annual:12,accrual:'Yearly',encashable:false},
+  {code:'SL',name:'Sick Leave',paid:true,lop:false,annual:12,accrual:'Yearly',encashable:false},
+  {code:'ML',name:'Maternity Leave',paid:true,lop:false,annual:182,accrual:'On event',encashable:false},
+  {code:'LOP',name:'Loss of Pay',paid:false,lop:true,annual:0,accrual:'—',encashable:false},
+];
+state.leaveBal={}; state.employees.forEach(e=>{state.leaveBal[e.id]={EL:{accrued:18,used:4,enc:0},CL:{accrued:12,used:3,enc:0},SL:{accrued:12,used:1,enc:0}};});
+state.leaveApps=[
+  {id:201,empId:2,type:'EL',from:'24 Jun',to:'25 Jun',days:2,reason:'Personal work',status:'Pending'},
+  {id:202,empId:5,type:'LOP',from:'9 Jun',to:'10 Jun',days:2,reason:'Unpaid personal leave',status:'Pending'},
+  {id:203,empId:3,type:'SL',from:'14 Jun',to:'14 Jun',days:1,reason:'Fever',status:'Pending'},
+];
+let lseq=210;
+state.holidays={
+  Maharashtra:[['1 May','Maharashtra Day','State'],['15 Aug','Independence Day','National'],['2 Oct','Gandhi Jayanti','National'],['21 Oct','Diwali','State']],
+  Karnataka:[['15 Aug','Independence Day','National'],['2 Oct','Gandhi Jayanti','National'],['1 Nov','Kannada Rajyotsava','State']],
+  'Tamil Nadu':[['14 Jan','Pongal','State'],['15 Aug','Independence Day','National'],['2 Oct','Gandhi Jayanti','National']],
+};
+state.employees.forEach(e=>{e.doj='2021-04-01';e.regime=null;e.decl80c=0;});
+state.departments=[
+  {id:'D1',code:'PROD',name:'Production'},{id:'D2',code:'QA',name:'Quality Assurance'},
+  {id:'D3',code:'MAINT',name:'Maintenance'},{id:'D4',code:'ADMIN',name:'Administration'},
+  {id:'D5',code:'RND',name:'Research & Development'},
+];
+state.banks=[
+  {id:'B1',name:'HDFC Bank',ifsc:'HDFC0000123',branch:'MG Road'},
+  {id:'B2',name:'State Bank of India',ifsc:'SBIN0001234',branch:'Pune Camp'},
+  {id:'B3',name:'ICICI Bank',ifsc:'ICIC0004567',branch:'Koramangala'},
+  {id:'B4',name:'Axis Bank',ifsc:'UTIB0002345',branch:'Anna Salai'},
+];
+state.contractors=[
+  {id:'C0',code:'OWN',name:'On Roll (Direct)',addr1:'—',addr2:'',state:'—',city:'—',pin:'—',regNo:'—',tan:'—',pan:'—',bankName:'—',bankAcc:'—',ifsc:'—',contactName:'—',contactNo:'—',email:'—',status:'Active',gst:'—',license:'—',plant:'all',dept:'all'},
+  {id:'C1',code:'SECURE',name:'SecureForce Services',addr1:'12 MIDC Phase II',addr2:'Bhosari',state:'MH',city:'PUN',pin:'411026',regNo:'CLRA/2023/0456',tan:'PNES12345F',pan:'AABCS1234K',bankName:'HDFC Bank',bankAcc:'50100099001',ifsc:'HDFC0000123',contactName:'Suresh Patil',contactNo:'9820000001',email:'ops@secureforce.in',status:'Active',gst:'27AABCS1234K1Z5',license:'CLRA/2023/0456',plant:'P1',dept:'D3'},
+  {id:'C2',code:'CLEAN',name:'CleanCo Facilities',addr1:'45 Industrial Layout',addr2:'Whitefield',state:'KA',city:'BLR',pin:'560066',regNo:'CLRA/2023/0789',tan:'BLRC23456G',pan:'AAACC5678L',bankName:'ICICI Bank',bankAcc:'60200088002',ifsc:'ICIC0004567',contactName:'Latha Rao',contactNo:'9820000002',email:'admin@cleanco.in',status:'Hold',gst:'29AAACC5678L1Z3',license:'CLRA/2023/0789',plant:'P2',dept:'D4'},
+  {id:'C3',code:'TECHM',name:'TechMan Contract Staffing',addr1:'78 Anna Salai',addr2:'Guindy',state:'TN',city:'CHN',pin:'600032',regNo:'CLRA/2024/0112',tan:'CHET34567H',pan:'AADCT9012M',bankName:'Axis Bank',bankAcc:'91800077003',ifsc:'UTIB0002345',contactName:'Ravi Kumar',contactNo:'9820000003',email:'staffing@techman.in',status:'Active',gst:'33AADCT9012M1Z1',license:'CLRA/2024/0112',plant:'P3',dept:'D1'},
+];
+const EMP_DEPT={1:'D5',2:'D1',3:'D2',4:'D3',5:'D1',6:'D1'};
+const EMP_BANK={1:'B3',2:'B1',3:'B3',4:'B2',5:'B1',6:'B4'};
+const EMP_CON={1:'C0',2:'C0',3:'C0',4:'C1',5:'C0',6:'C3'};
+state.employees.forEach(e=>{e.dept=EMP_DEPT[e.id]||'D1';e.bankId=EMP_BANK[e.id]||'B1';e.contractor=EMP_CON[e.id]||'C0';});
+state.M={
+  grade:[{code:'G1',name:'Grade A (Executive)'},{code:'G2',name:'Grade B (Officer)'},{code:'G3',name:'Grade C (Staff)'},{code:'G4',name:'Grade D (Worker)'}],
+  category:[{code:'GEN',name:'General'},{code:'OBC',name:'OBC'},{code:'SC',name:'SC'},{code:'ST',name:'ST'},{code:'EWS',name:'EWS'}],
+  skill:[{code:'HSK',name:'Highly Skilled'},{code:'SKL',name:'Skilled'},{code:'SSK',name:'Semi-Skilled'},{code:'USK',name:'Unskilled'}],
+  funcarea:[{code:'OPS',name:'Operations'},{code:'ENG',name:'Engineering'},{code:'QA',name:'Quality'},{code:'HR',name:'Human Resources'},{code:'FIN',name:'Finance'},{code:'SCM',name:'Supply Chain'}],
+  qual:[{code:'10',name:'10th / SSC'},{code:'12',name:'12th / HSC'},{code:'ITI',name:'ITI / Diploma'},{code:'GRAD',name:'Graduate'},{code:'PG',name:'Post Graduate'}],
+  country:[{code:'IN',name:'India'},{code:'NP',name:'Nepal'},{code:'BD',name:'Bangladesh'}],
+  stateM:[{code:'MH',name:'Maharashtra',country:'IN'},{code:'KA',name:'Karnataka',country:'IN'},{code:'TN',name:'Tamil Nadu',country:'IN'},{code:'TG',name:'Telangana',country:'IN'},{code:'GJ',name:'Gujarat',country:'IN'},{code:'DL',name:'Delhi',country:'IN'}],
+  city:[{code:'PUN',name:'Pune',state:'MH'},{code:'MUM',name:'Mumbai',state:'MH'},{code:'BLR',name:'Bengaluru',state:'KA'},{code:'CHN',name:'Chennai',state:'TN'},{code:'HYD',name:'Hyderabad',state:'TG'},{code:'AMD',name:'Ahmedabad',state:'GJ'},{code:'DEL',name:'New Delhi',state:'DL'}],
+};
+const MKEY={'m-grade':'grade','m-category':'category','m-skill':'skill','m-funcarea':'funcarea','m-qual':'qual','m-country':'country','m-state':'stateM','m-city':'city'};
+const MCFG={
+  grade:{title:'Grade',parent:null,used:e=>e.grade},
+  category:{title:'Category',parent:null,used:e=>e.category},
+  skill:{title:'Skill',parent:null,used:e=>e.skill},
+  funcarea:{title:'Functional Area',parent:null,used:e=>e.funcArea},
+  qual:{title:'Qualification',parent:null,used:e=>e.qual},
+  country:{title:'Country',parent:null,used:e=>e.country},
+  stateM:{title:'State',parent:{key:'country',label:'Country'},used:e=>e.stateCode},
+  city:{title:'City',parent:{key:'stateM',label:'State'},used:e=>e.cityCode},
+};
+const GENDER={1:'Female',2:'Male',3:'Female',4:'Male',5:'Female',6:'Male'};
+const ST2={Maharashtra:'MH',Karnataka:'KA','Tamil Nadu':'TN',Telangana:'TG',Gujarat:'GJ',Delhi:'DL'};
+state.employees.forEach(e=>{
+  e.empCode='EMP'+String(e.id).padStart(3,'0');
+  e.gender=GENDER[e.id]||'Male'; e.dob='1990-0'+((e.id%9)+1)+'-12'; e.marital=e.id%2?'Married':'Single';
+  e.mobile='98000000'+String(e.id).padStart(2,'0'); e.email=e.name.split(' ')[0].toLowerCase()+'@acme.in';
+  e.grade=e.ctc>=1500000?'G1':e.ctc>=800000?'G2':e.ctc>=400000?'G3':'G4';
+  e.category='GEN'; e.skill=e.ctc>=1000000?'HSK':e.ctc>=500000?'SKL':'SSK';
+  e.funcArea=({D1:'OPS',D2:'QA',D3:'OPS',D4:'HR',D5:'ENG'})[e.dept]||'OPS';
+  e.qual=e.ctc>=1000000?'PG':e.ctc>=500000?'GRAD':'ITI';
+  e.country='IN'; e.stateCode=ST2[e.state]||'MH';
+  e.cityCode=({MH:'PUN',KA:'BLR',TN:'CHN',TG:'HYD',GJ:'AMD',DL:'DEL'})[e.stateCode]||'PUN';
+  e.aadhaar='XXXX XXXX '+(1000+e.id); e.medicalScore='A1';
+  e.bankAcc='5010001234'+String(e.id).padStart(2,'0'); e.ifsc=(state.banks.find(b=>b.id===e.bankId)||{}).ifsc||'HDFC0000123';
+  e.fixedCostPerDay=Math.round(e.ctc/365); e.perDayCTC=Math.round(e.ctc/365);
+  e.sapCode='SAP'+String(e.id).padStart(4,'0'); e.photo=''; e.docs=[];
+});
+state.contractors.forEach((c,i)=>{c.sapCode=c.sapCode||('SAPV'+String(i+1).padStart(3,'0'));c.photo=c.photo||'';c.docs=c.docs||[];});
+state.empCodeCfg={prefix:'EMP',sep:'',pad:3,next:7};
+state.challans=[
+  {id:1,con:'C1',type:'PF',month:'Apr',year:2026,no:'TRRN-2026040011',amt:3600,date:'2026-05-14',status:'Paid'},
+  {id:2,con:'C1',type:'LWF',month:'Apr',year:2026,no:'LWF-MH-2026040022',amt:100,date:'2026-05-10',status:'Paid'},
+  {id:3,con:'C3',type:'PT',month:'Apr',year:2026,no:'PT-TN-2026040033',amt:208,date:'',status:'Pending'},
+];
+state.empCodeCfg={prefix:'EMP',sep:'',pad:3,next:7};
+state.employees.forEach(e=>{e.photo=null;e.sapCode='SAP'+String(e.id).padStart(4,'0');e.docs=[];});
+state.contractors.forEach(c=>{c.photo=null;c.docs=[];c.sapCode=c.id==='C0'?'—':'VEND'+c.id.slice(1).padStart(4,'0');c.challans={pf:{no:'',date:''},esi:{no:'',date:''},lwf:{no:'',date:''},pt:{no:'',date:''}};});
+(function(){const c1=state.contractors.find(x=>x.id==='C1');if(c1)c1.challans={pf:{no:'PF/MH/2025/0456',date:'2025-05-15'},esi:{no:'ESI/2025/0456',date:'2025-05-15'},lwf:{no:'',date:''},pt:{no:'PT/MH/2025/0456',date:'2025-05-20'}};})();
+function logAudit(action){if(state.auth)state.audit.unshift({t:new Date().toLocaleString('en-IN'),who:state.auth.name,role:roleObj().name,action});}
+state.employees.forEach(e=>state.attendance[e.id]={totalDays:state.monthDays,lop:0});
+
+/* ============================ ENGINE ============================ */
+const r=Math.round;
+function ptForState(s,g){
+  switch(s){
+    case 'Maharashtra': return g>10000?200:0;
+    case 'Karnataka':   return g>=25000?200:0;
+    case 'Telangana':   return g>20000?200:(g>=15001?150:0);
+    case 'Tamil Nadu':  return g>=21001?208:(g>=15001?130:0);
+    case 'West Bengal': return g>40000?200:(g>=15001?130:(g>=10001?110:0));
+    case 'Gujarat':     return g>=12000?200:0;
+    case 'Andhra Pradesh': return g>20000?200:(g>=15001?150:0);
+    case 'Madhya Pradesh': return g>=15001?208:0;
+    case 'Kerala':      return g>=25000?208:0;
+    default: return 0;
+  }
+}
+function newRegimeTax(ti){
+  const sl=[[400000,0],[800000,.05],[1200000,.10],[1600000,.15],[2000000,.20],[2400000,.25],[Infinity,.30]];
+  let tax=0,prev=0;
+  for(const [cap,rate] of sl){ if(ti>prev){ tax+=(Math.min(ti,cap)-prev)*rate; prev=cap; } else break; }
+  if(ti<=state.tds.rebateNew) tax=0;
+  let sur=0; if(ti>20000000)sur=tax*.25;else if(ti>10000000)sur=tax*.15;else if(ti>5000000)sur=tax*.10;
+  return r((tax+sur)*(1+state.tds.cess/100));
+}
+function oldRegimeTax(ti){
+  const sl=[[250000,0],[500000,.05],[1000000,.20],[Infinity,.30]];
+  let tax=0,prev=0;
+  for(const [cap,rate] of sl){ if(ti>prev){ tax+=(Math.min(ti,cap)-prev)*rate; prev=cap; } else break; }
+  if(ti<=state.tds.rebateOld) tax=0;
+  let sur=0; if(ti>20000000)sur=tax*.25;else if(ti>10000000)sur=tax*.15;else if(ti>5000000)sur=tax*.10;
+  return r((tax+sur)*(1+state.tds.cess/100));
+}
+function attOf(id){const a=state.attendance[id]; const total=(a&&a.totalDays)||state.monthDays; const lop=(a&&a.lop)||0; const paid=Math.max(0,total-lop); return {total,lop,paid,f:total>0?paid/total:1};}
+let CCACHE=new WeakMap();
+function compute(e){if(CCACHE.has(e))return CCACHE.get(e);const v=_compute(e);CCACHE.set(e,v);return v;}
+function _compute(emp){
+  const m=emp.ctc/12;
+  const basic=r(m*state.basicPct);
+  const hra=r(basic*(state.metro?0.5:0.4));
+  const erPFfull=state.pf.on? r(state.pf.erRate/100*Math.min(basic,state.pf.ceiling)):0;
+  const gratuity=r(.0481*basic);
+  let gross=r(m-erPFfull-gratuity);
+  const esiApp=state.esi.on && gross<=state.esi.threshold;
+  let erESIfull=esiApp? r(state.esi.erRate/100*gross):0;
+  if(esiApp){ gross=r(m-erPFfull-gratuity-erESIfull); erESIfull=r(state.esi.erRate/100*gross); }
+  const special=Math.max(0,gross-basic-hra);
+  const a=attOf(emp.id);
+  const eBasic=r(basic*a.f), eHra=r(hra*a.f), eSpecial=r(special*a.f), eGross=r(gross*a.f);
+  const pfWage=Math.min(eBasic,state.pf.ceiling);
+  const eePF=state.pf.on? r(state.pf.eeRate/100*pfWage):0;
+  const erPF=state.pf.on? r(state.pf.erRate/100*pfWage):0;
+  const eps=state.pf.on? Math.min(r(.0833*pfWage),state.pf.epsCap):0;
+  const epf=erPF-eps;
+  const eeESI=esiApp? r(state.esi.eeRate/100*eGross):0;
+  const erESI=esiApp? r(state.esi.erRate/100*eGross):0;
+  const pt=state.pt.on? ptForState(emp.state,gross):0;
+  const lwf=state.lwfOn?(LWF[emp.state]?LWF[emp.state].ee:0):0;
+  const lwfEr=state.lwfOn?(LWF[emp.state]?LWF[emp.state].er:0):0;
+  const regime=emp.regime||state.tds.regime;
+  const annualGross=gross*12;
+  const sd=regime==='new'?state.tds.sd:state.tds.sdOld;
+  const decl=regime==='old'?Math.min(emp.decl80c||0,150000):0;
+  const taxable=Math.max(0,annualGross-sd-decl);
+  const annualTax=regime==='new'?newRegimeTax(taxable):oldRegimeTax(taxable);
+  const tdsFull=r(annualTax/12);
+  const tds=r(tdsFull*a.f);
+  const bonus=(state.bonus.on&&gross<=state.bonus.eligibilityGross)?r(state.bonus.pct/100*Math.min(eBasic,state.bonus.wageCap)):0;
+  const wagesPct=gross>0?basic/gross:0;
+  const totalDed=eePF+eeESI+pt+tds+lwf;
+  const net=eGross-totalDed;
+  const ctcMonthly=gross+erPFfull+gratuity+erESIfull+lwfEr+bonus;
+  return {basic,hra,special,gross,eBasic,eHra,eSpecial,eGross,eePF,erPF,eps,epf,eeESI,erESI,erPFfull,erESIfull,gratuity,pt,tds,tdsFull,lwf,lwfEr,bonus,wagesPct,regime,esiApp,totalDed,net,annualTax,taxable,annualGross,ctcMonthly,att:a};
+}
+function totals(){
+  let t={count:emps().length,gross:0,net:0,ctc:0,pf:0,esi:0,pt:0,tds:0,erPF:0,gratuity:0,lop:0,lwf:0,bonus:0};
+  emps().forEach(e=>{const c=compute(e);
+    t.gross+=c.eGross;t.net+=c.net;t.ctc+=c.ctcMonthly;t.pf+=c.eePF+c.erPF;t.esi+=c.eeESI+c.erESI;
+    t.pt+=c.pt;t.tds+=c.tds;t.erPF+=c.erPF;t.gratuity+=c.gratuity;t.lop+=c.att.lop;t.lwf+=c.lwf;t.bonus+=c.bonus;});
+  return t;
+}
+
+/* ============================ HELPERS ============================ */
+const inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const inrL=n=> n>=10000000? '₹'+(n/10000000).toFixed(2)+' Cr' : n>=100000? '₹'+(n/100000).toFixed(2)+' L' : inr(n);
+const AVCOL=['#1660BE','#F47C20','#2BA6E8','#1F9D6B','#9B51E0','#D8442F'];
+const initials=n=>n.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+const avColor=id=>AVCOL[(id-1)%AVCOL.length];
+const val=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+function toast(msg){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2600);}
+function wordsINR(num){
+  num=Math.round(num); if(num===0) return 'Zero Rupees';
+  const a=['','One','Two','Three','Four','Five','Six','Seven','Eight','Nine','Ten','Eleven','Twelve','Thirteen','Fourteen','Fifteen','Sixteen','Seventeen','Eighteen','Nineteen'];
+  const b=['','','Twenty','Thirty','Forty','Fifty','Sixty','Seventy','Eighty','Ninety'];
+  const two=n=> n<20? a[n] : b[Math.floor(n/10)]+(n%10? ' '+a[n%10]:'');
+  const three=n=> (n>=100? a[Math.floor(n/100)]+' Hundred'+(n%100?' ':'') : '')+(n%100? two(n%100):'');
+  let out='',x=num;
+  const cr=Math.floor(x/10000000);x%=10000000;const lk=Math.floor(x/100000);x%=100000;const th=Math.floor(x/1000);x%=1000;const hu=x;
+  if(cr)out+=three(cr)+' Crore ';if(lk)out+=three(lk)+' Lakh ';if(th)out+=three(th)+' Thousand ';if(hu)out+=three(hu);
+  return out.trim().replace(/\s+/g,' ')+' Rupees Only';
+}
+
+function roleObj(){return ROLES[state.auth.role];}
+function allowed(v){return !!state.auth && roleObj().allow.includes(v);}
+function canEdit(){return !!state.auth && roleObj().edit;}
+function allowedPlants(){const u=state.auth;return u.plants==='all'?PLANTS.map(p=>p.id):u.plants;}
+function emps(){if(state.auth&&roleObj().self){const me=state.employees.find(e=>e.id===state.auth.empId);return me?[me]:[];}const ap=allowedPlants();let list=state.employees.filter(e=>ap.includes(e.plant));if(state.plantScope&&state.plantScope!=='all')list=list.filter(e=>e.plant===state.plantScope);return list;}
+function firstAllowed(){for(const it of NAV){if(it.children){for(const c of it.children)if(allowed(c.id))return c.id;}else if(allowed(it.id))return it.id;}return 'dashboard';}
+
+
+/* ============================ NAV ============================ */
+const IC={
+  dash:'M3 13h8V3H3v10zm10 8h8V3h-8v18zM3 21h8v-6H3v6z',
+  master:'M12 2l9 4.9V17L12 22 3 17V6.9L12 2z M3 7l9 5 9-5 M12 22V12',
+  att:'M8 2v3M16 2v3M3 9h18M5 4h14a2 2 0 012 2v13a2 2 0 01-2 2H5a2 2 0 01-2-2V6a2 2 0 012-2z M9 14l2 2 4-4',
+  pay:'M5 3l14 9-14 9V3z',
+  slip:'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z M14 2v6h6 M8 13h8 M8 17h5',
+  comp:'M9 11l3 3L22 4 M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11',
+  set:'M12 15a3 3 0 100-6 3 3 0 000 6z M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-2.18-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9c.27.62.87 1.03 1.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z'
+};
+const NAV=[
+  {id:'dashboard',label:'Dashboard',icon:IC.dash},
+  {group:'master',label:'Master Data',icon:IC.master,children:[
+    {id:'emp-master',label:'Employee Master'},{id:'dept-master',label:'Department Master'},
+    {id:'bank-master',label:'Bank Master'},{id:'pf-master',label:'PF Master'},
+    {id:'esi-master',label:'ESI Master'},{id:'pt-master',label:'PT Master'},
+    {id:'lwf-master',label:'LWF Master'},{id:'tds-master',label:'TDS Master'},
+    {id:'leave-policy',label:'Leave Policy'},{id:'holiday',label:'Holiday Calendar'}]},
+  {group:'contractor',label:'Contractor',icon:IC.master,children:[
+    {id:'contractor-master',label:'Contractor Master'},{id:'contractor-emp',label:'Contractor Employees'},{id:'challans',label:'Contractor Challans'}]},
+  {group:'hrm',label:'HR Masters',icon:IC.master,children:[
+    {id:'m-grade',label:'Grade Master'},{id:'m-category',label:'Category Master'},
+    {id:'m-skill',label:'Skill Master'},{id:'m-funcarea',label:'Functional Area'},
+    {id:'m-qual',label:'Qualification'},{id:'m-country',label:'Country Master'},
+    {id:'m-state',label:'State Master'},{id:'m-city',label:'City Master'},{id:'code-setup',label:'Code Setup'}]},
+  {group:'leave',label:'Leave',icon:IC.att,children:[
+    {id:'leave-apply',label:'Apply & Approvals'},{id:'leave-balance',label:'Balances & Encashment'}]},
+  {group:'attendance',label:'Attendance',icon:IC.att,children:[
+    {id:'att-regular',label:'Regularization'},{id:'att-import',label:'Import'}]},
+  {group:'payroll',label:'Payroll',icon:IC.pay,children:[
+    {id:'run',label:'Run the Payroll'},{id:'register',label:'Payroll Register'},{id:'fnf',label:'Full & Final'}]},
+  {id:'payslips',label:'Payslips',icon:IC.slip},
+  {id:'compliance',label:'Compliance',icon:IC.comp},
+  {id:'audit',label:'Audit Trail',icon:IC.comp},
+  {id:'settings',label:'Settings',icon:IC.set},
+];
+const TITLES={
+  dashboard:['Dashboard',"Welcome back — here's your payroll at a glance."],
+  'emp-master':['Employee Master','People, CTC and salary structures.'],
+  'pf-master':['PF Master','Provident Fund configuration and contributions.'],
+  'esi-master':['ESI Master','Employee State Insurance configuration.'],
+  'pt-master':['PT Master','State-wise Professional Tax slabs.'],
+  'tds-master':['TDS Master','Income-tax regime, slabs and deductions.'],
+  'att-regular':['Attendance · Regularization','Approve requests and adjust loss-of-pay days.'],
+  'att-import':['Attendance · Import','Bring in attendance from biometric / CSV.'],
+  run:['Run the Payroll','Process this month and review the register.'],
+  register:['Payroll Register','Full register with statutory breakup and export.'],
+  payslips:['Payslips','Generate and download statutory payslips.'],
+  compliance:['Compliance','PF, ESI, PT and TDS dues and due dates.'],
+  settings:['Settings','Company and pay-structure configuration.'],
+  'emp-detail':['Employee record','Full profile — personal, job, statutory, bank & cost.'],
+  
+  'dept-master':['Department Master','Departments — mandatory employee attribute.'],
+  'bank-master':['Bank Master','Salary banks linked to the employee master.'],
+  'contractor-master':['Contractor Master','Contractors linked to plant, department and employees.'],
+  'contractor-emp':['Contractor Employees','Contractor-wise employee register.'],
+  'con-detail':['Contractor record','Full contractor profile — identity, address, statutory, bank & contact.'],
+  'challans':['Contractor Challans','PF / ESI / LWF / PT challans per contractor.'],
+  'm-grade':['Grade Master','Employee grades.'],'m-category':['Category Master','Employee categories.'],
+  'm-skill':['Skill Master','Skill classifications.'],'m-funcarea':['Functional Area Master','Functional areas.'],
+  'm-qual':['Qualification Master','Education qualifications.'],'m-country':['Country Master','Countries.'],
+  'm-state':['State Master','Common state master.'],'m-city':['City Master','Common city master.'],'code-setup':['Code Setup','Employee code numbering policy.'],
+  'lwf-master':['LWF Master','Labour Welfare Fund — state contributions.'],
+  'leave-policy':['Leave Policy','Configure leave types, accrual and encashment.'],
+  holiday:['Holiday Calendar','Per-location national, state and restricted holidays.'],
+  'leave-apply':['Leave — Apply & Approvals','Self-service application and approval workflow.'],
+  'leave-balance':['Leave Balances','Balances, carry-forward and encashment.'],
+  fnf:['Full & Final Settlement','Exit settlement within the statutory window.'],
+  audit:['Audit Trail','Immutable log of changes and approvals.'],
+};
+function ico(d){return `<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;}
+function renderNav(){
+  document.getElementById('nav').innerHTML=NAV.map(it=>{
+    if(it.children){
+      const kids=it.children.filter(c=>allowed(c.id)); if(!kids.length) return '';
+      const hasA=kids.some(c=>c.id===state.view);
+      const open=state.expand[it.group]||hasA;
+      return `<div class="grp ${open?'open':''}">
+        <button class="${hasA?'has-active':''}" onclick="toggleGroup('${it.group}')">${ico(it.icon)}${it.label}
+          <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="sub">${kids.map(c=>`<a href="#" class="${state.view===c.id?'active':''}" onclick="go('${c.id}');return false">${c.label}</a>`).join('')}</div></div>`;
+    }
+    if(!allowed(it.id)) return '';
+    return `<a href="#" class="${state.view===it.id?'active':''}" onclick="go('${it.id}');return false">${ico(it.icon)}${it.label}</a>`;
+  }).join('');
+}
+function toggleGroup(g){state.expand[g]=!state.expand[g];renderNav();}
+function go(v){if(!allowed(v)){toast('You do not have access to that module');return;}state.view=v;const p=NAV.find(i=>i.children&&i.children.some(c=>c.id===v));if(p)state.expand[p.group]=true;document.getElementById('side').classList.remove('open');var _sc=document.getElementById('scrim');if(_sc)_sc.classList.remove('show');render();}
+
+/* ============================ RENDER ============================ */
+function render(){
+  if(!state.auth)return;
+  CCACHE=new WeakMap();
+  if(!allowed(state.view))state.view=firstAllowed();
+  renderNav();
+  buildTopbar();
+  document.getElementById('pageTitle').textContent=TITLES[state.view][0];
+  document.getElementById('pageSub').textContent=TITLES[state.view][1];
+  const V={dashboard:vDashboard,'emp-master':vEmpMaster,'emp-detail':vEmpDetail,'dept-master':vDeptMaster,'bank-master':vBankMaster,'code-setup':vCodeSetup,'contractor-master':vContractorMaster,'con-detail':vConDetail,'contractor-emp':vContractorEmp,'challans':vChallans,'m-grade':()=>vLookup('grade'),'m-category':()=>vLookup('category'),'m-skill':()=>vLookup('skill'),'m-funcarea':()=>vLookup('funcarea'),'m-qual':()=>vLookup('qual'),'m-country':()=>vLookup('country'),'m-state':()=>vLookup('stateM'),'m-city':()=>vLookup('city'),'code-setup':vCodeSetup,'pf-master':vPFMaster,'esi-master':vESIMaster,'pt-master':vPTMaster,'lwf-master':vLWFMaster,'tds-master':vTDSMaster,'leave-policy':vLeavePolicy,holiday:vHolidays,'leave-apply':vLeaveApply,'leave-balance':vLeaveBalance,'att-regular':vAttReg,'att-import':vAttImport,run:vRun,register:vRegister,fnf:vFNF,payslips:vPayslips,compliance:vCompliance,audit:vAudit,settings:vSettings};
+  document.getElementById('content').innerHTML=V[state.view]();
+  if(state.view==='payslips') buildSlip();
+  if(state.view==='att-import') impPreview();
+  if(!canEdit()) document.querySelectorAll('#content .editable').forEach(el=>{ if(el.tagName==='BUTTON'){el.style.display='none';} else {el.disabled=true;} });
+}
+function donut(parts){
+  const tot=parts.reduce((s,p)=>s+p.value,0)||1;let off=0;const R=54,C=2*Math.PI*R;
+  const segs=parts.map(p=>{const len=p.value/tot*C;const s=`<circle r="${R}" cx="70" cy="70" fill="none" stroke="${p.color}" stroke-width="22" stroke-dasharray="${len} ${C-len}" stroke-dashoffset="${-off}" transform="rotate(-90 70 70)"/>`;off+=len;return s;}).join('');
+  return `<svg viewBox="0 0 140 140" width="150" height="150">${segs}<circle r="40" cx="70" cy="70" fill="#fff"/><text x="70" y="66" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="13" fill="#0E2440">Monthly</text><text x="70" y="84" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="15" fill="#1660BE">${inrL(tot)}</text></svg>`;
+}
+function nextMonth(){const i=MONTHS.indexOf(state.payMonth);return MONTHS[(i+1)%12];}
+function empCell(e){return `<div class="emp"><span class="av" style="background:${avColor(e.id)}">${initials(e.name)}</span><div><div class="nm">${e.name}</div><div class="rl">${e.role}</div></div></div>`;}
+
+/* ---------- Dashboard ---------- */
+function vDashboard(){
+  const t=totals();const dues=t.pf+t.esi+t.pt+t.tds;
+  const parts=[{label:'Net pay',value:t.net,color:'#1660BE'},{label:'Employee deductions',value:t.gross-t.net,color:'#F47C20'},{label:'Employer PF + gratuity',value:t.erPF+t.gratuity,color:'#2BA6E8'}];
+  const k=(l,v,s,ic,bg,col)=>`<div class="kpi"><div class="l"><span class="ic" style="background:${bg};color:${col}">${ic}</span>${l}</div><div class="v">${v}</div><div class="s">${s}</div></div>`;
+  return `
+  <div class="kpis">
+    ${k('Employees',t.count,(t.lop?t.lop+' LOP day(s) this cycle':'Full attendance'),'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>','#EAF1F8','#1660BE')}
+    ${k('Net payout',inrL(t.net),'Take-home, this month','<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>','#FDEEDF','#F47C20')}
+    ${k('Total CTC',inrL(t.ctc),'Employer cost, this month','<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>','#E6F6EF','#1F9D6B')}
+    ${k('Statutory dues',inrL(dues),'PF + ESI + PT + TDS','<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>','#FCF3E2','#C98A12')}
+  </div>
+  <div class="grid2">
+    <div class="panel">
+      <div class="row-between"><div><h3>Payroll register</h3><div class="sub">${state.payMonth} ${state.payYear} · ${t.count} employees</div></div>
+      <button class="btn btn-ghost btn-sm" onclick="go('register')">Open register →</button></div>
+      <table><thead><tr><th>Employee</th><th class="num">Gross</th><th class="num">Deductions</th><th class="num">Net pay</th></tr></thead><tbody>
+      ${emps().slice(0,8).map(e=>{const c=compute(e);return `<tr><td>${empCell(e)}</td><td class="num">${inr(c.eGross)}</td><td class="num" style="color:var(--orange-d)">−${inr(c.totalDed)}</td><td class="num" style="font-weight:700">${inr(c.net)}</td></tr>`}).join('')}
+      </tbody><tfoot><tr class="tfoot"><td>Total</td><td class="num">${inr(t.gross)}</td><td class="num">−${inr(t.gross-t.net)}</td><td class="num">${inr(t.net)}</td></tr></tfoot></table>
+    </div>
+    <div class="panel">
+      <h3>Cost breakdown</h3><div class="sub">Where this month's money goes</div>
+      <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap"><div>${donut(parts)}</div>
+        <div class="legend" style="flex:1;min-width:160px">
+          ${parts.map(p=>`<div class="li"><span><span class="dot" style="background:${p.color}"></span>${p.label}</span><b>${inr(p.value)}</b></div>`).join('')}
+          <div class="li" style="border-top:1px solid var(--line);padding-top:9px"><span>Total CTC</span><b>${inr(t.ctc)}</b></div></div></div>
+    </div>
+  </div>
+  <div class="panel"><h3>Statutory snapshot</h3><div class="sub">Auto-computed from this month's run</div>
+    <div class="comp">
+      ${compCard('Provident Fund (EPF)','b',t.pf,'ECR · due 15th '+nextMonth(),'12% + 12% on Basic (₹15k cap)')}
+      ${compCard('Employee State Insurance','o',t.esi,'ESIC · due 15th '+nextMonth(),'0.75% + 3.25% on gross ≤ ₹21,000')}
+      ${compCard('Professional Tax (PT)','g',t.pt,'State portal · monthly','State-wise slab, max ₹2,500/yr')}
+      ${compCard('TDS on salary (24Q)','a',t.tds,'Challan · due 7th '+nextMonth(),(state.tds.regime==='new'?'New':'Old')+' regime, Section 192')}
+    </div></div>`;
+}
+function compCard(nm,cls,amt,due,sub){return `<div class="c ${cls}"><div class="h"><span class="nm">${nm}</span></div><div class="amt">${inr(amt)}</div><div class="due">${due}</div><div class="note" style="margin-top:8px">${sub}</div></div>`;}
+
+/* ---------- Employee Master ---------- */
+function vEmpMaster(){
+  const sl=empSlice();
+  return `
+  <div class="row-between" style="margin-bottom:14px">
+    <div class="sec-title" id="empCount" style="margin:0">${sl.countLabel}</div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost" onclick="exportEmployees()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Export CSV</button>
+      <button class="btn btn-orange editable" onclick="newEmp()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add employee</button>
+    </div>
+  </div>
+  <div class="panel no-print" style="margin-bottom:12px;padding:10px 12px"><input id="empSrch" class="srch" placeholder="Search name, code, department, contractor, grade, state…" value="${(state.empQ||'').replace(/"/g,'&quot;')}" oninput="filterEmp()"></div>
+  <div class="panel flush"><table><thead><tr><th>Employee</th><th>State</th><th>Contractor</th><th>Grade</th><th class="num">Annual CTC</th><th class="num">Monthly gross</th><th class="num">Net pay</th><th>Statutory</th><th></th></tr></thead><tbody id="empRows">${sl.rowsHtml}</tbody></table></div>
+  <div id="empPager">${sl.pagerHtml}</div>
+  <div class="note">Paginated at ${state.pageSize||25}/page for performance · search filters the whole list. CTC split: Basic ${Math.round(state.basicPct*100)}% · HRA ${state.metro?'50':'40'}% of Basic.</div>`;
+}
+function toggleAdd(){const f=document.getElementById('addForm');f.style.display=f.style.display==='none'?'block':'none';}
+function addEmp(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  const name=g('f_name'),ctc=+g('f_ctc');
+  if(!name||!ctc){toast('Name and Annual CTC are required');return;}
+  const dept=g('f_dept'),contractor=g('f_contractor'),mobile=g('f_mobile'),bankAcc=g('f_bankacc'),ifsc=g('f_ifsc');
+  if(!dept){toast('Department is mandatory');return;}
+  if(!contractor){toast('Contractor is mandatory');return;}
+  if(!mobile){toast('Employee mobile number is mandatory');return;}
+  if(!bankAcc){toast('Bank A/C number is mandatory');return;}
+  if(!ifsc){toast('IFSC code is mandatory');return;}
+  const id=seq++;
+  const plant=g('f_plant')||(state.plantScope!=='all'?state.plantScope:allowedPlants()[0]);
+  const bankId=g('f_bank')||(state.banks[0]&&state.banks[0].id);
+  state.employees.push({id,empCode:'EMP'+String(id).padStart(3,'0'),name,role:g('f_role')||'Employee',ctc,
+    state:g('f_state'),plant,dept,contractor,bankId,bankAcc,ifsc:ifsc.toUpperCase(),
+    gender:g('f_gender'),dob:g('f_dob'),doj:g('f_doj')||'2024-04-01',marital:g('f_marital'),mobile,email:g('f_email')||'—',
+    skill:g('f_skill'),funcArea:g('f_funcarea'),category:g('f_category'),qual:g('f_qual'),grade:g('f_grade'),
+    country:g('f_country'),stateCode:g('f_addrstate'),cityCode:g('f_city'),
+    pan:(g('f_pan')||'—').toUpperCase(),uan:g('f_uan')||'—',aadhaar:g('f_aadhaar')||'—',medicalScore:g('f_medical')||'—',
+    fixedCostPerDay:+g('f_fixedday')||Math.round(ctc/365),perDayCTC:+g('f_perdayctc')||Math.round(ctc/365),
+    regime:null,decl80c:0});
+  state.attendance[id]={totalDays:state.monthDays,lop:0};
+  state.leaveBal[id]={EL:{accrued:0,used:0,enc:0},CL:{accrued:0,used:0,enc:0},SL:{accrued:0,used:0,enc:0}};
+  logAudit('Added employee '+name+' (EMP'+String(id).padStart(3,'0')+')');
+  toast(name+' added to payroll');render();
+}
+
+/* ---------- Masters: config helper ---------- */
+function cfgInput(label,id,value,suffix){return `<div class="field"><label>${label}</label><input id="${id}" type="number" value="${value}" oninput="${id.startsWith('p')||''}">${suffix?'':''}</div>`;}
+
+/* ---------- PF Master ---------- */
+function vPFMaster(){
+  const rows=emps().map(e=>({e,c:compute(e)}));
+  let teePF=0,terPF=0,teps=0,tepf=0;rows.forEach(({c})=>{teePF+=c.eePF;terPF+=c.erPF;teps+=c.eps;tepf+=c.epf;});
+  return `
+  <div class="grid2">
+    <div class="panel">
+      <h3>EPF configuration</h3><div class="sub">Applies to every PF calculation</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0 16px;border-bottom:1px solid var(--line);margin-bottom:14px">
+        <div><div style="font-weight:600">Provident Fund enabled</div><div class="note" style="margin:0">EPF & Misc. Provisions Act, 1952</div></div>
+        <label class="switch"><input type="checkbox" ${state.pf.on?'checked':''} class="editable" onchange="state.pf.on=this.checked;render()"><span class="slider"></span></label>
+      </div>
+      <div class="form-grid">
+        <div class="field"><label>Employee rate (%)</label><input type="number" step="0.01" value="${state.pf.eeRate}" class="editable" onchange="state.pf.eeRate=+this.value;render()"></div>
+        <div class="field"><label>Employer rate (%)</label><input type="number" step="0.01" value="${state.pf.erRate}" class="editable" onchange="state.pf.erRate=+this.value;render()"></div>
+        <div class="field"><label>Wage ceiling</label><div class="inwrap"><span class="cur">₹</span><input type="number" value="${state.pf.ceiling}" class="editable" onchange="state.pf.ceiling=+this.value;render()"></div></div>
+        <div class="field"><label>EPS cap</label><div class="inwrap"><span class="cur">₹</span><input type="number" value="${state.pf.epsCap}" class="editable" onchange="state.pf.epsCap=+this.value;render()"></div></div>
+      </div>
+      <div class="note">Employer 12% splits into <b>8.33% EPS</b> (pension, capped at ₹${state.pf.epsCap.toLocaleString('en-IN')}) and <b>3.67% EPF</b>. PF wage = min(Basic+DA, ₹${state.pf.ceiling.toLocaleString('en-IN')}).</div>
+    </div>
+    <div class="panel">
+      <h3>This month</h3><div class="sub">Total PF to deposit (ECR)</div>
+      ${mLine('Employee contribution',inr(teePF))}
+      ${mLine('Employer · EPF (3.67%)',inr(tepf))}
+      ${mLine('Employer · EPS (8.33%)',inr(teps))}
+      ${mLine('Total EPF remittance',inr(teePF+terPF),true)}
+      <div class="note">ECR challan due by 15th ${nextMonth()} ${state.payYear}.</div>
+    </div>
+  </div>
+  <div class="panel flush" style="margin-top:16px">
+    <table><thead><tr><th>Employee</th><th class="num">Basic (earned)</th><th class="num">PF wage</th><th class="num">Employee 12%</th><th class="num">Employer EPF</th><th class="num">EPS</th><th>UAN</th></tr></thead><tbody>
+    ${rows.map(({e,c})=>`<tr><td>${empCell(e)}</td><td class="num">${inr(c.eBasic)}</td><td class="num">${inr(Math.min(c.eBasic,state.pf.ceiling))}</td><td class="num">${c.eePF?inr(c.eePF):'—'}</td><td class="num">${c.epf?inr(c.epf):'—'}</td><td class="num">${c.eps?inr(c.eps):'—'}</td><td class="mono" style="font-size:9.6px">${e.uan}</td></tr>`).join('')}
+    </tbody><tfoot><tr class="tfoot"><td colspan="3">Total</td><td class="num">${inr(teePF)}</td><td class="num">${inr(tepf)}</td><td class="num">${inr(teps)}</td><td></td></tr></tfoot></table>
+  </div>`;
+}
+function mLine(l,v,strong){return `<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line)"><div style="font-weight:${strong?700:500}">${l}</div><div style="font-family:'Space Grotesk';font-weight:700;font-size:${strong?18:14}px;color:${strong?'var(--blue)':'var(--ink)'}">${v}</div></div>`;}
+
+/* ---------- ESI Master ---------- */
+function vESIMaster(){
+  const rows=emps().map(e=>({e,c:compute(e)}));
+  const covered=rows.filter(({c})=>c.esiApp);
+  let tee=0,ter=0;covered.forEach(({c})=>{tee+=c.eeESI;ter+=c.erESI;});
+  return `
+  <div class="grid2">
+    <div class="panel">
+      <h3>ESI configuration</h3><div class="sub">Employees' State Insurance Act, 1948</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0 16px;border-bottom:1px solid var(--line);margin-bottom:14px">
+        <div><div style="font-weight:600">ESI enabled</div><div class="note" style="margin:0">Auto-applies under the wage threshold</div></div>
+        <label class="switch"><input type="checkbox" ${state.esi.on?'checked':''} class="editable" onchange="state.esi.on=this.checked;render()"><span class="slider"></span></label>
+      </div>
+      <div class="form-grid">
+        <div class="field"><label>Employee rate (%)</label><input type="number" step="0.01" value="${state.esi.eeRate}" class="editable" onchange="state.esi.eeRate=+this.value;render()"></div>
+        <div class="field"><label>Employer rate (%)</label><input type="number" step="0.01" value="${state.esi.erRate}" class="editable" onchange="state.esi.erRate=+this.value;render()"></div>
+        <div class="field"><label>Wage threshold</label><div class="inwrap"><span class="cur">₹</span><input type="number" value="${state.esi.threshold}" class="editable" onchange="state.esi.threshold=+this.value;render()"></div></div>
+      </div>
+      <div class="note">Computed on <b>gross wages</b>. Applies only when monthly gross ≤ ₹${state.esi.threshold.toLocaleString('en-IN')} (₹25,000 for persons with disability). Total contribution 4%.</div>
+    </div>
+    <div class="panel">
+      <h3>This month</h3><div class="sub">${covered.length} of ${rows.length} employees covered</div>
+      ${mLine('Employee (0.75%)',inr(tee))}
+      ${mLine('Employer (3.25%)',inr(ter))}
+      ${mLine('Total ESIC challan',inr(tee+ter),true)}
+      <div class="note">ESIC challan due by 15th ${nextMonth()} ${state.payYear}.</div>
+    </div>
+  </div>
+  <div class="panel flush" style="margin-top:16px">
+    <table><thead><tr><th>Employee</th><th class="num">Gross</th><th>Covered</th><th class="num">Employee 0.75%</th><th class="num">Employer 3.25%</th></tr></thead><tbody>
+    ${rows.map(({e,c})=>`<tr><td>${empCell(e)}</td><td class="num">${inr(c.gross)}</td><td>${c.esiApp?'<span class="tag g">Covered</span>':'<span class="tag">Above limit</span>'}</td><td class="num">${c.eeESI?inr(c.eeESI):'—'}</td><td class="num">${c.erESI?inr(c.erESI):'—'}</td></tr>`).join('')}
+    </tbody><tfoot><tr class="tfoot"><td colspan="3">Total</td><td class="num">${inr(tee)}</td><td class="num">${inr(ter)}</td></tr></tfoot></table>
+  </div>`;
+}
+
+/* ---------- PT Master ---------- */
+function vPTMaster(){
+  const rows=emps().map(e=>({e,c:compute(e)}));
+  let tpt=0;rows.forEach(({c})=>tpt+=c.pt);
+  return `
+  <div class="panel" style="margin-bottom:16px">
+    <div class="row-between"><div><h3>Professional Tax</h3><div class="sub">Levied by state governments · max ₹2,500 / year</div></div>
+    <label class="switch"><input type="checkbox" ${state.pt.on?'checked':''} class="editable" onchange="state.pt.on=this.checked;render()"><span class="slider"></span></label></div>
+    <table><thead><tr><th>State</th><th>Monthly slab (simplified)</th></tr></thead><tbody>
+    ${PT_RULES.map(([s,d])=>`<tr><td style="font-weight:600">${s}</td><td>${d}</td></tr>`).join('')}
+    </tbody></table>
+    <div class="note">Slabs are simplified for the major states; confirm against the latest state notification. States like Delhi, Haryana, UP and Rajasthan do not levy PT.</div>
+  </div>
+  <div class="panel flush">
+    <table><thead><tr><th>Employee</th><th>State</th><th class="num">Gross</th><th class="num">PT / month</th></tr></thead><tbody>
+    ${rows.map(({e,c})=>`<tr><td>${empCell(e)}</td><td>${e.state}</td><td class="num">${inr(c.gross)}</td><td class="num" style="font-weight:600">${c.pt?inr(c.pt):'—'}</td></tr>`).join('')}
+    </tbody><tfoot><tr class="tfoot"><td colspan="3">Total PT this month</td><td class="num">${inr(tpt)}</td></tr></tfoot></table>
+  </div>`;
+}
+
+/* ---------- TDS Master ---------- */
+function vTDSMaster(){
+  const rows=emps().map(e=>({e,c:compute(e)}));
+  let ttds=0;rows.forEach(({c})=>ttds+=c.tds);
+  const slabs=[['Up to ₹4,00,000','Nil'],['₹4,00,001 – ₹8,00,000','5%'],['₹8,00,001 – ₹12,00,000','10%'],['₹12,00,001 – ₹16,00,000','15%'],['₹16,00,001 – ₹20,00,000','20%'],['₹20,00,001 – ₹24,00,000','25%'],['Above ₹24,00,000','30%']];
+  return `
+  <div class="grid2">
+    <div class="panel">
+      <h3>Tax configuration</h3><div class="sub">Section 192 · FY ${state.fy}</div>
+      <div class="form-grid">
+        <div class="field"><label>Default regime</label><select class="editable" onchange="state.tds.regime=this.value;render()"><option value="new" ${state.tds.regime==='new'?'selected':''}>New regime</option><option value="old" ${state.tds.regime==='old'?'selected':''}>Old regime</option></select></div>
+        <div class="field"><label>Standard deduction</label><div class="inwrap"><span class="cur">₹</span><input type="number" value="${state.tds.regime==='new'?state.tds.sd:state.tds.sdOld}" class="editable" onchange="${state.tds.regime==='new'?'state.tds.sd':'state.tds.sdOld'}=+this.value;render()"></div></div>
+        <div class="field"><label>87A rebate up to (taxable)</label><div class="inwrap"><span class="cur">₹</span><input type="number" value="${state.tds.regime==='new'?state.tds.rebateNew:state.tds.rebateOld}" class="editable" onchange="${state.tds.regime==='new'?'state.tds.rebateNew':'state.tds.rebateOld'}=+this.value;render()"></div></div>
+        <div class="field"><label>Health &amp; edu. cess (%)</label><input type="number" step="0.5" value="${state.tds.cess}" class="editable" onchange="state.tds.cess=+this.value;render()"></div>
+      </div>
+      <div class="note">Nil tax up to ₹${(state.tds.regime==='new'?state.tds.rebateNew:state.tds.rebateOld).toLocaleString('en-IN')} taxable via §87A rebate. Surcharge applies above ₹50L (capped at 25% in the new regime).</div>
+    </div>
+    <div class="panel">
+      <h3>New regime slabs</h3><div class="sub">As per Budget 2025, unchanged for FY 2026-27</div>
+      <table><tbody>${slabs.map(s=>`<tr><td>${s[0]}</td><td class="num" style="font-weight:600">${s[1]}</td></tr>`).join('')}</tbody></table>
+    </div>
+  </div>
+  <div class="panel flush" style="margin-top:16px">
+    <table><thead><tr><th>Employee</th><th class="num">Annual gross</th><th class="num">Taxable</th><th class="num">Annual tax</th><th class="num">TDS / month</th></tr></thead><tbody>
+    ${rows.map(({e,c})=>`<tr><td>${empCell(e)}</td><td class="num">${inr(c.annualGross)}</td><td class="num">${inr(c.taxable)}</td><td class="num">${c.annualTax?inr(c.annualTax):'Nil'}</td><td class="num" style="font-weight:700">${c.tds?inr(c.tds):'—'}</td></tr>`).join('')}
+    </tbody><tfoot><tr class="tfoot"><td colspan="4">Total TDS this month</td><td class="num">${inr(ttds)}</td></tr></tfoot></table>
+  </div>`;
+}
+
+/* ---------- Attendance · Regularization ---------- */
+function vAttReg(){
+  const rqs=state.regReqs.filter(rq=>emps().some(e=>e.id===rq.empId));
+  return `
+  <div class="panel" style="margin-bottom:16px">
+    <div class="row-between"><div><h3>Pending regularization requests</h3><div class="sub">Approve to update loss-of-pay for ${state.payMonth} ${state.payYear}</div></div>
+    <div class="field" style="margin:0"><label>Standard days / month</label><input style="width:90px" type="number" value="${state.monthDays}" class="editable" onchange="setMonthDays(+this.value)"></div></div>
+    ${rqs.length?rqs.map(rq=>{const e=state.employees.find(x=>x.id===rq.empId);if(!e)return '';return `
+      <div class="req"><div style="display:flex;align-items:center;gap:11px">${empCellMini(e)}<div><div style="font-weight:600">${rq.type==='present'?'Regularize as present':'Mark loss-of-pay'} · ${rq.days} day(s)</div><div class="ri">${rq.date} · ${rq.reason}</div></div></div>
+      <div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm editable" onclick="resolveReq(${rq.id},true)">${rq.type==='present'?'Approve (no LOP)':'Approve (apply LOP)'}</button><button class="btn btn-ghost btn-sm editable" onclick="resolveReq(${rq.id},false)">Reject</button></div></div>`}).join(''):'<div class="note" style="margin:0">No pending requests. All attendance is regularized.</div>'}
+  </div>
+  <div class="panel flush">
+    <table><thead><tr><th>Employee</th><th class="num">Total days</th><th class="num">LOP days</th><th class="num">Payable days</th><th class="num">Net pay</th></tr></thead><tbody>
+    ${emps().map(e=>{const a=attOf(e.id);const c=compute(e);return `<tr><td>${empCell(e)}</td><td class="num">${a.total}</td>
+      <td class="num"><input class="lop-in editable" type="number" min="0" max="${a.total}" value="${a.lop}" onchange="setLop(${e.id},+this.value)"></td>
+      <td class="num" style="font-weight:600">${a.paid}</td><td class="num" style="font-weight:700">${inr(c.net)}</td></tr>`}).join('')}
+    </tbody></table>
+  </div>
+  <div class="note">Loss-of-pay prorates Basic, HRA, special allowance and the statutory deductions for the month. PT is charged on the full-month slab. Edit LOP directly above or approve a request.</div>`;
+}
+function empCellMini(e){return `<span class="av" style="background:${avColor(e.id)};width:30px;height:30px">${initials(e.name)}</span><span style="font-weight:600">${e.name}</span>`;}
+function setMonthDays(d){state.monthDays=d||30;state.employees.forEach(e=>{const a=state.attendance[e.id];if(a)a.totalDays=state.monthDays;});render();}
+function setLop(id,v){const a=state.attendance[id]||(state.attendance[id]={totalDays:state.monthDays,lop:0});a.lop=Math.max(0,Math.min(v||0,a.totalDays));render();}
+function resolveReq(rid,approve){
+  const i=state.regReqs.findIndex(r=>r.id===rid);if(i<0)return;const rq=state.regReqs[i];
+  if(approve&&rq.type==='lop'){const a=state.attendance[rq.empId]||(state.attendance[rq.empId]={totalDays:state.monthDays,lop:0});a.lop=Math.min(a.totalDays,(a.lop||0)+rq.days);}
+  state.regReqs.splice(i,1);
+  logAudit((approve?'Approved':'Rejected')+' attendance regularization');toast(approve?'Request approved':'Request rejected');render();
+}
+
+/* ---------- Attendance · Import ---------- */
+function vAttImport(){
+  return `
+  <div class="grid2" style="grid-template-columns:1.3fr 1fr">
+    <div class="panel">
+      <h3>Import attendance</h3><div class="sub">From biometric exports, HRMS or a spreadsheet</div>
+      <label class="drop" style="display:block;cursor:pointer">
+        <input id="impFile" type="file" accept=".csv,.txt" style="display:none" onchange="impLoadFile(this)">
+        <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1660BE" stroke-width="2" style="margin-bottom:6px"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        <div><b>Choose a CSV file</b> or paste below</div></div>
+      </label>
+      <div class="field" style="margin-top:14px"><label>Paste rows — <span class="mono">Employee, Total days, LOP days</span></label>
+        <textarea id="impText" class="code" oninput="impPreview()" placeholder="Rahul Verma, 30, 0
+Vikram Singh, 30, 2
+6, 30, 1"></textarea></div>
+      <div style="display:flex;gap:10px"><button class="btn btn-ghost" onclick="impSample()">Load sample</button><button class="btn btn-primary editable" onclick="impApply()">Apply import</button></div>
+      <div class="note">Match by <b>employee name</b> or <b>ID</b> (first column). A header row is ignored automatically. Total days defaults to ${state.monthDays} if omitted.</div>
+    </div>
+    <div class="panel"><h3>Preview</h3><div class="sub">Parsed rows ready to apply</div><div id="impPreview"></div></div>
+  </div>`;
+}
+function impSample(){document.getElementById('impText').value='EmployeeID,TotalDays,LOP\n2,30,0\n4,30,2\nArjun Nair,30,1\nSneha Patil,30,0';impPreview();}
+function impLoadFile(input){const f=input.files&&input.files[0];if(!f)return;const rd=new FileReader();rd.onload=e=>{document.getElementById('impText').value=e.target.result;impPreview();toast('Loaded '+f.name);};rd.readAsText(f);}
+function findEmp(key){key=(key||'').trim();const L=emps();if(/^\d+$/.test(key))return L.find(e=>e.id===+key);const k=key.toLowerCase();return L.find(e=>e.name.toLowerCase()===k)||L.find(e=>e.name.toLowerCase().includes(k)&&k.length>2);}
+function parseImport(){
+  const txt=(document.getElementById('impText')||{}).value||'';
+  const out=[],bad=[];
+  txt.split(/\r?\n/).forEach(line=>{if(!line.trim())return;const cols=line.split(',').map(s=>s.trim());const emp=findEmp(cols[0]);if(!emp){bad.push(cols[0]);return;}
+    let total=state.monthDays,lop=0;
+    if(cols.length>=3){total=+cols[1]||state.monthDays;lop=+cols[2]||0;} else if(cols.length===2){lop=+cols[1]||0;}
+    out.push({emp,total,lop:Math.max(0,Math.min(lop,total))});});
+  return {out,bad};
+}
+function impPreview(){
+  const host=document.getElementById('impPreview');if(!host)return;
+  const {out,bad}=parseImport();
+  if(!out.length){host.innerHTML='<div class="note" style="margin:0">Nothing parsed yet. Paste rows or load the sample.</div>'+(bad.length?`<div class="note">Unmatched: ${bad.filter(b=>b&&!/employee|empid|name/i.test(b)).join(', ')||'—'}</div>`:'');return;}
+  host.innerHTML=`<table><thead><tr><th>Employee</th><th class="num">Total</th><th class="num">LOP</th><th class="num">Payable</th></tr></thead><tbody>
+    ${out.map(r=>`<tr><td>${r.emp.name}</td><td class="num">${r.total}</td><td class="num">${r.lop}</td><td class="num">${r.total-r.lop}</td></tr>`).join('')}</tbody></table>
+    <div class="note">${out.length} row(s) matched${bad.filter(b=>b&&!/employee|empid|name/i.test(b)).length?' · unmatched: '+bad.filter(b=>b&&!/employee|empid|name/i.test(b)).join(', '):''}</div>`;
+}
+function impApply(){
+  const {out}=parseImport();if(!out.length){toast('Nothing to import');return;}
+  out.forEach(r=>{state.attendance[r.emp.id]={totalDays:r.total,lop:r.lop};});
+  toast(out.length+' attendance row(s) imported');go('att-regular');
+}
+
+/* ---------- Run Payroll ---------- */
+function vRun(){
+  const t=totals();const ran=state.lastRun===state.payMonth+' '+state.payYear;
+  return `
+  <div class="panel" style="margin-bottom:16px"><div class="row-between">
+    <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+      <div class="field" style="margin:0"><label>Pay month</label><select onchange="state.payMonth=this.value;render()">${MONTHS.map(m=>`<option ${m===state.payMonth?'selected':''}>${m}</option>`).join('')}</select></div>
+      <div class="field" style="margin:0"><label>Year</label><select onchange="state.payYear=+this.value;render()">${[2025,2026,2027].map(y=>`<option ${y===state.payYear?'selected':''}>${y}</option>`).join('')}</select></div>
+      <div class="field" style="margin:0"><label>Tax regime</label><select class="editable" onchange="state.tds.regime=this.value;render()"><option value="new" ${state.tds.regime==='new'?'selected':''}>New regime</option><option value="old" ${state.tds.regime==='old'?'selected':''}>Old regime</option></select></div>
+    </div>
+    <button class="btn editable ${ran?'btn-ghost':'btn-orange'}" onclick="runPay()">${ran?'✓ Processed — re-run':'Process payroll'}</button></div>
+    ${t.lop?`<div class="note" style="margin-top:10px">⚠ ${t.lop} loss-of-pay day(s) applied from Attendance for this cycle.</div>`:''}</div>
+  <div class="panel flush"><table><thead><tr><th>Employee</th><th class="num">Basic</th><th class="num">HRA</th><th class="num">Special</th><th class="num">Gross</th><th class="num">PF</th><th class="num">ESI</th><th class="num">PT</th><th class="num">TDS</th><th class="num">Net pay</th></tr></thead><tbody>
+    ${emps().map(e=>{const c=compute(e);return `<tr><td>${empCell(e)}</td><td class="num">${inr(c.eBasic)}</td><td class="num">${inr(c.eHra)}</td><td class="num">${inr(c.eSpecial)}</td><td class="num" style="font-weight:600">${inr(c.eGross)}</td><td class="num">${c.eePF?inr(c.eePF):'—'}</td><td class="num">${c.eeESI?inr(c.eeESI):'—'}</td><td class="num">${c.pt?inr(c.pt):'—'}</td><td class="num">${c.tds?inr(c.tds):'—'}</td><td class="num" style="font-weight:700">${inr(c.net)}</td></tr>`}).join('')}
+    </tbody><tfoot><tr class="tfoot"><td>Total (${t.count})</td><td colspan="3" class="num"></td><td class="num">${inr(t.gross)}</td><td class="num" colspan="4">PF ${inr(t.pf)} · ESI ${inr(t.esi)} · PT ${inr(t.pt)} · TDS ${inr(t.tds)}</td><td class="num">${inr(t.net)}</td></tr></tfoot></table></div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel"><h3>Disbursement summary</h3><div class="sub">${state.payMonth} ${state.payYear}</div>
+      ${mLine('Net salary payout',inr(t.net))}${mLine('Total employee deductions',inr(t.gross-t.net))}${mLine('Employer contributions',inr(t.erPF+t.gratuity+t.bonus))}${mLine('Total employer cost (CTC)',inr(t.ctc),true)}
+      <button class="btn btn-primary no-print editable" style="margin-top:14px;width:100%;justify-content:center" onclick="runPay()">Approve &amp; queue salary payouts</button></div>
+    <div class="panel"><h3>Statutory to deposit</h3><div class="sub">Auto-generated challans</div>
+      ${mLine('EPF (ECR)',inr(t.pf))}${mLine('ESIC',inr(t.esi))}${mLine('Professional Tax',inr(t.pt))}${mLine('Labour Welfare Fund',inr(t.lwf))}${mLine('TDS (Form 24Q)',inr(t.tds),true)}</div>
+  </div>`;
+}
+function runPay(){state.lastRun=state.payMonth+' '+state.payYear;logAudit('Processed payroll '+state.payMonth+' '+state.payYear);toast('Payroll processed for '+state.payMonth+' '+state.payYear+' ✓');render();}
+
+/* ---------- Payroll Register ---------- */
+function vRegister(){
+  const t=totals(); const sl=regSlice();
+  return `
+  <div class="panel" style="margin-bottom:16px"><div class="row-between">
+    <div><h3>Register · ${state.payMonth} ${state.payYear}</h3><div class="sub">${t.count} employees · ${state.tds.regime==='new'?'New':'Old'} regime${t.lop?' · '+t.lop+' LOP day(s)':''}</div></div>
+    <button class="btn btn-ghost" onclick="exportRegister()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Export CSV</button></div></div>
+  <div class="panel no-print" style="margin-bottom:12px;padding:10px 12px"><input id="regSrch" class="srch" placeholder="Search employee, code, state…" value="${(state.regQ||'').replace(/"/g,'&quot;')}" oninput="filterReg()"></div>
+  <div class="panel flush"><table><thead><tr><th>Employee</th><th>State</th><th class="num">Payable</th><th class="num">Basic</th><th class="num">HRA</th><th class="num">Special</th><th class="num">Gross</th><th class="num">PF</th><th class="num">ESI</th><th class="num">PT</th><th class="num">TDS</th><th class="num">Net</th></tr></thead><tbody id="regRows">${sl.rowsHtml}</tbody>
+  <tfoot><tr class="tfoot"><td colspan="6">Total (${t.count})</td><td class="num">${inr(t.gross)}</td><td class="num">${inr(t.pf)}</td><td class="num">${inr(t.esi)}</td><td class="num">${inr(t.pt)}</td><td class="num">${inr(t.tds)}</td><td class="num">${inr(t.net)}</td></tr></tfoot></table></div>
+  <div id="regPager">${sl.pagerHtml}</div>
+  <div class="note">Totals are for all ${t.count} employees; the table is paginated. Export produces a full CSV for finance / bank upload.</div>`;
+}
+function exportRegister(){
+  const head=['Employee','State','PayableDays','Basic','HRA','Special','Gross','EmployeePF','EmployerPF','ESI_EE','ESI_ER','PT','TDS','Net'];
+  const lines=[head.join(',')];
+  state.employees.forEach(e=>{const c=compute(e);lines.push([JSON.stringify(e.name),e.state,c.att.paid+'/'+c.att.total,c.eBasic,c.eHra,c.eSpecial,c.eGross,c.eePF,c.erPF,c.eeESI,c.erESI,c.pt,c.tds,c.net].join(','));});
+  const blob=new Blob([lines.join('\n')],{type:'text/csv'});const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download='payroll-register-'+state.payMonth+'-'+state.payYear+'.csv';a.click();URL.revokeObjectURL(url);
+  toast('Register exported as CSV');
+}
+
+/* ---------- Payslips ---------- */
+let slipEmp=1;
+function viewSlipFor(id){slipEmp=id;go('payslips');}
+function vPayslips(){
+  return `
+  <div class="panel no-print" style="margin-bottom:16px"><div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap">
+    <div class="field" style="margin:0;min-width:220px"><label>Employee</label><select onchange="slipEmp=+this.value;buildSlip()">${emps().map(e=>`<option value="${e.id}" ${e.id===slipEmp?'selected':''}>${e.name} — ${e.role}</option>`).join('')}</select></div>
+    <div class="field" style="margin:0"><label>Month</label><select id="slipMo" onchange="buildSlip()">${MONTHS.map(m=>`<option ${m===state.payMonth?'selected':''}>${m}</option>`).join('')}</select></div>
+    <button class="btn btn-ghost" onclick="window.print()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg> Print / Save PDF</button>
+  </div></div><div id="slipHost"></div>`;
+}
+function buildSlip(){
+  const e=emps().find(x=>x.id===slipEmp)||emps()[0];const c=compute(e);
+  const mo=(document.getElementById('slipMo')||{}).value||state.payMonth;
+  const f2=n=>(Math.round((+n||0)*100)/100).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+  const idx=Math.max(0,MONTHS.indexOf(mo));
+  const lb=state.leaveBal[e.id]||{EL:{accrued:0,used:0}}; const balEL=(lb.EL.accrued-lb.EL.used)||0;
+  const earn=[['Basic Earned',c.eBasic],['H.R.A',c.eHra],['Special Allowance',c.eSpecial]];
+  const ded=[['PROV.FUND',c.eePF],['E.S.I.C',c.eeESI],['P.Tax',c.pt],['L.W.F',c.lwf],['TDS',c.tds]].filter(x=>x[1]>0);
+  const rows=Math.max(earn.length,ded.length); let ed='';
+  for(let i=0;i<rows;i++){const a=earn[i],d=ded[i];
+    ed+=`<tr><td>${a?a[0]:''}</td><td class="r"></td><td class="r">${a?f2(a[1]):''}</td><td>${d?d[0]:''}</td><td class="r"></td><td class="r">${d?f2(d[1]):''}</td></tr>`;}
+  const sd=c.regime==='new'?state.tds.sd:state.tds.sdOld;
+  const decl=c.regime==='old'?Math.min(e.decl80c||0,150000):0;
+  const allIn=c.annualTax, preCess=Math.round(allIn/(1+state.tds.cess/100)), cess=allIn-preCess;
+  const ptA=c.pt*12, totalIncome=c.annualGross-sd, ytd=Math.round(c.tdsFull*idx);
+  const pfAct=c.eePF*(idx+1), pfProj=c.eePF*12, viaAllowed=c.regime==='old'?Math.min(pfProj,150000):0;
+  const tp=[]; for(let i=0;i<12;i++){tp.push(i<idx?Math.round(c.tdsFull):(i===idx?Math.round(c.tds):0));}
+  const mk=`<svg width="34" height="34" viewBox="0 0 120 120"><g transform="rotate(-26 60 60)"><path d="M15,60 A45,25 0 0 1 105,60" fill="none" stroke="#F47C20" stroke-width="12" stroke-linecap="round"/><path d="M105,60 A45,25 0 0 1 15,60" fill="none" stroke="#2BA6E8" stroke-width="12" stroke-linecap="round"/></g><path d="M30,90 L75.9,44.1" fill="none" stroke="#2BA6E8" stroke-width="11" stroke-linecap="round"/><path d="M90,30 L84.3,52.6 L67.4,35.7 Z" fill="#2BA6E8"/></svg>`;
+  document.getElementById('slipHost').innerHTML=`
+  <div class="ps">
+    <div class="hd">${mk}<div><div class="nm">${state.company}</div><div class="ad">India · Statutory Payroll · FY ${state.fy}</div></div></div>
+    <div class="ttl">Payslip for the Month: ${mo} - ${state.payYear}</div>
+    <table><tbody>
+      <tr><td class="lbl">Employee No</td><td>${e.empCode||'—'}</td><td class="lbl">Name</td><td>${e.name}</td><td class="lbl">Date of Joining</td><td>${e.doj||'—'}</td></tr>
+      <tr><td class="lbl">Location</td><td>${e.state}</td><td class="lbl">Department</td><td>${deptName(e.dept)}</td><td class="lbl">Designation</td><td>${e.role}</td></tr>
+      <tr><td class="lbl">Bank Name</td><td>${bankName(e.bankId)}</td><td class="lbl">Bank Account No.</td><td>${e.bankAcc||'—'}</td><td class="lbl">Emp PAN</td><td>${e.pan}</td></tr>
+      <tr><td class="lbl">UAN No.</td><td>${e.uan}</td><td class="lbl">PF No.</td><td>—</td><td class="lbl">ESIC No.</td><td>${c.esiApp?'—':'N.A.'}</td></tr>
+    </tbody></table>
+    <table class="att"><tbody>
+      <tr><td>Days Paid : <b>${f2(c.att.paid)}</b></td><td>Days Present : <b>${f2(c.att.paid)}</b></td><td>Weekly Off : <b>0.00</b></td><td>Paid Holiday : <b>0.00</b></td><td>LWP : <b>${f2(c.att.lop)}</b></td><td>Absent : <b>0.00</b></td></tr>
+      <tr><td>EL : <b>0.00</b></td><td>Bal. EL : <b>${f2(balEL)}</b></td><td>OL : <b>0.00</b></td><td>Bal. OL : <b>0.00</b></td><td>CO + : <b>0.00</b></td><td>CO - : <b>0.00</b></td></tr>
+    </tbody></table>
+    <table><thead><tr class="sec"><td>Earnings</td><td>Arrears</td><td>Amount</td><td>Deductions</td><td>Arrears</td><td>Amount</td></tr></thead>
+    <tbody>${ed}
+      <tr class="tot"><td>Total Earning</td><td class="r">0.00</td><td class="r">${f2(c.eGross)}</td><td>Total Deduction</td><td class="r">0.00</td><td class="r">${f2(c.totalDed)}</td></tr>
+      <tr class="net"><td colspan="6">Net Pay: ${f2(c.net)} (${wordsINR(c.net)})</td></tr>
+    </tbody></table>
+    <div class="two">
+      <div class="half">
+        <table><thead><tr class="sec"><td>Particulars</td><td class="r">Total</td><td class="r">Exempt</td><td class="r">Taxable</td></tr></thead><tbody>
+          <tr><td>Basic Earned</td><td class="r">${f2(c.basic*12)}</td><td class="r"></td><td class="r">${f2(c.basic*12)}</td></tr>
+          <tr><td>H.R.A</td><td class="r">${f2(c.hra*12)}</td><td class="r"></td><td class="r">${f2(c.hra*12)}</td></tr>
+          <tr><td>Special Allowance</td><td class="r">${f2(c.special*12)}</td><td class="r"></td><td class="r">${f2(c.special*12)}</td></tr>
+          <tr class="tot"><td>Total Earnings</td><td class="r">${f2(c.gross*12)}</td><td class="r">0.00</td><td class="r">${f2(c.gross*12)}</td></tr>
+        </tbody></table>
+        <table><thead><tr class="sec"><td colspan="3">Deduction Under Chapter VI-A</td></tr><tr class="lbl"><td>Particulars</td><td class="r">Actuals</td><td class="r">Allowed</td></tr></thead><tbody>
+          <tr><td># PF Deducted (Actual)</td><td class="r">${f2(pfAct)}</td><td class="r"></td></tr>
+          <tr><td># PF Deducted (Projected)</td><td class="r">${f2(pfProj)}</td><td class="r"></td></tr>
+          <tr class="tot"><td>Total</td><td class="r"></td><td class="r">${f2(viaAllowed)}</td></tr>
+        </tbody></table>
+      </div>
+      <div class="half">
+        <table><thead><tr class="sec"><td colspan="2">Income Tax Deduction</td></tr></thead><tbody>
+          <tr><td>Gross Salary</td><td class="r">${f2(c.annualGross)}</td></tr>
+          <tr><td>(-) Standard Deduction</td><td class="r">${f2(sd)}</td></tr>
+          <tr><td>(-) PT Deducted</td><td class="r">${f2(ptA)}</td></tr>
+          <tr><td>Total VI A Deduction</td><td class="r">${f2(decl)}</td></tr>
+          <tr><td>Total Income</td><td class="r">${f2(totalIncome)}</td></tr>
+          <tr><td>Taxable Total Income</td><td class="r">${f2(c.taxable)}</td></tr>
+          <tr><td>Tax on Income</td><td class="r">${f2(preCess)}</td></tr>
+          <tr><td>(+) Surcharge</td><td class="r">0.00</td></tr>
+          <tr><td>(+) Education Cess</td><td class="r">${f2(cess)}</td></tr>
+          <tr class="tot"><td>Total Tax on Income</td><td class="r">${f2(allIn)}</td></tr>
+          <tr><td>(-) TDS Deducted</td><td class="r">${f2(ytd)}</td></tr>
+          <tr><td>Monthly Projected Tax</td><td class="r">${f2(c.tdsFull)}</td></tr>
+        </tbody></table>
+        <table class="att"><thead><tr class="sec"><td colspan="6">Tax Paid Details</td></tr></thead><tbody>
+          <tr class="lbl c"><td>Apr</td><td>May</td><td>Jun</td><td>Jul</td><td>Aug</td><td>Sep</td></tr>
+          <tr class="c"><td>${tp[0]}</td><td>${tp[1]}</td><td>${tp[2]}</td><td>${tp[3]}</td><td>${tp[4]}</td><td>${tp[5]}</td></tr>
+          <tr class="lbl c"><td>Oct</td><td>Nov</td><td>Dec</td><td>Jan</td><td>Feb</td><td>Mar</td></tr>
+          <tr class="c"><td>${tp[6]}</td><td>${tp[7]}</td><td>${tp[8]}</td><td>${tp[9]}</td><td>${tp[10]}</td><td>${tp[11]}</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+    <div class="foot">This is a system generated payslip and does not require a signature · boom Payroll · generated ${new Date().toLocaleDateString('en-IN')}</div>
+  </div>`;
+}
+
+/* ---------- Compliance ---------- */
+function vCompliance(){
+  const t=totals();
+  const card=(nm,cls,amt,who,due,detail)=>`<div class="c ${cls}"><div class="h"><span class="nm">${nm}</span><span class="tag ${cls}">${who}</span></div><div class="amt">${inr(amt)}</div><div class="due">${due}</div><div class="note" style="margin-top:8px">${detail}</div></div>`;
+  return `
+  <div class="comp" style="margin-bottom:20px">
+    ${card('Provident Fund — EPF','b',t.pf,'EPFO',`ECR · due 15th ${nextMonth()} ${state.payYear}`,'Employee 12% + Employer 12% of Basic+DA (₹15,000 cap). Split 8.33% EPS + 3.67% EPF.')}
+    ${card('Employee State Insurance','o',t.esi,'ESIC',`Challan · due 15th ${nextMonth()} ${state.payYear}`,'Employee 0.75% + Employer 3.25% of gross ≤ ₹21,000/month.')}
+    ${card('Professional Tax','g',t.pt,'State','Monthly / as per state','State levy; max ₹2,500/year. Nil in Delhi, Haryana, UP.')}
+    ${card('Labour Welfare Fund','g',t.lwf,'State','As per state periodicity','Employee + employer welfare-fund contribution; state-specific amount & cycle (FR-PR-STAT-004).')}
+    ${card('TDS on Salary — 24Q','a',t.tds,'Income Tax',`Challan · due 7th ${nextMonth()} ${state.payYear}`,'Section 192 under the '+(state.tds.regime==='new'?'new':'old')+' regime. Form 24Q quarterly; Form 16 annual.')}
+  </div>
+  <div class="panel"><h3>Compliance calendar</h3><div class="sub">Recurring statutory deadlines</div>
+    <table><thead><tr><th>Filing</th><th>Frequency</th><th>Due date</th><th class="num">This month</th></tr></thead><tbody>
+      <tr><td><b>EPF ECR</b></td><td>Monthly</td><td>15th of next month</td><td class="num">${inr(t.pf)}</td></tr>
+      <tr><td><b>ESIC challan</b></td><td>Monthly</td><td>15th of next month</td><td class="num">${inr(t.esi)}</td></tr>
+      <tr><td><b>TDS payment</b></td><td>Monthly</td><td>7th of next month</td><td class="num">${inr(t.tds)}</td></tr>
+      <tr><td><b>Professional Tax</b></td><td>Monthly / Annual</td><td>As per state</td><td class="num">${inr(t.pt)}</td></tr>
+      <tr><td><b>Form 24Q</b></td><td>Quarterly</td><td>End of month after quarter</td><td class="num">—</td></tr>
+      <tr><td><b>Labour Welfare Fund</b></td><td>Half-yearly / Yearly</td><td>As per state</td><td class="num">${inr(t.lwf)}</td></tr>
+      <tr><td><b>Form 16</b></td><td>Annual</td><td>15th June</td><td class="num">—</td></tr>
+    </tbody></table><div class="note">Dates are general statutory deadlines and may shift on holidays.</div></div>`;
+}
+
+/* ---------- Settings ---------- */
+function vSettings(){
+  return `
+  <div class="grid2"><div class="panel"><h3>Company</h3><div class="sub">Appears on payslips and challans</div>
+      <div class="field"><label>Legal name</label><input class="editable" id="s_company" value="${state.company}"></div>
+      <div class="field"><label>Financial year</label><select class="editable" id="s_fy"><option ${state.fy==='2026–27'?'selected':''}>2026–27</option><option ${state.fy==='2025–26'?'selected':''}>2025–26</option></select></div>
+      <button class="btn btn-primary editable" onclick="saveSettings()">Save changes</button></div>
+    <div class="panel"><h3>Salary structure</h3><div class="sub">Applied to every CTC split</div>
+      ${toggleRow('Metro city HRA (50%)','s_metro',state.metro,'Off = non-metro (40% of Basic)')}
+      <div class="field" style="margin-top:14px"><label>Basic as % of CTC</label><select class="editable" id="s_basic"><option value="0.4" ${state.basicPct===0.4?'selected':''}>40%</option><option value="0.5" ${state.basicPct===0.5?'selected':''}>50% (new wage code)</option><option value="0.6" ${state.basicPct===0.6?'selected':''}>60%</option></select></div>
+      <button class="btn btn-primary editable" onclick="saveSettings()">Apply</button>
+      <div class="note">Labour Code wage rule: Basic+DA must be ≥ ${Math.round(state.wageMinPct*100)}% of total remuneration. Current Basic ${Math.round(state.basicPct*100)}% of CTC → ${state.basicPct>=state.wageMinPct?'<b style="color:var(--green)">compliant</b>':'<b style="color:var(--red)">below floor</b>'} (FR-PR-SAL-002).</div>
+      <div class="note">Statutory rates (PF, ESI, PT, LWF, TDS) are configured in their respective Masters under Master Data.</div></div></div>`;
+}
+function toggleRow(l,id,on,s){return `<div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)"><div><div style="font-weight:600">${l}</div><div style="font-size:9.2px;color:var(--steel)">${s}</div></div><label class="switch"><input type="checkbox" class="editable" id="${id}" ${on?'checked':''}><span class="slider"></span></label></div>`;}
+function saveSettings(){
+  if(document.getElementById('s_company'))state.company=val('s_company');
+  if(document.getElementById('s_fy'))state.fy=document.getElementById('s_fy').value;
+  if(document.getElementById('s_metro'))state.metro=document.getElementById('s_metro').checked;
+  if(document.getElementById('s_basic'))state.basicPct=+document.getElementById('s_basic').value;
+  logAudit('Updated company / structure settings');toast('Settings saved — recalculated payroll');render();
+}
+
+
+function buildTopbar(){
+  const u=state.auth, ro=!canEdit();
+  let plant='';
+  if(u.plants!=='all' && u.plants.length===1){const p=PLANTS.find(x=>x.id===u.plants[0]);plant=`<span class="pill">${p.name}</span>`;}
+  else{const list=(u.plants==='all'?PLANTS:PLANTS.filter(p=>u.plants.includes(p.id)));plant=`<select class="pill-sel" onchange="state.plantScope=this.value;render()"><option value="all" ${state.plantScope==='all'?'selected':''}>All ${u.plants==='all'?'plants':'my plants'}</option>${list.map(p=>`<option value="${p.id}" ${state.plantScope===p.id?'selected':''}>${p.name}</option>`).join('')}</select>`;}
+  const runBtn=(allowed('run')&&canEdit())?`<button class="btn btn-primary" onclick="go('run')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg> Run payroll</button>`:'';
+  document.getElementById('topActions').innerHTML=`${ro?'<span class="ro-pill">Read-only</span>':''}${plant}${runBtn}<div class="uchip"><div class="avatar">${initials(u.name)}</div><div style="line-height:1.1"><div style="font-weight:600;font-size:10.4px">${u.name}</div><div style="font-size:8.8px;color:var(--steel)">${roleObj().name}</div></div></div>`;
+  document.getElementById('sideFoot').innerHTML=`<div style="font-weight:600;color:#fff;font-size:10.4px">${state.company}</div><div style="margin:2px 0 0">FY ${state.fy} · ${allowedPlants().length} plant(s) in scope</div><button class="signout" onclick="logout()">Sign out</button>`;
+}
+function renderLoginDemo(){document.getElementById('lg_demo').innerHTML=USERS.map(x=>`<button class="demo-row" onclick="doLogin('${x.u}','${x.p}')"><b>${ROLES[x.role].name} — ${x.name}</b><span>${x.plants==='all'?'all plants':x.plants.map(id=>PLANTS.find(p=>p.id===id).name).join(', ')} · ${ROLES[x.role].allow.length} modules${ROLES[x.role].edit?'':' · read-only'}</span></button>`).join('');}
+function showLogin(){document.getElementById('login').style.display='flex';document.querySelector('.app').style.display='none';}
+function loginErr(m){document.getElementById('lg_err').textContent=m;}
+/* ===== Backend integration: Cloudflare front end -> Node/Express API =====
+   Auto-enabled when served over http(s). Opened as a local file it stays in
+   offline prototype mode (in-memory demo). Force offline with ?demo=1.
+   If the front end is on a DIFFERENT origin than the API, set API.base to the
+   API URL; if you proxy /api/* via Cloudflare _redirects, leave it blank. */
+const API={ base:'', token:null,
+  enabled:(location.protocol==='http:'||location.protocol==='https:') && !/[?&]demo=1/.test(location.search) };
+function apiUrl(p){return (API.base||'')+p;}
+function apiHeaders(){return API.token?{'Authorization':'Bearer '+API.token,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
+async function apiLogin(u,p){const r=await fetch(apiUrl('/api/auth/login'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});let d={};try{d=await r.json();}catch(e){}if(!r.ok)throw new Error(d.error||'Invalid username or password');return d;}
+async function apiGet(p){const r=await fetch(apiUrl(p),{headers:apiHeaders()});let d={};try{d=await r.json();}catch(e){}if(!r.ok)throw new Error(d.error||('HTTP '+r.status));return d;}
+function mapAuthUser(u){return {u:u.username,name:u.name||u.username,role:u.role,plants:u.plant?[u.plant]:'all',empId:u.emp_id||null};}
+function mapApiEmp(r){return {id:r.id,empCode:r.emp_code,name:r.name,role:r.role,ctc:Number(r.ctc||0),state:r.state,plant:r.plant,dept:r.dept,pan:r.pan,uan:r.uan,regime:r.regime||undefined,decl80c:Number(r.decl80c||0)};}
+async function apiBootData(){try{const e=await apiGet('/api/employees?size=200');if(e&&e.rows){state.employees=e.rows.map(mapApiEmp);state._empTotal=e.total;}}catch(err){console.warn('employee load failed',err);}}
+async function doLogin(u,p){
+  if(!API.enabled)return doLoginLocal(u,p);
+  loginErr('');
+  try{
+    const res=await apiLogin(u,p);
+    const user=mapAuthUser(res.user);
+    API.token=res.token; state.auth=user;
+    state.plantScope=(user.plants==='all'||user.plants.length>1)?'all':user.plants[0];
+    await apiBootData();
+    logAudit('Signed in');
+    document.getElementById('login').style.display='none';
+    document.querySelector('.app').style.display='grid';
+    state.view=firstAllowed(); render();
+    toast('Welcome, '+user.name.split(' ')[0]);
+  }catch(e){ loginErr(e.message||'Login failed'); }
+}
+function doLoginLocal(u,p){const user=USERS.find(x=>x.u===u&&x.p===p);if(!user){loginErr('Invalid username or password');return;}state.auth=user;logAudit('Signed in');state.plantScope=(user.plants==='all'||user.plants.length>1)?'all':user.plants[0];document.getElementById('login').style.display='none';document.querySelector('.app').style.display='grid';state.view=firstAllowed();render();toast('Welcome, '+user.name.split(' ')[0]);}
+function submitLogin(){doLogin(val('lg_u'),val('lg_p'));}
+function logout(){state.auth=null;API.token=null;loginErr('');document.getElementById('lg_u').value='';document.getElementById('lg_p').value='';showLogin();}
+
+
+/* ===================== FRS: Leave, LWF, Bonus, F&F, Audit ===================== */
+function vLWFMaster(){
+  const rows=emps().map(e=>({e,c:compute(e)}));let tee=0,ter=0;rows.forEach(({c})=>{tee+=c.lwf;ter+=c.lwfEr;});
+  return `
+  <div class="panel" style="margin-bottom:16px"><div class="row-between"><div><h3>Labour Welfare Fund</h3><div class="sub">State-specific periodic contribution &middot; FR-PR-STAT-004</div></div>
+  <label class="switch"><input type="checkbox" class="editable" ${state.lwfOn?'checked':''} onchange="state.lwfOn=this.checked;render()"><span class="slider"></span></label></div>
+  <table style="margin-top:12px"><thead><tr><th>State</th><th class="num">Employee</th><th class="num">Employer</th><th>Periodicity</th></tr></thead><tbody>
+  ${Object.entries(LWF).map(([s,v])=>`<tr><td style="font-weight:600">${s}</td><td class="num">${inr(v.ee)}</td><td class="num">${inr(v.er)}</td><td>${v.freq}</td></tr>`).join('')}
+  </tbody></table><div class="note">Configured amount per contribution cycle; states not listed may be nil. Treat as an effective-dated, per-state configurable parameter (NFR-CFG-001).</div></div>
+  <div class="panel flush"><table><thead><tr><th>Employee</th><th>State</th><th class="num">Employee LWF</th><th class="num">Employer LWF</th></tr></thead><tbody>
+  ${rows.map(({e,c})=>`<tr><td>${empCell(e)}</td><td>${e.state}</td><td class="num">${c.lwf?inr(c.lwf):'—'}</td><td class="num">${c.lwfEr?inr(c.lwfEr):'—'}</td></tr>`).join('')}
+  </tbody><tfoot><tr class="tfoot"><td colspan="2">Total</td><td class="num">${inr(tee)}</td><td class="num">${inr(ter)}</td></tr></tfoot></table></div>`;
+}
+
+function vLeavePolicy(){
+  return `
+  <div class="panel flush"><table><thead><tr><th>Code</th><th>Leave type</th><th>Paid</th><th>Counts as LOP</th><th class="num">Annual</th><th>Accrual</th><th>Encashable</th></tr></thead><tbody>
+  ${state.leaveTypes.map((t,i)=>`<tr><td><span class="tag b">${t.code}</span></td><td style="font-weight:600">${t.name}</td>
+    <td>${t.paid?'<span class="tag g">Paid</span>':'<span class="tag r">Unpaid</span>'}</td>
+    <td>${t.lop?'<span class="tag o">Yes</span>':'No'}</td>
+    <td class="num">${t.annual?`<input class="lop-in editable" type="number" value="${t.annual}" onchange="state.leaveTypes[${i}].annual=+this.value;logAudit('Edited '+state.leaveTypes[${i}].code+' annual entitlement');render()">`:'—'}</td>
+    <td>${t.accrual}</td><td>${t.encashable?'<span class="tag g">Yes</span>':'No'}</td></tr>`).join('')}
+  </tbody></table></div>
+  <div class="note">Leave types are fully configurable (FR-LM-CFG): paid/unpaid, accrual basis, entitlement and LOP behaviour. Encashable types use the Code-on-Wages base; unpaid types flow to payroll as loss-of-pay.</div>`;
+}
+
+let holState=null;
+function vHolidays(){
+  const sts=Object.keys(state.holidays); if(!holState||!sts.includes(holState))holState=sts[0];
+  return `
+  <div class="panel" style="margin-bottom:16px"><div class="field" style="margin:0;max-width:300px"><label>State / location calendar</label><select onchange="holState=this.value;render()">${sts.map(s=>`<option ${s===holState?'selected':''}>${s}</option>`).join('')}</select></div></div>
+  <div class="panel flush"><table><thead><tr><th>Date</th><th>Holiday</th><th>Type</th></tr></thead><tbody>
+  ${(state.holidays[holState]||[]).map(x=>`<tr><td style="font-weight:600">${x[0]}</td><td>${x[1]}</td><td><span class="tag ${x[2]==='National'?'b':'o'}">${x[2]}</span></td></tr>`).join('')}
+  </tbody></table></div>
+  <div class="note">Per-location calendars (national / state / restricted) drive leave-day counting and payroll working days (FR-LM-HOL).</div>`;
+}
+
+function vLeaveBalance(){
+  return `<div class="panel flush"><table><thead><tr><th>Employee</th><th class="num">EL accrued</th><th class="num">EL used</th><th class="num">EL balance</th><th class="num">CL bal</th><th class="num">SL bal</th><th class="num">EL encash (est.)</th></tr></thead><tbody>
+  ${emps().map(e=>{const b=state.leaveBal[e.id]||{EL:{accrued:0,used:0,enc:0},CL:{accrued:0,used:0},SL:{accrued:0,used:0}};const c=compute(e);
+    const elBal=b.EL.accrued-b.EL.used-(b.EL.enc||0);const daily=r(c.basic/30);const enc=r(elBal*daily);
+    return `<tr><td>${empCell(e)}</td><td class="num">${b.EL.accrued}</td><td class="num">${b.EL.used}</td><td class="num" style="font-weight:700">${elBal}</td><td class="num">${b.CL.accrued-b.CL.used}</td><td class="num">${b.SL.accrued-b.SL.used}</td><td class="num">${inr(enc)}</td></tr>`;}).join('')}
+  </tbody></table></div>
+  <div class="note">Real-time balances per type (FR-LM-BAL). Encashment estimate = Earned-Leave balance &times; (Basic &divide; 30) on the Code-on-Wages base (FR-LM-ENC); posted to payroll / F&F as a taxable earning.</div>`;
+}
+
+function vLeaveApply(){
+  const ro=roleObj(); const self=!!ro.self;
+  const me=self?(emps()[0]||null):null;
+  const myBal=me?(state.leaveBal[me.id]||{EL:{accrued:0,used:0},CL:{accrued:0,used:0},SL:{accrued:0,used:0}}):null;
+  const pend=state.leaveApps.filter(a=>a.status==='Pending' && emps().some(e=>e.id===a.empId));
+  const mine=self&&me?state.leaveApps.filter(a=>a.empId===me.id):[];
+  return `
+  <div class="grid2" style="grid-template-columns:1fr 1.15fr">
+    <div class="panel">
+      <h3>Apply for leave</h3><div class="sub">${self?'Submit a request — live balance validated':'Apply on behalf of a team member'}</div>
+      ${self?'':`<div class="field"><label>Employee</label><select id="la_emp">${emps().map(e=>`<option value="${e.id}">${e.name}</option>`).join('')}</select></div>`}
+      <div class="form-grid">
+        <div class="field"><label>Leave type</label><select id="la_type">${state.leaveTypes.filter(t=>t.code!=='ML').map(t=>`<option value="${t.code}">${t.code} — ${t.name}</option>`).join('')}</select></div>
+        <div class="field"><label>Days</label><input id="la_days" type="number" min="0.5" step="0.5" value="1"></div>
+        <div class="field"><label>From</label><input id="la_from" placeholder="e.g. 24 Jun"></div>
+        <div class="field"><label>To</label><input id="la_to" placeholder="e.g. 25 Jun"></div>
+      </div>
+      <div class="field"><label>Reason</label><input id="la_reason" placeholder="Reason for leave"></div>
+      <button class="btn btn-primary" onclick="applyLeave(${self&&me?me.id:'null'})">Submit application</button>
+      ${myBal?`<div class="note">Your balances — EL ${myBal.EL.accrued-myBal.EL.used} &middot; CL ${myBal.CL.accrued-myBal.CL.used} &middot; SL ${myBal.SL.accrued-myBal.SL.used}</div>`:''}
+    </div>
+    <div class="panel">
+      <h3>${self?'My applications':'Pending approvals'}</h3><div class="sub">${self?'Status of your requests':'Approve / reject — unpaid leave posts to payroll as LOP'}</div>
+      <div style="margin-top:6px">${(self?mine:pend).map(a=>{const e=state.employees.find(x=>x.id===a.empId);const t=state.leaveTypes.find(x=>x.code===a.type);return `
+        <div class="req"><div style="display:flex;align-items:center;gap:11px">${empCellMini(e)}<div><div style="font-weight:600">${a.type} &middot; ${a.days} day(s) ${t&&t.lop?'<span class="tag o">LOP</span>':''}</div><div class="ri">${a.from}–${a.to} &middot; ${a.reason}</div></div></div>
+        ${self?`<span class="tag ${a.status==='Approved'?'g':a.status==='Rejected'?'r':'a'}">${a.status}</span>`:`<div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm editable" onclick="decideLeave(${a.id},true)">Approve</button><button class="btn btn-ghost btn-sm editable" onclick="decideLeave(${a.id},false)">Reject</button></div>`}</div>`;}).join('')||'<div class="note" style="margin:0">Nothing here yet.</div>'}</div>
+    </div>
+  </div>`;
+}
+function applyLeave(meId){
+  const empId=meId||+val('la_emp');
+  const type=val('la_type'),days=+val('la_days'),from=val('la_from')||'—',to=val('la_to')||'—',reason=val('la_reason')||'—';
+  if(!empId||!days){toast('Select employee and number of days');return;}
+  state.leaveApps.unshift({id:lseq++,empId,type,from,to,days,reason,status:'Pending'});
+  logAudit('Applied '+type+' leave ('+days+'d) for emp #'+empId);
+  toast('Leave application submitted for approval');render();
+}
+function decideLeave(id,ok){
+  const a=state.leaveApps.find(x=>x.id===id);if(!a)return;
+  a.status=ok?'Approved':'Rejected';
+  if(ok){const t=state.leaveTypes.find(x=>x.code===a.type);
+    if(t&&t.lop){const at=state.attendance[a.empId]||(state.attendance[a.empId]={totalDays:state.monthDays,lop:0});at.lop=Math.min(at.totalDays,(at.lop||0)+a.days);}
+    else{const b=state.leaveBal[a.empId];if(b&&b[a.type])b[a.type].used+=a.days;}
+  }
+  logAudit((ok?'Approved':'Rejected')+' '+a.type+' leave for emp #'+a.empId);
+  toast('Leave '+(ok?'approved — applied to payroll':'rejected'));render();
+}
+
+let fnfEmp=null;
+function genFNF(n){logAudit('Generated F&F settlement for '+n);toast('F&F statement generated');}
+function vFNF(){
+  const list=emps(); if(!fnfEmp||!list.some(e=>e.id===fnfEmp))fnfEmp=list[0]?list[0].id:null;
+  if(!fnfEmp)return '<div class="panel">No employees in scope.</div>';
+  const e=state.employees.find(x=>x.id===fnfEmp);const c=compute(e);
+  const b=state.leaveBal[e.id]||{EL:{accrued:0,used:0,enc:0}};
+  const elBal=b.EL.accrued-b.EL.used-(b.EL.enc||0);const daily=r(c.basic/30);const enc=r(elBal*daily);
+  const years=Math.max(0,Math.floor((new Date('2026-06-30')-new Date(e.doj))/(365.25*864e5)));
+  const gratuity=years>=5?r(c.basic*15/26*years):0;
+  const bonusAnnual=r(c.bonus*12);
+  const noticeRec=0;
+  const settlement=c.net+enc+gratuity+bonusAnnual-noticeRec;
+  return `
+  <div class="panel" style="margin-bottom:16px"><div class="row-between">
+    <div class="field" style="margin:0;min-width:250px"><label>Employee separating</label><select onchange="fnfEmp=+this.value;render()">${list.map(x=>`<option value="${x.id}" ${x.id===fnfEmp?'selected':''}>${x.name} — ${x.role}</option>`).join('')}</select></div>
+    <div style="text-align:right"><div class="note" style="margin:0">Date of joining ${e.doj} &middot; ${years} yrs service</div><div class="note" style="margin:3px 0 0;color:var(--amber)">⚠ Settle within 2 working days of exit (Labour Codes)</div></div></div></div>
+  <div class="grid2"><div class="panel">
+    <h3>Settlement statement</h3><div class="sub">${e.name}</div>
+    ${mLine('Final month salary (net)',inr(c.net))}
+    ${mLine('Leave encashment ('+elBal+' EL days)',inr(enc))}
+    ${mLine('Gratuity'+(years>=5?'':' — not eligible (<5 yrs)'),inr(gratuity))}
+    ${mLine('Statutory bonus (annual provision)',inr(bonusAnnual))}
+    ${mLine('Notice / recoveries','−'+inr(noticeRec))}
+    ${mLine('Net settlement payable',inr(settlement),true)}
+    <button class="btn btn-primary editable" style="margin-top:14px" onclick="genFNF('${e.name}')">Generate F&amp;F statement</button>
+  </div>
+  <div class="panel"><h3>Basis of computation</h3><div class="sub">How each component is derived</div>
+    <div class="note" style="margin:8px 0 0;line-height:1.85">
+    • <b>Leave encashment</b> = EL balance × (Basic ÷ 30) on the Code-on-Wages base (FR-PR-FNF, FR-LM-ENC).<br>
+    • <b>Gratuity</b> = (15 ÷ 26) × Basic × completed years, payable at ≥ 5 years (FR-PR-GRAT).<br>
+    • <b>Bonus</b> = statutory bonus accrued over the year (FR-PR-GRAT-003).<br>
+    • <b>Recoveries</b> = notice shortfall, advances, asset dues (configurable).<br>
+    • Consolidated and settled within the statutory exit window (FR-PR-FNF-002).</div></div></div>`;
+}
+
+function vAudit(){
+  return `<div class="panel flush"><table><thead><tr><th>When</th><th>User</th><th>Role</th><th>Action</th></tr></thead><tbody>
+  ${state.audit.length?state.audit.slice(0,80).map(a=>`<tr><td class="mono" style="font-size:9.6px;white-space:nowrap">${a.t}</td><td style="font-weight:600">${a.who}</td><td>${a.role}</td><td>${a.action}</td></tr>`).join(''):'<tr><td colspan="4" style="color:var(--steel)">No activity recorded yet in this session.</td></tr>'}
+  </tbody></table></div><div class="note">Immutable activity log (NFR-SEC-002): sign-ins, approvals, payroll runs and configuration changes are recorded with user, role and timestamp.</div>`;
+}
+
+
+/* ===================== Department / Bank / Contractor masters ===================== */
+function deptName(id){const d=state.departments.find(x=>x.id===id);return d?d.name:'—';}
+function deptCode(id){const d=state.departments.find(x=>x.id===id);return d?d.code:'—';}
+function bankName(id){const b=state.banks.find(x=>x.id===id);return b?b.name:'—';}
+function contractorName(id){const c=state.contractors.find(x=>x.id===id);return c?c.name:'—';}
+function contractorTag(e){const c=state.contractors.find(x=>x.id===e.contractor);if(!c)return '<span class="tag r">None</span>';return c.id==='C0'?'<span class="tag g">On roll</span>':`<span class="tag o">${c.code}</span>`;}
+
+function toggleDept(){const f=document.getElementById('deptForm');if(f)f.style.display=f.style.display==='none'?'block':'none';}
+function addDept(){const code=val('d_code').toUpperCase(),name=val('d_name');if(!code||!name){toast('Code and name are required');return;}state.departments.push({id:'D'+Date.now(),code,name});logAudit('Added department '+code);toast('Department added');render();}
+function vDeptMaster(){
+  return `
+  <div class="row-between" style="margin-bottom:16px"><div class="sec-title" style="margin:0">${state.departments.length} departments</div>
+    <button class="btn btn-orange editable" onclick="toggleDept()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add department</button></div>
+  <div id="deptForm" class="panel" style="display:none;margin-bottom:16px"><h3 style="margin-bottom:14px">New department</h3>
+    <div class="form-grid"><div class="field"><label>Code *</label><input id="d_code" placeholder="e.g. LOG"></div>
+      <div class="field"><label>Department name *</label><input id="d_name" placeholder="e.g. Logistics"></div></div>
+    <div style="display:flex;gap:10px"><button class="btn btn-primary" onclick="addDept()">Save department</button><button class="btn btn-ghost" onclick="toggleDept()">Cancel</button></div></div>
+  <div class="panel flush"><table><thead><tr><th>Code</th><th>Department</th><th class="num">Headcount</th><th>Plants covered</th></tr></thead><tbody>
+  ${state.departments.map(d=>{const list=emps().filter(e=>e.dept===d.id);const pl=[...new Set(list.map(e=>e.plant))].map(pid=>{const p=PLANTS.find(x=>x.id===pid);return p?p.name:pid;}).join(', ');
+    return `<tr><td><span class="tag b">${d.code}</span></td><td style="font-weight:600">${d.name}</td><td class="num">${list.length}</td><td>${pl||'—'}</td></tr>`;}).join('')}
+  </tbody></table></div>
+  <div class="note">Department is a <b>mandatory</b> attribute on every employee and is referenced for cost-centre grouping and reporting (FR-ORG-003).</div>`;
+}
+
+function toggleBank(){const f=document.getElementById('bankForm');if(f)f.style.display=f.style.display==='none'?'block':'none';}
+function addBank(){const name=val('bk_name');if(!name){toast('Bank name is required');return;}state.banks.push({id:'B'+Date.now(),name,ifsc:(val('bk_ifsc')||'—').toUpperCase(),branch:val('bk_branch')||'—'});logAudit('Added bank '+name);toast('Bank added');render();}
+function vBankMaster(){
+  return `
+  <div class="row-between" style="margin-bottom:16px"><div class="sec-title" style="margin:0">${state.banks.length} banks</div>
+    <button class="btn btn-orange editable" onclick="toggleBank()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add bank</button></div>
+  <div id="bankForm" class="panel" style="display:none;margin-bottom:16px"><h3 style="margin-bottom:14px">New bank</h3>
+    <div class="form-grid"><div class="field"><label>Bank name *</label><input id="bk_name" placeholder="e.g. Kotak Mahindra Bank"></div>
+      <div class="field"><label>IFSC</label><input id="bk_ifsc" placeholder="KKBK0000123"></div>
+      <div class="field"><label>Branch</label><input id="bk_branch" placeholder="Branch name"></div></div>
+    <div style="display:flex;gap:10px"><button class="btn btn-primary" onclick="addBank()">Save bank</button><button class="btn btn-ghost" onclick="toggleBank()">Cancel</button></div></div>
+  <div class="panel flush"><table><thead><tr><th>Bank</th><th>IFSC</th><th>Branch</th><th class="num">Employees</th></tr></thead><tbody>
+  ${state.banks.map(b=>{const n=emps().filter(e=>e.bankId===b.id).length;return `<tr><td style="font-weight:600">${b.name}</td><td class="mono">${b.ifsc}</td><td>${b.branch}</td><td class="num">${n}</td></tr>`;}).join('')}
+  </tbody></table></div>
+  <div class="note">The bank master is linked from the employee record and drives the salary disbursement / bank advice file (FR-PR-PAY-002).</div>`;
+}
+
+function toggleCon(){const f=document.getElementById('conForm');if(f)f.style.display=f.style.display==='none'?'block':'none';}
+function addContractor(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  const code=g('c_code').toUpperCase(),name=g('c_name');
+  if(!code||!name){toast('Code and name are required');return;}
+  const reqd={'Address 1':g('c_addr1'),'Pin code':g('c_pin'),'Registration no':g('c_reg'),'TAN no':g('c_tan'),'PAN no':g('c_pan'),'Bank name':g('c_bname'),'Bank A/C no':g('c_bacc'),'IFSC code':g('c_ifsc'),'Contact name':g('c_cname'),'Contact number':g('c_cno'),'Email ID':g('c_email')};
+  for(const k in reqd){if(!reqd[k]){toast(k+' is required');return;}}
+  state.contractors.push({id:'C'+Date.now(),code,name,addr1:g('c_addr1'),addr2:g('c_addr2'),state:g('c_state'),city:g('c_city'),pin:g('c_pin'),regNo:g('c_reg'),tan:g('c_tan').toUpperCase(),pan:g('c_pan').toUpperCase(),bankName:g('c_bname'),bankAcc:g('c_bacc'),ifsc:g('c_ifsc').toUpperCase(),contactName:g('c_cname'),contactNo:g('c_cno'),email:g('c_email'),status:g('c_status')||'Active',gst:(g('c_gst')||'—').toUpperCase(),license:g('c_reg'),plant:g('c_plant'),dept:g('c_dept')});
+  logAudit('Added contractor '+code);toast('Contractor added');render();
+}
+function vContractorMaster(){
+  const stTag=s=>`<span class="tag ${s==='Active'?'g':s==='Hold'?'a':'r'}">${s}</span>`;
+  return `
+  <div class="row-between" style="margin-bottom:16px"><div class="sec-title" style="margin:0">${state.contractors.length} contractors</div>
+    <button class="btn btn-orange editable" onclick="newCon()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add contractor</button></div>
+  <div class="panel flush"><table><thead><tr><th>Code</th><th>Contractor</th><th>City</th><th>State</th><th>PAN</th><th>GST</th><th>Plant</th><th>Dept</th><th>Status</th><th class="num">Workers</th><th></th></tr></thead><tbody>
+  ${state.contractors.map(c=>{const n=emps().filter(e=>e.contractor===c.id).length;const p=c.plant==='all'?'All':((PLANTS.find(x=>x.id===c.plant)||{}).name||c.plant);const d=c.dept==='all'?'All':deptName(c.dept);const ci=c.city==='—'?'—':lookupName('city',c.city);const st=c.state==='—'?'—':lookupName('stateM',c.state);
+    return `<tr><td><span class="tag ${c.id==='C0'?'g':'o'}">${c.code}</span></td><td style="font-weight:600">${c.name}</td><td>${ci}</td><td>${st}</td><td class="mono">${c.pan}</td><td class="mono">${c.gst}</td><td>${p}</td><td>${d}</td><td>${stTag(c.status||'Active')}</td><td class="num">${n}</td><td style="text-align:right"><button class="btn btn-ghost btn-sm" onclick="openCon('${c.id}')">Open</button></td></tr>`;}).join('')}
+  </tbody></table></div>
+  <div class="note">Full contractor record — address, statutory (Reg / TAN / PAN / GST), bank and contact — linked to <b>plant</b> and <b>department</b>; <b>Status</b> governs whether a contractor can be assigned. Each employee references a contractor.</div>`;
+}
+
+let conSel=null;
+function vContractorEmp(){
+  const cons=state.contractors; if(!conSel||!cons.some(c=>c.id===conSel))conSel=cons[0].id;
+  const c=cons.find(x=>x.id===conSel); const list=emps().filter(e=>e.contractor===conSel);
+  return `
+  <div class="panel" style="margin-bottom:16px"><div class="row-between">
+    <div class="field" style="margin:0;min-width:300px"><label>Contractor</label><select onchange="conSel=this.value;render()">${cons.map(x=>`<option value="${x.id}" ${x.id===conSel?'selected':''}>${x.code} — ${x.name}</option>`).join('')}</select></div>
+    <div style="text-align:right"><div class="note" style="margin:0">${c.license!=='—'?'CLRA '+c.license+' · ':''}${c.plant==='all'?'All plants':((PLANTS.find(p=>p.id===c.plant)||{}).name||'')}</div><div class="note" style="margin:2px 0 0">${list.length} worker(s) in scope</div></div></div></div>
+  <div class="panel flush"><table><thead><tr><th>Employee</th><th>Designation</th><th>Department</th><th>Plant</th><th class="num">Monthly gross</th></tr></thead><tbody>
+  ${list.length?list.map(e=>{const cc=compute(e);const p=(PLANTS.find(x=>x.id===e.plant)||{}).name||e.plant;return `<tr><td>${empCell(e)}</td><td>${e.role}</td><td>${deptName(e.dept)}</td><td>${p}</td><td class="num">${inr(cc.gross)}</td></tr>`;}).join(''):'<tr><td colspan="5" style="color:var(--steel)">No employees under this contractor in scope.</td></tr>'}
+  </tbody></table></div>
+  <div class="note">Contractor-wise employee register — links Contractor ↔ Department ↔ Plant ↔ Employee master.</div>`;
+}
+
+function toggleSide(){const s=document.getElementById('side');const open=s.classList.toggle('open');const sc=document.getElementById('scrim');if(sc)sc.classList.toggle('show',open);}
+
+/* ===================== Generic lookup masters (Skill/Grade/Category/etc.) ===================== */
+function lookupName(key,code){const a=state.M[key]||[];const it=a.find(x=>x.code===code);return it?it.name:'—';}
+function toggleLk(key){const el=document.getElementById('lk_'+key);if(el)el.style.display=el.style.display==='none'?'block':'none';}
+function addLookup(key){const cfg=MCFG[key];
+  const code=val('lk_'+key+'_code').toUpperCase(),name=val('lk_'+key+'_name');
+  if(!code||!name){toast('Code and name are required');return;}
+  const rec={code,name};
+  if(cfg.parent){rec[cfg.parent.key==='country'?'country':'state']=val('lk_'+key+'_parent');}
+  state.M[key].push(rec);logAudit('Added '+cfg.title+' '+code);toast(cfg.title+' added');render();}
+function vLookup(key){
+  const cfg=MCFG[key];const arr=state.M[key]||[];
+  const parentArr=cfg.parent?(state.M[cfg.parent.key]||[]):null;
+  const pfield=cfg.parent?(cfg.parent.key==='country'?'country':'state'):null;
+  return `
+  <div class="row-between" style="margin-bottom:16px"><div class="sec-title" style="margin:0">${arr.length} ${cfg.title.toLowerCase()} record(s)</div>
+    <button class="btn btn-orange editable" onclick="toggleLk('${key}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add ${cfg.title.toLowerCase()}</button></div>
+  <div id="lk_${key}" class="panel" style="display:none;margin-bottom:16px"><h3 style="margin-bottom:14px">New ${cfg.title.toLowerCase()}</h3>
+    <div class="form-grid">
+      <div class="field"><label>Code *</label><input id="lk_${key}_code" placeholder="CODE"></div>
+      <div class="field"><label>${cfg.title} name *</label><input id="lk_${key}_name" placeholder="Name"></div>
+      ${cfg.parent?`<div class="field"><label>${cfg.parent.label} *</label><select id="lk_${key}_parent">${parentArr.map(p=>`<option value="${p.code}">${p.name}</option>`).join('')}</select></div>`:''}
+    </div>
+    <div style="display:flex;gap:10px"><button class="btn btn-primary" onclick="addLookup('${key}')">Save</button><button class="btn btn-ghost" onclick="toggleLk('${key}')">Cancel</button></div></div>
+  <div class="panel flush"><table><thead><tr><th>Code</th><th>${cfg.title}</th>${cfg.parent?`<th>${cfg.parent.label}</th>`:''}<th class="num">Employees</th></tr></thead><tbody>
+  ${arr.map(it=>{const used=emps().filter(e=>cfg.used(e)===it.code).length;const par=cfg.parent?lookupName(cfg.parent.key,it[pfield]):null;
+    return `<tr><td><span class="tag b">${it.code}</span></td><td style="font-weight:600">${it.name}</td>${cfg.parent?`<td>${par}</td>`:''}<td class="num">${used}</td></tr>`;}).join('')}
+  </tbody></table></div>
+  <div class="note">Common master — referenced from the Employee Master (and elsewhere) and reusable across the system. Add new records here and they appear in the relevant dropdowns.</div>`;
+}
+
+
+/* ===================== Employee single-page (tabbed) record ===================== */
+function openEmp(id){const e=state.employees.find(x=>x.id===id);if(!e)return;state.empEdit=id;state.empForm=Object.assign({},e);state.view='emp-detail';if(window&&window.scrollTo)window.scrollTo(0,0);render();}
+function newEmp(){state.empEdit='new';state.empForm={};state.view='emp-detail';if(window&&window.scrollTo)window.scrollTo(0,0);render();}
+function cancelEmp(){state.empEdit=null;state.empForm=null;state.view='emp-master';render();}
+function switchEmpTab(t){document.querySelectorAll('.etab').forEach(b=>b.classList.toggle('on',b.dataset.t===t));document.querySelectorAll('.epane').forEach(p=>p.style.display=p.dataset.t===t?'block':'none');}
+function saveEmp(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  const name=g('f_name'),ctc=+g('f_ctc');
+  if(!name||!ctc){toast('Name and Annual CTC are required');switchEmpTab('personal');return;}
+  const dept=g('f_dept'),contractor=g('f_contractor'),mobile=g('f_mobile'),bankAcc=g('f_bankacc'),ifsc=g('f_ifsc');
+  if(!mobile){toast('Mobile number is mandatory');switchEmpTab('personal');return;}
+  if(!dept||!contractor){toast('Department and Contractor are mandatory');switchEmpTab('org');return;}
+  if(!bankAcc||!ifsc){toast('Bank A/C and IFSC are mandatory');switchEmpTab('bank');return;}
+  const data={name,role:g('f_role')||'Employee',ctc,state:g('f_state'),plant:g('f_plant'),dept,contractor,bankId:g('f_bank'),bankAcc,ifsc:ifsc.toUpperCase(),
+    gender:g('f_gender'),dob:g('f_dob'),doj:g('f_doj')||'2024-04-01',marital:g('f_marital'),mobile,email:g('f_email')||'—',
+    skill:g('f_skill'),funcArea:g('f_funcarea'),category:g('f_category'),qual:g('f_qual'),grade:g('f_grade'),
+    country:g('f_country'),stateCode:g('f_addrstate'),cityCode:g('f_city'),
+    pan:(g('f_pan')||'—').toUpperCase(),uan:g('f_uan')||'—',aadhaar:g('f_aadhaar')||'—',medicalScore:g('f_medical')||'—',
+    fixedCostPerDay:+g('f_fixedday')||Math.round(ctc/365),perDayCTC:+g('f_perdayctc')||Math.round(ctc/365),sapCode:g('f_sap'),photo:(state.empForm&&state.empForm.photo)||'',docs:(state.empForm&&state.empForm.docs)||[]};
+  if(state.empEdit==='new'){
+    const id=seq++; data.id=id; data.empCode=genEmpCode(); data.regime=null; data.decl80c=0;
+    state.employees.push(data);
+    state.attendance[id]={totalDays:state.monthDays,lop:0};
+    state.leaveBal[id]={EL:{accrued:0,used:0,enc:0},CL:{accrued:0,used:0,enc:0},SL:{accrued:0,used:0,enc:0}};
+    logAudit('Created employee '+name+' ('+data.empCode+')'); toast(name+' created');
+  } else {
+    const idx=state.employees.findIndex(e=>e.id===state.empEdit);
+    if(idx>=0){Object.assign(state.employees[idx],data);logAudit('Updated employee '+name+' ('+state.employees[idx].empCode+')');toast(name+' updated');}
+  }
+  state.empEdit=null; state.empForm=null; state.view='emp-master'; render();
+}
+function vEmpDetail(){
+  const f=state.empForm||{}; const isNew=state.empEdit==='new'; const M=state.M;
+  const esc=v=>String(v==null?'':v).replace(/"/g,'&quot;');
+  const txt=(id,label,val,ph,type)=>`<div class="field"><label>${label}</label><input class="editable" id="${id}" type="${type||'text'}" value="${esc(val)}" placeholder="${ph||''}"></div>`;
+  const sel=(id,label,opts,cur)=>`<div class="field"><label>${label}</label><select class="editable" id="${id}">${opts.map(o=>`<option value="${esc(o.v)}" ${String(o.v)===String(cur==null?'':cur)?'selected':''}>${o.t}</option>`).join('')}</select></div>`;
+  const optsM=arr=>arr.map(x=>({v:x.code,t:x.name}));
+  const plantOpts=allowedPlants().map(pid=>{const p=PLANTS.find(x=>x.id===pid)||{};return {v:pid,t:pid+' — '+(p.name||pid)};});
+  const tabs=[['personal','Personal Details'],['job','Job'],['org','Plant & Org'],['class','Classification'],['address','Address'],['stat','Statutory & IDs'],['bank','Bank'],['cost','Cost'],['docs','Documents']];
+  const pane=(key,inner)=>`<div class="epane" data-t="${key}" style="display:${key==='personal'?'block':'none'}"><div class="form-grid">${inner}</div></div>`;
+  return `
+  <div class="edet-head">
+    <button class="btn btn-ghost btn-sm" onclick="cancelEmp()">← Back</button>
+    <div class="emp">${f.photo?`<img class="av" style="object-fit:cover" src="${f.photo}">`:`<span class="av" style="background:${avColor(f.id||0)}">${initials(f.name||'New')}</span>`}
+      <div><div class="nm">${isNew?'New employee':(f.name||'')}</div><div class="rl">${isNew?'Complete the tabs and save':((f.empCode||'')+' · '+(f.role||''))}</div></div></div>
+    <div style="margin-left:auto;display:flex;gap:8px"><button class="btn btn-primary editable" onclick="saveEmp()">${isNew?'Create employee':'Save changes'}</button></div>
+  </div>
+  <div class="etabs">${tabs.map((t,i)=>`<button class="etab ${i===0?'on':''}" data-t="${t[0]}" onclick="switchEmpTab('${t[0]}')">${t[1]}</button>`).join('')}</div>
+  ${pane('personal',
+    photoField('emp',f.photo)+
+    txt('f_name','Full name *',f.name,'e.g. Kabir Mehta')+
+    sel('f_gender','Gender',[{v:'Male',t:'Male'},{v:'Female',t:'Female'},{v:'Other',t:'Other'}],f.gender)+
+    txt('f_dob','Date of birth',f.dob,'','date')+
+    sel('f_marital','Marital status',[{v:'Single',t:'Single'},{v:'Married',t:'Married'},{v:'Other',t:'Other'}],f.marital)+
+    txt('f_mobile','Mobile no. *',f.mobile,'98xxxxxxxx')+
+    txt('f_email','Email ID',f.email,'name@company.in'))}
+  ${pane('job',
+    txt('f_role','Designation',f.role,'e.g. Machine Operator')+
+    txt('f_doj','Date of joining',f.doj,'','date')+
+    sel('f_grade','Grade',optsM(M.grade),f.grade)+
+    txt('f_sap','SAP code (integration)',f.sapCode,'e.g. 00012345'))}
+  ${pane('org',
+    sel('f_plant','Plant code *',plantOpts,f.plant)+
+    sel('f_dept','Department *',state.departments.map(d=>({v:d.id,t:d.name})),f.dept)+
+    sel('f_contractor','Contractor *',state.contractors.map(c=>({v:c.id,t:c.code+' — '+c.name})),f.contractor))}
+  ${pane('class',
+    sel('f_skill','Skill',optsM(M.skill),f.skill)+
+    sel('f_funcarea','Functional area',optsM(M.funcarea),f.funcArea)+
+    sel('f_category','Category',optsM(M.category),f.category)+
+    sel('f_qual','Qualification',optsM(M.qual),f.qual))}
+  ${pane('address',
+    sel('f_country','Country',optsM(M.country),f.country)+
+    sel('f_addrstate','State',optsM(M.stateM),f.stateCode)+
+    sel('f_city','City',optsM(M.city),f.cityCode))}
+  ${pane('stat',
+    sel('f_state','Work state (for PT) *',STATES.map(s=>({v:s,t:s})),f.state)+
+    txt('f_pan','PAN no.',f.pan,'ABCPX0000X')+
+    txt('f_aadhaar','Aadhaar no.',f.aadhaar,'XXXX XXXX XXXX')+
+    txt('f_uan','UAN (PF)',f.uan,'1002003004xx')+
+    txt('f_medical','Medical test score',f.medicalScore,'e.g. A1 / Fit'))}
+  ${pane('bank',
+    sel('f_bank','Bank name *',state.banks.map(b=>({v:b.id,t:b.name})),f.bankId)+
+    txt('f_bankacc','Bank A/C no. *',f.bankAcc,'Account number')+
+    txt('f_ifsc','IFSC code *',f.ifsc,'HDFC0000123'))}
+  ${pane('cost',
+    txt('f_ctc','Annual CTC *',f.ctc,'1200000','number')+
+    txt('f_fixedday','Fixed cost / per day',f.fixedCostPerDay,'auto','number')+
+    txt('f_perdayctc','Per day cost (CTC)',f.perDayCTC,'auto','number')+payComponents(f))}
+  ${pane('docs',docPane('emp'))}
+  `;
+}
+
+
+/* ===================== Contractor single-page (tabbed) record ===================== */
+function openCon(id){const c=state.contractors.find(x=>x.id===id);if(!c)return;state.conEdit=id;state.conForm=Object.assign({},c);state.view='con-detail';if(window&&window.scrollTo)window.scrollTo(0,0);render();}
+function newCon(){state.conEdit='new';state.conForm={};state.view='con-detail';if(window&&window.scrollTo)window.scrollTo(0,0);render();}
+function cancelCon(){state.conEdit=null;state.conForm=null;state.view='contractor-master';render();}
+function saveCon(){
+  const g=id=>{const e=document.getElementById(id);return e?e.value.trim():'';};
+  const code=g('c_code').toUpperCase(),name=g('c_name');
+  if(!code||!name){toast('Code and Name are required');switchEmpTab('identity');return;}
+  if(!g('c_addr1')||!g('c_pin')){toast('Address 1 and Pin code are required');switchEmpTab('address');return;}
+  if(!g('c_reg')||!g('c_tan')||!g('c_pan')){toast('Registration, TAN and PAN are required');switchEmpTab('statutory');return;}
+  if(!g('c_bname')||!g('c_bacc')||!g('c_ifsc')){toast('Bank name, A/C and IFSC are required');switchEmpTab('bank');return;}
+  if(!g('c_cname')||!g('c_cno')||!g('c_email')){toast('Contact name, number and email are required');switchEmpTab('contact');return;}
+  const data={code,name,addr1:g('c_addr1'),addr2:g('c_addr2'),state:g('c_state'),city:g('c_city'),pin:g('c_pin'),
+    regNo:g('c_reg'),tan:g('c_tan').toUpperCase(),pan:g('c_pan').toUpperCase(),gst:(g('c_gst')||'—').toUpperCase(),
+    bankName:g('c_bname'),bankAcc:g('c_bacc'),ifsc:g('c_ifsc').toUpperCase(),
+    contactName:g('c_cname'),contactNo:g('c_cno'),email:g('c_email'),status:g('c_status')||'Active',
+    license:g('c_reg'),plant:g('c_plant'),dept:g('c_dept'),sapCode:g('c_sap'),photo:(state.conForm&&state.conForm.photo)||'',docs:(state.conForm&&state.conForm.docs)||[]};
+  if(state.conEdit==='new'){
+    data.id='C'+Date.now(); state.contractors.push(data);
+    logAudit('Created contractor '+code); toast(name+' created');
+  } else {
+    const idx=state.contractors.findIndex(c=>c.id===state.conEdit);
+    if(idx>=0){Object.assign(state.contractors[idx],data);logAudit('Updated contractor '+code);toast(name+' updated');}
+  }
+  state.conEdit=null; state.conForm=null; state.view='contractor-master'; render();
+}
+function vConDetail(){
+  const c=state.conForm||{}; const isNew=state.conEdit==='new'; const M=state.M;
+  const esc=v=>String(v==null?'':v).replace(/"/g,'&quot;');
+  const txt=(id,label,val,ph)=>`<div class="field"><label>${label}</label><input class="editable" id="${id}" value="${esc(val)}" placeholder="${ph||''}"></div>`;
+  const sel=(id,label,opts,cur)=>`<div class="field"><label>${label}</label><select class="editable" id="${id}">${opts.map(o=>`<option value="${esc(o.v)}" ${String(o.v)===String(cur==null?'':cur)?'selected':''}>${o.t}</option>`).join('')}</select></div>`;
+  const optsM=arr=>arr.map(x=>({v:x.code,t:x.name}));
+  const plantOpts=allowedPlants().map(pid=>{const p=PLANTS.find(x=>x.id===pid)||{};return {v:pid,t:pid+' — '+(p.name||pid)};});
+  const tabs=[['identity','Identity'],['address','Address'],['statutory','Statutory'],['bank','Bank'],['contact','Contact & Links'],['docs','Documents']];
+  const pane=(key,inner)=>`<div class="epane" data-t="${key}" style="display:${key==='identity'?'block':'none'}"><div class="form-grid">${inner}</div></div>`;
+  return `
+  <div class="edet-head">
+    <button class="btn btn-ghost btn-sm" onclick="cancelCon()">← Back</button>
+    <div class="emp">${c.photo?`<img class="av" style="object-fit:cover" src="${c.photo}">`:`<span class="av" style="background:${avColor((c.code||'C').charCodeAt(0))}">${initials(c.name||'New')}</span>`}
+      <div><div class="nm">${isNew?'New contractor':(c.name||'')}</div><div class="rl">${isNew?'Complete the tabs and save':((c.code||'')+' · '+(c.status||'Active'))}</div></div></div>
+    <div style="margin-left:auto;display:flex;gap:8px"><button class="btn btn-primary editable" onclick="saveCon()">${isNew?'Create contractor':'Save changes'}</button></div>
+  </div>
+  <div class="etabs">${tabs.map((t,i)=>`<button class="etab ${i===0?'on':''}" data-t="${t[0]}" onclick="switchEmpTab('${t[0]}')">${t[1]}</button>`).join('')}</div>
+  ${pane('identity',
+    photoField('con',c.photo)+
+    txt('c_code','Code *',c.code,'e.g. SECURE')+
+    txt('c_name','Name *',c.name,'e.g. SecureForce Services')+
+    sel('c_status','Status *',[{v:'Active',t:'Active'},{v:'Hold',t:'Hold'},{v:'Disable',t:'Disable'}],c.status)+
+    txt('c_sap','SAP code (integration)',c.sapCode,'e.g. V00012345'))}
+  ${pane('address',
+    txt('c_addr1','Address 1 *',c.addr1,'Street / building')+
+    txt('c_addr2','Address 2',c.addr2,'Area / landmark')+
+    sel('c_state','State *',optsM(M.stateM),c.state)+
+    sel('c_city','City *',optsM(M.city),c.city)+
+    txt('c_pin','Pin code *',c.pin,'411001'))}
+  ${pane('statutory',
+    txt('c_reg','Registration no. *',c.regNo,'CLRA/2025/0000')+
+    txt('c_tan','TAN no. *',c.tan,'PNES12345F')+
+    txt('c_pan','PAN no. *',c.pan,'AABCS1234K')+
+    txt('c_gst','GST no.',c.gst,'27AABCS1234K1Z5'))}
+  ${pane('bank',
+    txt('c_bname','Bank name *',c.bankName,'HDFC Bank')+
+    txt('c_bacc','Bank A/C no. *',c.bankAcc,'Account number')+
+    txt('c_ifsc','IFSC code *',c.ifsc,'HDFC0000123'))}
+  ${pane('contact',
+    txt('c_cname','Contact name *',c.contactName,'Contact person')+
+    txt('c_cno','Contact number *',c.contactNo,'98xxxxxxxx')+
+    txt('c_email','Email ID *',c.email,'ops@vendor.in')+
+    sel('c_plant','Plant *',plantOpts,c.plant)+
+    sel('c_dept','Department *',state.departments.map(d=>({v:d.id,t:d.name})),c.dept))}
+  ${pane('docs',docPane('con'))}
+  `;
+}
+
+
+/* ===================== Photo / document uploads, Code Setup, Challans ===================== */
+function genEmpCode(){const c=state.empCodeCfg;const code=(c.prefix||'EMP')+(c.sep||'')+String(c.next||1).padStart(c.pad||3,'0');c.next=(c.next||1)+1;return code;}
+function readFileAs(input,cb){const fl=input&&input.files&&input.files[0];if(!fl){toast('Choose a file first');return;}const rd=new FileReader();rd.onload=()=>cb(rd.result,fl);rd.readAsDataURL(fl);}
+function downscaleImg(dataUrl,max,cb){try{const img=new Image();img.onload=()=>{const sc=Math.min(1,max/Math.max(img.width||max,img.height||max));const w=Math.max(1,Math.round((img.width||max)*sc)),hh=Math.max(1,Math.round((img.height||max)*sc));const cv=document.createElement('canvas');cv.width=w;cv.height=hh;cv.getContext('2d').drawImage(img,0,0,w,hh);cb(cv.toDataURL('image/jpeg',0.82));};img.onerror=()=>cb(dataUrl);img.src=dataUrl;}catch(e){cb(dataUrl);}}
+function setPhoto(scope){const inp=document.getElementById(scope+'_photo_file');const form=scope==='emp'?state.empForm:state.conForm;if(!form)return;readFileAs(inp,d=>{downscaleImg(d,320,small=>{form.photo=small;const img=document.getElementById(scope+'_photo_img');if(img){img.src=small;img.style.display='block';}const ph=document.getElementById(scope+'_photo_ph');if(ph)ph.style.display='none';toast('Photo attached');});});}
+function photoField(scope,photo){return `<div class="field" style="grid-column:1/-1"><label>Photograph</label><div class="photo-wrap"><div class="photo-box"><img id="${scope}_photo_img" src="${photo||''}" style="display:${photo?'block':'none'}"><span id="${scope}_photo_ph" class="photo-ph" style="display:${photo?'none':'block'}">No photo</span></div><div><input class="editable" id="${scope}_photo_file" type="file" accept="image/*" onchange="setPhoto('${scope}')"><div class="note" style="margin:6px 0 0">JPG / PNG — appears on the profile.</div></div></div></div>`;}
+function docRows(scope){const form=scope==='emp'?state.empForm:state.conForm;const docs=(form&&form.docs)||[];return docs.length?docs.map((d,i)=>`<div class="docrow"><span class="dn"><b>${d.type}</b> · ${d.name}</span><span><a class="dl" href="${d.data}" target="_blank" rel="noopener">View</a><button class="btn btn-ghost btn-sm editable" onclick="rmDoc('${scope}',${i})">Remove</button></span></div>`).join(''):'<div class="note" style="margin:0">No documents uploaded yet.</div>';}
+function renderDocs(scope){const host=document.getElementById(scope+'_doclist');if(host)host.innerHTML=docRows(scope);}
+function addDoc(scope){const form=scope==='emp'?state.empForm:state.conForm;if(!form)return;const type=document.getElementById(scope+'_doc_type').value;const inp=document.getElementById(scope+'_doc_file');readFileAs(inp,(d,fl)=>{form.docs=form.docs||[];form.docs.push({type,name:fl.name,data:d});inp.value='';renderDocs(scope);toast('Document added');});}
+function rmDoc(scope,i){const form=scope==='emp'?state.empForm:state.conForm;(form.docs||[]).splice(i,1);renderDocs(scope);}
+function docPane(scope){const types=['Aadhaar','PAN Card','Education Certificate','Experience Certificate','Medical Certificate','Bank Proof','Contract / Agreement','CLRA Licence','GST Certificate','Photograph','Other'];
+  return `<div class="field" style="grid-column:1/-1"><label>Upload document / certificate</label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <select class="editable" id="${scope}_doc_type" style="max-width:230px">${types.map(o=>`<option>${o}</option>`).join('')}</select>
+      <input class="editable" id="${scope}_doc_file" type="file">
+      <button class="btn btn-primary editable" onclick="addDoc('${scope}')">Add document</button></div></div>
+  <div class="field" style="grid-column:1/-1"><label>Uploaded documents</label><div id="${scope}_doclist">${docRows(scope)}</div></div>`;}
+
+function vCodeSetup(){
+  const c=state.empCodeCfg;const preview=(c.prefix||'')+(c.sep||'')+String(c.next||1).padStart(c.pad||3,'0');
+  return `
+  <div class="panel" style="max-width:580px"><h3>Employee code policy</h3><div class="sub">Define how new employee codes are generated as per company policy.</div>
+    <div class="form-grid" style="margin-top:6px">
+      <div class="field"><label>Prefix</label><input class="editable" value="${c.prefix||''}" onchange="state.empCodeCfg.prefix=this.value;render()"></div>
+      <div class="field"><label>Separator</label><input class="editable" value="${c.sep||''}" placeholder="(none)" onchange="state.empCodeCfg.sep=this.value;render()"></div>
+      <div class="field"><label>Number of digits</label><input class="editable" type="number" min="1" max="8" value="${c.pad}" onchange="state.empCodeCfg.pad=Math.max(1,Math.min(8,+this.value||3));render()"></div>
+      <div class="field"><label>Next number</label><input class="editable" type="number" min="1" value="${c.next}" onchange="state.empCodeCfg.next=Math.max(1,+this.value||1);render()"></div>
+    </div>
+    <div class="note">The next new employee will be coded <b>${preview}</b>. The number auto-increments after each employee is created. SAP code is captured per employee on the Job tab for ERP integration.</div>
+  </div>`;
+}
+
+function conStatTotal(cid,type){let t=0;emps().filter(e=>e.contractor===cid).forEach(e=>{const c=compute(e);t+=type==='PF'?(c.eePF+c.erPF):type==='ESI'?(c.eeESI+c.erESI):type==='LWF'?(c.lwf+c.lwfEr):type==='PT'?c.pt:0;});return Math.round(t);}
+function toggleChallan(){const fm=document.getElementById('chForm');if(fm){const show=fm.style.display==='none';fm.style.display=show?'block':'none';if(show)chEstimate();}}
+function chEstimate(){const con=document.getElementById('ch_con'),type=document.getElementById('ch_type'),amt=document.getElementById('ch_amt');if(con&&type&&amt)amt.value=conStatTotal(con.value,type.value);}
+function readChallanFile(input,cb){const fl=input&&input.files&&input.files[0];if(!fl){cb(null);return;}const rd=new FileReader();rd.onload=()=>{if(/^image\//.test(fl.type)){downscaleImg(rd.result,1100,small=>cb({name:fl.name,data:small}));}else{cb({name:fl.name,data:rd.result});}};rd.readAsDataURL(fl);}
+function attachChallanDoc(id,input){readChallanFile(input,doc=>{if(!doc)return;const ch=state.challans.find(x=>x.id===id);if(ch){ch.doc=doc;logAudit('Attached document to '+ch.type+' challan '+ch.no);toast('Challan document attached');render();}});}
+function addChallan(){const con=val('ch_con'),type=val('ch_type'),month=val('ch_month'),year=val('ch_year'),no=val('ch_no'),amt=+val('ch_amt'),date=val('ch_date'),status=val('ch_status')||'Paid';
+  if(!con||!no||!amt){toast('Contractor, challan no. and amount are required');return;}
+  readChallanFile(document.getElementById('ch_doc'),doc=>{
+    state.challans.unshift({id:Date.now(),con,type,month,year,no,amt,date,status,doc:doc||null});
+    logAudit('Recorded '+type+' challan '+no+(doc?' (with document)':''));toast('Challan recorded');render();
+  });}
+function vChallans(){
+  const types=['PF','ESI','LWF','PT'];
+  return `
+  <div class="row-between" style="margin-bottom:16px"><div class="sec-title" style="margin:0">${state.challans.length} challan record(s)</div>
+    <button class="btn btn-orange editable" onclick="toggleChallan()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add challan</button></div>
+  <div id="chForm" class="panel" style="display:none;margin-bottom:16px"><h3 style="margin-bottom:14px">New challan</h3>
+    <div class="form-grid">
+      <div class="field"><label>Contractor *</label><select id="ch_con" onchange="chEstimate()">${state.contractors.map(c=>`<option value="${c.id}">${c.code} — ${c.name}</option>`).join('')}</select></div>
+      <div class="field"><label>Challan type *</label><select id="ch_type" onchange="chEstimate()">${types.map(t=>`<option>${t}</option>`).join('')}</select></div>
+      <div class="field"><label>Period (month)</label><select id="ch_month">${MONTHS.map(m=>`<option ${m===state.payMonth?'selected':''}>${m}</option>`).join('')}</select></div>
+      <div class="field"><label>Year</label><input id="ch_year" type="number" value="${state.payYear}"></div>
+      <div class="field"><label>Challan no. *</label><input id="ch_no" placeholder="CRN / TRRN / ESIC / PT ref"></div>
+      <div class="field"><label>Amount *</label><div class="inwrap"><span class="cur">₹</span><input id="ch_amt" type="number" placeholder="0"></div></div>
+      <div class="field"><label>Paid date</label><input id="ch_date" type="date"></div>
+      <div class="field"><label>Status</label><select id="ch_status"><option>Paid</option><option>Pending</option></select></div>
+      <div class="field"><label>Challan document</label><input id="ch_doc" type="file" accept="application/pdf,image/*"></div>
+    </div>
+    <div class="note">Amount is auto-estimated from the contractor's employees for the selected statutory type — adjust to the actual challan figure.</div>
+    <div style="display:flex;gap:10px"><button class="btn btn-primary" onclick="addChallan()">Save challan</button><button class="btn btn-ghost" onclick="toggleChallan()">Cancel</button></div></div>
+  <div class="panel flush"><table><thead><tr><th>Contractor</th><th>Type</th><th>Period</th><th>Challan No</th><th class="num">Amount</th><th>Paid date</th><th>Status</th><th>Document</th></tr></thead><tbody>
+  ${state.challans.length?state.challans.map(ch=>{const c=state.contractors.find(x=>x.id===ch.con)||{};return `<tr><td><span class="tag o">${c.code||'—'}</span> ${c.name||''}</td><td><span class="tag b">${ch.type}</span></td><td>${ch.month} ${ch.year}</td><td class="mono">${ch.no}</td><td class="num">${inr(ch.amt)}</td><td>${ch.date||'—'}</td><td><span class="tag ${ch.status==='Paid'?'g':'a'}">${ch.status}</span></td><td>${ch.doc?`<a class="dl" href="${ch.doc.data}" target="_blank" rel="noopener">View</a> <span style="color:var(--steel-l);font-size:10px">${ch.doc.name||''}</span>`:`<label class="btn btn-ghost btn-sm editable" style="cursor:pointer">Attach<input type="file" accept="application/pdf,image/*" hidden onchange="attachChallanDoc(${ch.id},this)"></label>`}</td></tr>`;}).join(''):'<tr><td colspan="8" style="color:var(--steel)">No challans recorded yet.</td></tr>'}
+  </tbody></table></div>
+  <div class="note">Contractor statutory challans — <b>PF, ESI, LWF, PT</b> — recorded per contractor and period, with the <b>challan document</b> (PDF / scan) attached for CLRA / principal-employer compliance.</div>`;
+}
+
+
+/* ===================== Salary structure / payslip components (Cost tab) ===================== */
+function payComp(e){
+  if(!e||!e.ctc){return '<div class="note" style="margin:0">Enter Annual CTC above, then Save or Recalculate to view the monthly salary structure.</div>';}
+  const c=compute(e);
+  const ln=(n,v)=>`<div class="comp-ln"><span>${n}</span><b>${inr(v)}</b></div>`;
+  const earn=[['Basic',c.basic],['House Rent Allowance',c.hra],['Special Allowance',c.special]];
+  const ded=[['Provident Fund (EPF)',c.eePF],['ESI',c.eeESI],['Professional Tax',c.pt],['Labour Welfare Fund',c.lwf],['TDS',c.tds]].filter(x=>x[1]>0);
+  const er=[['Employer PF',c.erPF],['Gratuity',c.gratuity],['ESI (Employer)',c.erESI],['Statutory Bonus',c.bonus],['LWF (Employer)',c.lwfEr]].filter(x=>x[1]>0);
+  return `
+  <div class="comp-grid">
+    <div class="comp-card"><div class="comp-h">Earnings (monthly)</div>${earn.map(x=>ln(x[0],x[1])).join('')}<div class="comp-ln tot"><span>Gross</span><b>${inr(c.gross)}</b></div></div>
+    <div class="comp-card"><div class="comp-h">Deductions (monthly)</div>${ded.length?ded.map(x=>ln(x[0],x[1])).join(''):'<div class="comp-ln"><span>None</span><b>₹0</b></div>'}<div class="comp-ln tot"><span>Total</span><b>${inr(c.totalDed)}</b></div></div>
+    <div class="comp-card net"><div class="comp-h">Net pay (take-home)</div><div class="comp-ln tot" style="border:0;margin:0;padding:0"><span>Monthly</span><b>${inr(c.net)}</b></div><div class="note" style="margin:6px 0 0">${wordsINR(c.net)}</div></div>
+    <div class="comp-card"><div class="comp-h">Employer cost (part of CTC)</div>${er.map(x=>ln(x[0],x[1])).join('')}<div class="comp-ln tot"><span>Monthly CTC</span><b>${inr(c.ctcMonthly)}</b></div></div>
+  </div>
+  <div class="note" style="margin:8px 0 0">CTC ${inr(e.ctc)} · Basic ${Math.round(state.basicPct*100)}% of CTC · ${e.state||'—'} PT · ${(e.regime||state.tds.regime)==='new'?'New':'Old'} regime · ${c.wagesPct<state.wageMinPct?'<b style="color:var(--red)">Wages &lt; 50%</b>':'<b style="color:var(--green)">Wages \u2265 50% compliant</b>'}.</div>`;
+}
+function payComponents(e){
+  return `<div class="field" style="grid-column:1/-1"><label>Salary structure / payslip components (monthly)</label>
+    <div style="margin:0 0 10px"><button type="button" class="btn btn-ghost btn-sm" onclick="previewComp()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg> Recalculate from CTC above</button></div>
+    <div id="costComp">${payComp(e)}</div></div>`;
+}
+function previewComp(){
+  const g=id=>{const el=document.getElementById(id);return el?el.value.trim():'';};
+  const base=state.empForm||{};
+  const tmp=Object.assign({},base,{ctc:+g('f_ctc')||0,state:g('f_state')||base.state});
+  const host=document.getElementById('costComp'); if(host)host.innerHTML=payComp(tmp);
+}
+
+
+/* ===================== List pagination / search / export (scale) ===================== */
+function pagerCtrl(pg,pages,total,fn){if(pages<=1)return `<div class="pager"><span>${total} record(s)</span></div>`;const b=(n,l,d)=>`<button class="pgbtn" ${d?'disabled':''} onclick="${fn}(${n})">${l}</button>`;return `<div class="pager"><span>Page ${pg} of ${pages} · ${total} record(s)</span><span class="pgs">${b(1,'\u00ab',pg===1)}${b(pg-1,'\u2039',pg===1)}${b(pg+1,'\u203a',pg===pages)}${b(pages,'\u00bb',pg===pages)}</span></div>`;}
+
+function empRowHTML(e){const c=compute(e);return `<tr>
+  <td><div class="emp"><span class="av" style="background:${avColor(e.id)}">${e.photo?`<img src="${e.photo}" style="width:100%;height:100%;object-fit:cover">`:initials(e.name)}</span><div><div class="nm">${e.name}</div><div class="rl">${e.empCode} \u00b7 ${e.role} \u00b7 ${deptName(e.dept)}</div></div></div></td>
+  <td>${e.state}</td><td>${contractorTag(e)}</td><td>${lookupName("grade",e.grade)}</td><td class="num">${inr(e.ctc)}</td><td class="num">${inr(c.gross)}</td><td class="num" style="font-weight:700">${inr(c.net)}</td>
+  <td>${state.pf.on?'<span class="tag b">PF</span> ':''}${c.esiApp?'<span class="tag o">ESI</span> ':''}${c.pt?'<span class="tag g">PT</span> ':''}${c.lwf?'<span class="tag g">LWF</span> ':''}${c.tds?'<span class="tag a">TDS</span> ':''}${c.wagesPct<state.wageMinPct?'<span class="tag r">Wages&lt;50%</span>':''}</td>
+  <td style="text-align:right;white-space:nowrap"><button class="btn btn-ghost btn-sm" onclick="openEmp(${e.id})">Open</button> <button class="btn btn-ghost btn-sm" onclick="viewSlipFor(${e.id})">Payslip</button></td></tr>`;}
+function empSlice(){
+  const all=emps(); const q=(state.empQ||'').toLowerCase();
+  const filtered=q?all.filter(e=>(e.name+' '+(e.empCode||'')+' '+(e.role||'')+' '+e.state+' '+deptName(e.dept)+' '+contractorName(e.contractor)+' '+lookupName('grade',e.grade)).toLowerCase().includes(q)):all;
+  const size=state.pageSize||25; const pages=Math.max(1,Math.ceil(filtered.length/size));
+  let pg=Math.min(Math.max(1,state.empPg||1),pages); state.empPg=pg;
+  const rows=filtered.slice((pg-1)*size,(pg-1)*size+size);
+  return {rowsHtml:rows.length?rows.map(empRowHTML).join(''):'<tr><td colspan="9" style="color:var(--steel)">No matching employees.</td></tr>',pagerHtml:pagerCtrl(pg,pages,filtered.length,'gotoEmp'),countLabel:`${filtered.length}${q?' of '+all.length:''} employees`};
+}
+function renderEmpTable(){const sl=empSlice();const r=document.getElementById('empRows');if(r)r.innerHTML=sl.rowsHtml;const p=document.getElementById('empPager');if(p)p.innerHTML=sl.pagerHtml;const c=document.getElementById('empCount');if(c)c.textContent=sl.countLabel;}
+function filterEmp(){const i=document.getElementById('empSrch');state.empQ=i?i.value:'';state.empPg=1;renderEmpTable();}
+function gotoEmp(n){state.empPg=n;renderEmpTable();}
+function exportEmployees(){
+  const head=['EmpCode','Name','Gender','DOB','DOJ','Department','Designation','Grade','Category','Skill','Plant','Contractor','WorkState','Country','State','City','PAN','Aadhaar','UAN','SAPCode','Mobile','Email','Bank','BankAcc','IFSC','AnnualCTC','MonthlyGross','MonthlyNet'];
+  const q=v=>'"'+String(v==null?'':v).replace(/"/g,'""')+'"';
+  const lines=[head.join(',')];
+  emps().forEach(e=>{const c=compute(e);lines.push([e.empCode,q(e.name),e.gender||'',e.dob||'',e.doj||'',q(deptName(e.dept)),q(e.role||''),lookupName('grade',e.grade),lookupName('category',e.category),lookupName('skill',e.skill),e.plant,q(contractorName(e.contractor)),q(e.state),lookupName('country',e.country),lookupName('stateM',e.stateCode),lookupName('city',e.cityCode),e.pan,q(e.aadhaar||''),e.uan,e.sapCode||'',e.mobile||'',e.email||'',q(bankName(e.bankId)),e.bankAcc||'',e.ifsc||'',e.ctc,c.gross,c.net].join(','));});
+  const blob=new Blob([lines.join('\n')],{type:'text/csv'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='employees.csv';a.click();URL.revokeObjectURL(url);
+  toast('Exported '+emps().length+' employees as CSV');
+}
+
+function regRowHTML(e){const c=compute(e);return `<tr><td>${empCell(e)}</td><td>${e.state}</td><td class="num">${c.att.paid}/${c.att.total}</td><td class="num">${inr(c.eBasic)}</td><td class="num">${inr(c.eHra)}</td><td class="num">${inr(c.eSpecial)}</td><td class="num" style="font-weight:600">${inr(c.eGross)}</td><td class="num">${c.eePF?inr(c.eePF):'\u2014'}</td><td class="num">${c.eeESI?inr(c.eeESI):'\u2014'}</td><td class="num">${c.pt?inr(c.pt):'\u2014'}</td><td class="num">${c.tds?inr(c.tds):'\u2014'}</td><td class="num" style="font-weight:700">${inr(c.net)}</td></tr>`;}
+function regSlice(){const all=emps();const q=(state.regQ||'').toLowerCase();const filtered=q?all.filter(e=>(e.name+' '+(e.empCode||'')+' '+e.state).toLowerCase().includes(q)):all;const size=state.pageSize||25;const pages=Math.max(1,Math.ceil(filtered.length/size));let pg=Math.min(Math.max(1,state.regPg||1),pages);state.regPg=pg;const rows=filtered.slice((pg-1)*size,(pg-1)*size+size);return {rowsHtml:rows.length?rows.map(regRowHTML).join(''):'<tr><td colspan="12" style="color:var(--steel)">No matching employees.</td></tr>',pagerHtml:pagerCtrl(pg,pages,filtered.length,'gotoReg')};}
+function renderRegTable(){const sl=regSlice();const r=document.getElementById('regRows');if(r)r.innerHTML=sl.rowsHtml;const p=document.getElementById('regPager');if(p)p.innerHTML=sl.pagerHtml;}
+function filterReg(){const i=document.getElementById('regSrch');state.regQ=i?i.value:'';state.regPg=1;renderRegTable();}
+function gotoReg(n){state.regPg=n;renderRegTable();}
+
+/* ============================ BOOT ============================ */
+renderLoginDemo();
+</script>
+</body>
+</html>
