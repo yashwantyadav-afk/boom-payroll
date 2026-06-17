@@ -2,8 +2,5 @@
   "name": "boom-payroll-cf",
   "version": "1.0.0",
   "private": true,
-  "description": "boom Payroll on Cloudflare Pages (Functions) + Supabase.",
-  "dependencies": {
-    "@supabase/supabase-js": "^2.45.0"
-  }
+  "description": "boom Payroll on Cloudflare Pages (Functions) + Supabase. No build/deps required."
 }

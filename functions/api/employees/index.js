@@ -1,4 +1,4 @@
-import { db } from '../../lib/supabase.js';
+import { sb } from '../../lib/supabase.js';
 import { can } from '../../lib/rbac.js';
 import { json } from '../../lib/http.js';
 
@@ -15,16 +15,14 @@ export async function onRequestGet(context) {
   const q = (url.searchParams.get('q') || '').trim();
   const from = (page - 1) * size;
 
-  const sb = db(env);
-  let query = sb.from('employees').select(COLS, { count: 'exact' }).eq('active', true);
-  if (user.role === 'ess') query = query.eq('id', user.emp_id);
-  else if (user.plant) query = query.eq('plant', user.plant);
-  if (q) query = query.or(`name.ilike.%${q}%,emp_code.ilike.%${q}%,role.ilike.%${q}%,state.ilike.%${q}%`);
-  query = query.order('id').range(from, from + size - 1);
+  const filters = [['active', 'eq.true']];
+  if (user.role === 'ess') filters.push(['id', 'eq.' + user.emp_id]);
+  else if (user.plant) filters.push(['plant', 'eq.' + user.plant]);
+  if (q) filters.push(['or', `(name.ilike.*${q}*,emp_code.ilike.*${q}*,role.ilike.*${q}*,state.ilike.*${q}*)`]);
 
-  const { data: rows, count, error } = await query;
-  if (error) return json({ error: error.message }, 500);
-  return json({ rows: rows || [], total: count || 0, page, size, pages: Math.max(1, Math.ceil((count || 0) / size)) });
+  const S = sb(env);
+  const { data: rows, total } = await S.select('employees', { columns: COLS, filters, order: 'id', limit: size, offset: from, count: true });
+  return json({ rows, total, page, size, pages: Math.max(1, Math.ceil((total || 0) / size)) });
 }
 
 const WRITABLE = ['emp_code','name','role','ctc','state','plant','dept','contractor_id','bank_id','pan','uan','sap_code','regime','decl80c'];
@@ -35,14 +33,13 @@ export async function onRequestPost(context) {
   const b = await request.json().catch(() => ({}));
   if (!b.name || !b.emp_code) return json({ error: 'name and emp_code are required' }, 400);
 
-  const sb = db(env);
-  const { data: dup } = await sb.from('employees').select('id').eq('emp_code', b.emp_code).maybeSingle();
-  if (dup) return json({ error: 'emp_code already exists' }, 409);
+  const S = sb(env);
+  const { data: dup } = await S.select('employees', { columns: 'id', filters: [['emp_code', 'eq.' + b.emp_code]], limit: 1 });
+  if (dup.length) return json({ error: 'emp_code already exists' }, 409);
 
   const row = {};
   for (const k of WRITABLE) if (b[k] !== undefined) row[k] = b[k];
-  const { data: created, error } = await sb.from('employees').insert(row).select(COLS).single();
-  if (error) return json({ error: error.message }, 500);
-  await sb.from('audit_log').insert({ actor: data.user.name || data.user.role, action: 'employee.create', detail: { id: created.id } });
+  const created = (await S.insert('employees', row, { returning: true }))[0];
+  await S.insert('audit_log', { actor: data.user.name || data.user.role, action: 'employee.create', detail: { id: created.id } });
   return json(created, 201);
 }
