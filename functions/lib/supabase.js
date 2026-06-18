@@ -1,15 +1,26 @@
 // Minimal Supabase access over its built-in REST API (PostgREST) using fetch.
-// No npm package required, so nothing needs to be installed/bundled by Cloudflare.
-// Uses the SERVICE ROLE key (server-side only; kept in a Cloudflare secret).
+// No npm package required. Uses the SERVICE ROLE key (server-side only).
+
+// Normalise the Project URL so common copy/paste slips can't break it:
+// trims spaces, removes trailing slashes, strips an accidental /rest/v1,
+// and adds https:// if it was left off.
+export function baseUrl(env) {
+  let url = (env.SUPABASE_URL || '').trim();
+  url = url.replace(/\s+/g, '');
+  url = url.replace(/\/+$/, '');
+  url = url.replace(/\/rest\/v1$/i, '');
+  if (url && !/^https?:\/\//i.test(url)) url = 'https://' + url;
+  return url;
+}
+
 export function sb(env) {
-  const base = (env.SUPABASE_URL || '').replace(/\/$/, '') + '/rest/v1';
+  const base = baseUrl(env) + '/rest/v1';
   const baseHeaders = {
     apikey: env.SUPABASE_SERVICE_KEY,
     Authorization: 'Bearer ' + env.SUPABASE_SERVICE_KEY,
     'Content-Type': 'application/json',
   };
   return {
-    // filters: array of [key, value], e.g. ['id','eq.5'] or ['or','(a.ilike.*x*,b.eq.1)']
     async select(table, { columns = '*', filters = [], order, limit, offset, count } = {}) {
       const p = new URLSearchParams();
       p.set('select', columns);

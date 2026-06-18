@@ -286,7 +286,7 @@
   <div class="main">
     <div class="top">
       <div style="display:flex;align-items:center;gap:14px">
-        <button class="menu-toggle" onclick="toggleSide()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+        <button class="menu-toggle" onclick="toggleSide()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button><button class="btn btn-ghost btn-sm" id="backBtn" onclick="goBack()" title="Back" style="display:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><path d="M15 18l-6-6 6-6"/></svg>Back</button>
         <div class="tt"><h1 id="pageTitle">Dashboard</h1><p id="pageSub"></p></div>
       </div>
       <div class="actions" id="topActions"></div>
@@ -653,12 +653,18 @@ function toggleGroup(g){state.expand[g]=!state.expand[g];renderNav();}
 function go(v){if(!allowed(v)){toast('You do not have access to that module');return;}state.view=v;const p=NAV.find(i=>i.children&&i.children.some(c=>c.id===v));if(p)state.expand[p.group]=true;document.getElementById('side').classList.remove('open');var _sc=document.getElementById('scrim');if(_sc)_sc.classList.remove('show');render();}
 
 /* ============================ RENDER ============================ */
+let LAST_VIEW=null,BACK=false;
+function goBack(){if(!state.navHist)state.navHist=[];if(state.navHist.length){BACK=true;state.view=state.navHist.pop();}else{BACK=true;state.view=firstAllowed();}var _s=document.getElementById('side');if(_s)_s.classList.remove('open');var _sc=document.getElementById('scrim');if(_sc)_sc.classList.remove('show');render();}
 function render(){
   if(!state.auth)return;
   CCACHE=new WeakMap();
   if(!allowed(state.view))state.view=firstAllowed();
+  if(!state.navHist)state.navHist=[];
+  if(LAST_VIEW!==null&&LAST_VIEW!==state.view&&!BACK){state.navHist.push(LAST_VIEW);if(state.navHist.length>50)state.navHist.shift();}
+  BACK=false;LAST_VIEW=state.view;
   renderNav();
   buildTopbar();
+  var _bb=document.getElementById('backBtn');if(_bb)_bb.style.display=(state.navHist&&state.navHist.length)?'':'none';
   document.getElementById('pageTitle').textContent=TITLES[state.view][0];
   document.getElementById('pageSub').textContent=TITLES[state.view][1];
   const V={dashboard:vDashboard,'emp-master':vEmpMaster,'emp-detail':vEmpDetail,'dept-master':vDeptMaster,'bank-master':vBankMaster,'code-setup':vCodeSetup,'contractor-master':vContractorMaster,'con-detail':vConDetail,'contractor-emp':vContractorEmp,'challans':vChallans,'m-grade':()=>vLookup('grade'),'m-category':()=>vLookup('category'),'m-skill':()=>vLookup('skill'),'m-funcarea':()=>vLookup('funcarea'),'m-qual':()=>vLookup('qual'),'m-country':()=>vLookup('country'),'m-state':()=>vLookup('stateM'),'m-city':()=>vLookup('city'),'code-setup':vCodeSetup,'pf-master':vPFMaster,'esi-master':vESIMaster,'pt-master':vPTMaster,'lwf-master':vLWFMaster,'tds-master':vTDSMaster,'leave-policy':vLeavePolicy,holiday:vHolidays,'leave-apply':vLeaveApply,'leave-balance':vLeaveBalance,'att-regular':vAttReg,'att-import':vAttImport,run:vRun,register:vRegister,fnf:vFNF,payslips:vPayslips,compliance:vCompliance,audit:vAudit,settings:vSettings};

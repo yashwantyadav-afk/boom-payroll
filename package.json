@@ -1,3 +1,6 @@
-// Small JSON response helper for Pages Functions.
-export const json = (obj, status = 200, headers = {}) =>
-  new Response(JSON.stringify(obj), { status, headers: { 'Content-Type': 'application/json', ...headers } });
+{
+  "name": "boom-payroll-cf",
+  "version": "1.0.0",
+  "private": true,
+  "description": "boom Payroll on Cloudflare Pages (Functions) + Supabase. No build/deps required."
+}
