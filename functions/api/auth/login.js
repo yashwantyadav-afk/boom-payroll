@@ -17,10 +17,10 @@ export async function onRequestPost(context) {
 
     await S.insert('audit_log', { actor: username, action: 'login', detail: { role: u.role } });
     const token = await signJWT(
-      { sub: u.id, role: u.role, plant: u.plant, emp_id: u.emp_id, name: u.name, exp: Math.floor(Date.now() / 1000) + 12 * 3600 },
+      { sub: u.id, role: u.role, plant: u.plant, emp_id: u.emp_id, contractor: u.contractor, name: u.name, exp: Math.floor(Date.now() / 1000) + 12 * 3600 },
       env.JWT_SECRET
     );
-    return json({ token, user: { id: u.id, username: u.username, role: u.role, name: u.name, plant: u.plant, emp_id: u.emp_id } });
+    return json({ token, user: { id: u.id, username: u.username, role: u.role, name: u.name, plant: u.plant, emp_id: u.emp_id, contractor: u.contractor } });
   } catch (e) {
     return json({ error: 'Login failed: ' + (e.message || 'server error') }, 500);
   }

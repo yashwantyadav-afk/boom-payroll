@@ -313,14 +313,15 @@ const PT_RULES=[
   ['Delhi / Haryana / UP / Rajasthan','No professional tax'],
 ];
 const PLANTS=[{id:'P1',name:'Pune Plant',city:'Pune, MH'},{id:'P2',name:'Bengaluru R&D',city:'Bengaluru, KA'},{id:'P3',name:'Chennai Unit',city:'Chennai, TN'}];
-const ALLVIEWS=['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance','audit','settings'];
+const ALLVIEWS=['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance','audit','settings'];
 const ROLES={
   sysadmin:{name:'System Admin',allow:ALLVIEWS,edit:true},
-  payroll:{name:'Payroll Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance'],edit:true},
-  hr:{name:'HR Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','payslips'],edit:true},
+  payroll:{name:'Payroll Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance'],edit:true},
+  hr:{name:'HR Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','payslips'],edit:true},
   manager:{name:'Reporting Manager',allow:['dashboard','leave-apply','leave-balance','payslips'],edit:true},
   finance:{name:'Finance',allow:['dashboard','challans','pf-master','esi-master','pt-master','lwf-master','tds-master','register','fnf','compliance','payslips'],edit:false},
   ess:{name:'Employee (ESS)',allow:['leave-apply','leave-balance','payslips'],edit:false,self:true},
+  contractor:{name:'Contractor Portal',allow:['contractor-emp','contractor-att','contractor-salary'],edit:true,con:true},
 };
 const USERS=[
   {u:'admin',p:'admin',name:'Anita Rao',role:'sysadmin',plants:'all'},
@@ -329,6 +330,8 @@ const USERS=[
   {u:'mgr',p:'mgr',name:'Kiran Rao',role:'manager',plants:['P1']},
   {u:'finance',p:'finance',name:'Dev Kulkarni',role:'finance',plants:'all'},
   {u:'priya',p:'priya',name:'Priya Sharma',role:'ess',plants:['P2'],empId:1},
+  {u:'secure',p:'secure',name:'SecureForce Services',role:'contractor',plants:'all',con:'C1'},
+  {u:'techman',p:'techman',name:'TechMan Staffing',role:'contractor',plants:'all',con:'C3'},
 ];
 const state={
   view:'dashboard', company:'Acme Robotics Pvt Ltd', fy:'2026–27',
@@ -582,7 +585,7 @@ const NAV=[
     {id:'lwf-master',label:'LWF Master'},{id:'tds-master',label:'TDS Master'},
     {id:'leave-policy',label:'Leave Policy'},{id:'holiday',label:'Holiday Calendar'}]},
   {group:'contractor',label:'Contractor',icon:IC.master,children:[
-    {id:'contractor-master',label:'Contractor Master'},{id:'contractor-emp',label:'Contractor Employees'},{id:'challans',label:'Contractor Challans'}]},
+    {id:'contractor-master',label:'Contractor Master'},{id:'contractor-emp',label:'Contractor Employees'},{id:'contractor-att',label:'Contractor Attendance'},{id:'contractor-salary',label:'Contractor Salary'},{id:'challans',label:'Contractor Challans'}]},
   {group:'hrm',label:'HR Masters',icon:IC.master,children:[
     {id:'m-grade',label:'Grade Master'},{id:'m-category',label:'Category Master'},
     {id:'m-skill',label:'Skill Master'},{id:'m-funcarea',label:'Functional Area'},
@@ -619,6 +622,8 @@ const TITLES={
   'bank-master':['Bank Master','Salary banks linked to the employee master.'],
   'contractor-master':['Contractor Master','Contractors linked to plant, department and employees.'],
   'contractor-emp':['Contractor Employees','Contractor-wise employee register.'],
+  'contractor-att':['Contractor Attendance','Contractor-wise attendance — set LOP days per worker.'],
+  'contractor-salary':['Contractor Salary','Contractor-wise salary generation from CTC, statutory rules & attendance.'],
   'con-detail':['Contractor record','Full contractor profile — identity, address, statutory, bank & contact.'],
   'challans':['Contractor Challans','PF / ESI / LWF / PT challans per contractor.'],
   'm-grade':['Grade Master','Employee grades.'],'m-category':['Category Master','Employee categories.'],
@@ -654,7 +659,8 @@ function go(v){if(!allowed(v)){toast('You do not have access to that module');re
 
 /* ============================ RENDER ============================ */
 let LAST_VIEW=null,BACK=false;
-function goBack(){if(!state.navHist)state.navHist=[];if(state.navHist.length){BACK=true;state.view=state.navHist.pop();}else{BACK=true;state.view=firstAllowed();}var _s=document.getElementById('side');if(_s)_s.classList.remove('open');var _sc=document.getElementById('scrim');if(_sc)_sc.classList.remove('show');render();}
+const VIEW_PARENT={'emp-detail':'emp-master','con-detail':'contractor-master','contractor-emp':'contractor-master','contractor-att':'contractor-master','contractor-salary':'contractor-master','challans':'contractor-master'};
+function goBack(){if(!state.navHist)state.navHist=[];var _p=VIEW_PARENT[state.view];if(_p&&allowed(_p)){BACK=true;state.view=_p;}else if(state.navHist.length){BACK=true;state.view=state.navHist.pop();}else{BACK=true;state.view=firstAllowed();}var _s=document.getElementById('side');if(_s)_s.classList.remove('open');var _sc=document.getElementById('scrim');if(_sc)_sc.classList.remove('show');render();}
 function render(){
   if(!state.auth)return;
   CCACHE=new WeakMap();
@@ -667,7 +673,7 @@ function render(){
   var _bb=document.getElementById('backBtn');if(_bb)_bb.style.display=(state.navHist&&state.navHist.length)?'':'none';
   document.getElementById('pageTitle').textContent=TITLES[state.view][0];
   document.getElementById('pageSub').textContent=TITLES[state.view][1];
-  const V={dashboard:vDashboard,'emp-master':vEmpMaster,'emp-detail':vEmpDetail,'dept-master':vDeptMaster,'bank-master':vBankMaster,'code-setup':vCodeSetup,'contractor-master':vContractorMaster,'con-detail':vConDetail,'contractor-emp':vContractorEmp,'challans':vChallans,'m-grade':()=>vLookup('grade'),'m-category':()=>vLookup('category'),'m-skill':()=>vLookup('skill'),'m-funcarea':()=>vLookup('funcarea'),'m-qual':()=>vLookup('qual'),'m-country':()=>vLookup('country'),'m-state':()=>vLookup('stateM'),'m-city':()=>vLookup('city'),'code-setup':vCodeSetup,'pf-master':vPFMaster,'esi-master':vESIMaster,'pt-master':vPTMaster,'lwf-master':vLWFMaster,'tds-master':vTDSMaster,'leave-policy':vLeavePolicy,holiday:vHolidays,'leave-apply':vLeaveApply,'leave-balance':vLeaveBalance,'att-regular':vAttReg,'att-import':vAttImport,run:vRun,register:vRegister,fnf:vFNF,payslips:vPayslips,compliance:vCompliance,audit:vAudit,settings:vSettings};
+  const V={dashboard:vDashboard,'emp-master':vEmpMaster,'emp-detail':vEmpDetail,'dept-master':vDeptMaster,'bank-master':vBankMaster,'code-setup':vCodeSetup,'contractor-master':vContractorMaster,'con-detail':vConDetail,'contractor-emp':vContractorEmp,'contractor-att':vContractorAtt,'contractor-salary':vContractorSalary,'challans':vChallans,'m-grade':()=>vLookup('grade'),'m-category':()=>vLookup('category'),'m-skill':()=>vLookup('skill'),'m-funcarea':()=>vLookup('funcarea'),'m-qual':()=>vLookup('qual'),'m-country':()=>vLookup('country'),'m-state':()=>vLookup('stateM'),'m-city':()=>vLookup('city'),'code-setup':vCodeSetup,'pf-master':vPFMaster,'esi-master':vESIMaster,'pt-master':vPTMaster,'lwf-master':vLWFMaster,'tds-master':vTDSMaster,'leave-policy':vLeavePolicy,holiday:vHolidays,'leave-apply':vLeaveApply,'leave-balance':vLeaveBalance,'att-regular':vAttReg,'att-import':vAttImport,run:vRun,register:vRegister,fnf:vFNF,payslips:vPayslips,compliance:vCompliance,audit:vAudit,settings:vSettings};
   document.getElementById('content').innerHTML=V[state.view]();
   if(state.view==='payslips') buildSlip();
   if(state.view==='att-import') impPreview();
@@ -1171,8 +1177,8 @@ function apiUrl(p){return (API.base||'')+p;}
 function apiHeaders(){return API.token?{'Authorization':'Bearer '+API.token,'Content-Type':'application/json'}:{'Content-Type':'application/json'};}
 async function apiLogin(u,p){const r=await fetch(apiUrl('/api/auth/login'),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({username:u,password:p})});let d={};try{d=await r.json();}catch(e){}if(!r.ok)throw new Error(d.error||'Invalid username or password');return d;}
 async function apiGet(p){const r=await fetch(apiUrl(p),{headers:apiHeaders()});let d={};try{d=await r.json();}catch(e){}if(!r.ok)throw new Error(d.error||('HTTP '+r.status));return d;}
-function mapAuthUser(u){return {u:u.username,name:u.name||u.username,role:u.role,plants:u.plant?[u.plant]:'all',empId:u.emp_id||null};}
-function mapApiEmp(r){return {id:r.id,empCode:r.emp_code,name:r.name,role:r.role,ctc:Number(r.ctc||0),state:r.state,plant:r.plant,dept:r.dept,pan:r.pan,uan:r.uan,regime:r.regime||undefined,decl80c:Number(r.decl80c||0)};}
+function mapAuthUser(u){return {u:u.username,name:u.name||u.username,role:u.role,plants:u.plant?[u.plant]:'all',empId:u.emp_id||null,con:u.contractor||null};}
+function mapApiEmp(r){return {id:r.id,empCode:r.emp_code,name:r.name,role:r.role,ctc:Number(r.ctc||0),state:r.state,plant:r.plant,dept:r.dept,pan:r.pan,uan:r.uan,regime:r.regime||undefined,decl80c:Number(r.decl80c||0),contractor:(r.contractors&&r.contractors.code)||r.contractor||'C0'};}
 async function apiBootData(){try{const e=await apiGet('/api/employees?size=200');if(e&&e.rows){state.employees=e.rows.map(mapApiEmp);state._empTotal=e.total;}}catch(err){console.warn('employee load failed',err);}}
 async function doLogin(u,p){
   if(!API.enabled)return doLoginLocal(u,p);
@@ -1397,11 +1403,11 @@ function vContractorMaster(){
 
 let conSel=null;
 function vContractorEmp(){
-  const cons=state.contractors; if(!conSel||!cons.some(c=>c.id===conSel))conSel=cons[0].id;
-  const c=cons.find(x=>x.id===conSel); const list=emps().filter(e=>e.contractor===conSel);
+  const cons=state.contractors; const cur=conScopeId();
+  const c=cons.find(x=>x.id===cur)||cons[0]; const list=emps().filter(e=>e.contractor===cur);
   return `
   <div class="panel" style="margin-bottom:16px"><div class="row-between">
-    <div class="field" style="margin:0;min-width:300px"><label>Contractor</label><select onchange="conSel=this.value;render()">${cons.map(x=>`<option value="${x.id}" ${x.id===conSel?'selected':''}>${x.code} — ${x.name}</option>`).join('')}</select></div>
+    ${conPicker()}
     <div style="text-align:right"><div class="note" style="margin:0">${c.license!=='—'?'CLRA '+c.license+' · ':''}${c.plant==='all'?'All plants':((PLANTS.find(p=>p.id===c.plant)||{}).name||'')}</div><div class="note" style="margin:2px 0 0">${list.length} worker(s) in scope</div></div></div></div>
   <div class="panel flush"><table><thead><tr><th>Employee</th><th>Designation</th><th>Department</th><th>Plant</th><th class="num">Monthly gross</th></tr></thead><tbody>
   ${list.length?list.map(e=>{const cc=compute(e);const p=(PLANTS.find(x=>x.id===e.plant)||{}).name||e.plant;return `<tr><td>${empCell(e)}</td><td>${e.role}</td><td>${deptName(e.dept)}</td><td>${p}</td><td class="num">${inr(cc.gross)}</td></tr>`;}).join(''):'<tr><td colspan="5" style="color:var(--steel)">No employees under this contractor in scope.</td></tr>'}
@@ -1745,6 +1751,26 @@ function gotoReg(n){state.regPg=n;renderRegTable();}
 
 /* ============================ BOOT ============================ */
 renderLoginDemo();
+
+/* ===== Contractor-wise screens (employees / attendance / salary) ===== */
+function myCon(){return (state.auth&&state.auth.con)||null;}
+function conScopeId(){const cons=state.contractors;const mc=myCon();if(mc)return mc;if(!conSel||!cons.some(c=>c.id===conSel))conSel=cons[0].id;return conSel;}
+function conPicker(){const cons=state.contractors;const cur=conScopeId();const c=cons.find(x=>x.id===cur)||cons[0];if(myCon())return `<div class="field" style="margin:0;min-width:300px"><label>Contractor</label><div style="font-weight:700;font-size:14px;padding:6px 0">${c.code} — ${c.name}</div></div>`;return `<div class="field" style="margin:0;min-width:300px"><label>Contractor</label><select onchange="conSel=this.value;render()">${cons.map(x=>`<option value="${x.id}" ${x.id===cur?'selected':''}>${x.code} — ${x.name}</option>`).join('')}</select></div>`;}
+function conEmps(){const cur=conScopeId();return emps().filter(e=>e.contractor===cur);}
+function vContractorAtt(){const list=conEmps();const ro=!canEdit();return `
+  <div class="panel" style="margin-bottom:16px"><div class="row-between">${conPicker()}<div style="text-align:right"><div class="note" style="margin:0">Month basis: ${state.monthDays} days</div><div class="note" style="margin:2px 0 0">${list.length} worker(s)</div></div></div></div>
+  <div class="panel flush"><table><thead><tr><th>Employee</th><th>Designation</th><th>Plant</th><th class="num">Month days</th><th class="num">LOP days</th><th class="num">Paid days</th></tr></thead><tbody>
+  ${list.length?list.map(e=>{const a=attOf(e.id);const p=(PLANTS.find(x=>x.id===e.plant)||{}).name||e.plant||'';return `<tr><td>${empCell(e)}</td><td>${e.role||''}</td><td>${p}</td><td class="num">${a.total}</td><td class="num">${ro?a.lop:`<input class="lop-in editable" type="number" min="0" max="${a.total}" value="${a.lop}" onchange="setLop(${e.id},+this.value)">`}</td><td class="num">${a.paid}</td></tr>`;}).join(''):'<tr><td colspan="6" style="color:var(--steel)">No workers under this contractor.</td></tr>'}
+  </tbody></table></div>
+  <div class="note">Contractor-wise attendance — set Loss-of-Pay (LOP) days; paid days flow into salary automatically.</div>`;}
+function vContractorSalary(){const cur=conScopeId();const c=state.contractors.find(x=>x.id===cur)||state.contractors[0];const list=conEmps();let tG=0,tD=0,tN=0;const rows=list.map(e=>{const cc=compute(e);const a=attOf(e.id);tG+=cc.eGross;tD+=cc.totalDed;tN+=cc.net;return `<tr><td>${empCell(e)}</td><td class="num">${a.paid}/${a.total}</td><td class="num">${inr(cc.eGross)}</td><td class="num">${inr(cc.totalDed)}</td><td class="num"><b>${inr(cc.net)}</b></td></tr>`;}).join('');return `
+  <div class="panel" style="margin-bottom:16px"><div class="row-between">${conPicker()}<div style="text-align:right">${canEdit()?`<button class="btn btn-primary" onclick="genContractorSalary()">Generate salary</button>`:'<span class="ro-pill">Read-only</span>'}</div></div></div>
+  <div class="panel flush"><table><thead><tr><th>Employee</th><th class="num">Paid days</th><th class="num">Gross</th><th class="num">Deductions</th><th class="num">Net pay</th></tr></thead><tbody>
+  ${list.length?rows:'<tr><td colspan="5" style="color:var(--steel)">No workers under this contractor.</td></tr>'}
+  ${list.length?`<tr style="background:var(--ash,#eef2f7);font-weight:700"><td>Total — ${list.length} worker(s)</td><td></td><td class="num">${inr(tG)}</td><td class="num">${inr(tD)}</td><td class="num">${inr(tN)}</td></tr>`:''}
+  </tbody></table></div>
+  <div class="note">Contractor-wise salary — computed from CTC, statutory rules and attendance for <b>${c.name}</b>.</div>`;}
+function genContractorSalary(){const cur=conScopeId();const c=state.contractors.find(x=>x.id===cur);const list=conEmps();if(!list.length){toast('No workers under this contractor');return;}const net=list.reduce((s,e)=>s+compute(e).net,0);logAudit('Generated salary for '+(c?c.name:cur)+' — '+list.length+' worker(s)');toast('Salary generated · '+list.length+' worker(s) · Net '+inr(net));}
 </script>
 </body>
 </html>

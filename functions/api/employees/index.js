@@ -2,7 +2,7 @@ import { sb } from '../../lib/supabase.js';
 import { can } from '../../lib/rbac.js';
 import { json } from '../../lib/http.js';
 
-const COLS = 'id,emp_code,name,role,ctc,state,plant,dept,contractor_id,bank_id,pan,uan,sap_code,regime,decl80c,photo_ref';
+const COLS = 'id,emp_code,name,role,ctc,state,plant,dept,contractor_id,bank_id,pan,uan,sap_code,regime,decl80c,photo_ref,contractors(code)';
 
 export async function onRequestGet(context) {
   const { request, env, data } = context;
@@ -15,13 +15,15 @@ export async function onRequestGet(context) {
   const q = (url.searchParams.get('q') || '').trim();
   const from = (page - 1) * size;
 
+  let columns = COLS;
   const filters = [['active', 'eq.true']];
   if (user.role === 'ess') filters.push(['id', 'eq.' + user.emp_id]);
+  else if (user.role === 'contractor') { columns = columns.replace('contractors(code)', 'contractors!inner(code)'); filters.push(['contractors.code', 'eq.' + user.contractor]); }
   else if (user.plant) filters.push(['plant', 'eq.' + user.plant]);
   if (q) filters.push(['or', `(name.ilike.*${q}*,emp_code.ilike.*${q}*,role.ilike.*${q}*,state.ilike.*${q}*)`]);
 
   const S = sb(env);
-  const { data: rows, total } = await S.select('employees', { columns: COLS, filters, order: 'id', limit: size, offset: from, count: true });
+  const { data: rows, total } = await S.select('employees', { columns, filters, order: 'id', limit: size, offset: from, count: true });
   return json({ rows, total, page, size, pages: Math.max(1, Math.ceil((total || 0) / size)) });
 }
 

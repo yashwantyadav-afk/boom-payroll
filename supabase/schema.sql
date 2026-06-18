@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS users (
   name          TEXT,
   plant         TEXT REFERENCES plants(code),  -- null = all plants
   emp_id        INTEGER,                       -- for ESS self-scope
+  contractor    TEXT,                          -- for contractor-portal scope (contractor code)
   active        BOOLEAN NOT NULL DEFAULT TRUE,
   created_at    TIMESTAMPTZ NOT NULL DEFAULT now()
 );

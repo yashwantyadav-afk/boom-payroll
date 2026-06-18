@@ -6,6 +6,7 @@ export const ROLES = {
   manager: ['employee.read','attendance.read','attendance.write','payroll.read','master.read'],
   finance: ['employee.read','contractor.read','payroll.read','challan.read','master.read','audit.read','document.read'],
   ess: ['self.read','document.read'],
+  contractor: ['employee.read','document.read'],
 };
 export function can(role, action) {
   const caps = ROLES[role];
