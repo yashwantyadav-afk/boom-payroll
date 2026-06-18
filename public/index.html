@@ -257,19 +257,90 @@
   .pgbtn{border:1px solid var(--line);background:#fff;border-radius:7px;min-width:30px;height:28px;cursor:pointer;font-size:13px;color:var(--ink)}
   .pgbtn:hover:not([disabled]){border-color:var(--blue);color:var(--blue)}
   .pgbtn[disabled]{opacity:.4;cursor:default}
+
+/* ===== Two-panel login (mockup) ===== */
+.login{padding:24px}
+.login-shell{display:grid;grid-template-columns:1.08fr .92fr;width:100%;max-width:1060px;min-height:592px;margin:auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 50px 120px -40px rgba(0,0,0,.65)}
+.login-aside{position:relative;background:linear-gradient(155deg,#0B2547 0%,#143765 58%,#0E2C54 100%);color:#fff;padding:42px 40px 32px;display:flex;flex-direction:column;overflow:hidden}
+.login-aside:before{content:"";position:absolute;width:420px;height:420px;right:-160px;top:-130px;border-radius:50%;background:radial-gradient(circle,rgba(43,166,232,.28),transparent 62%)}
+.login-aside:after{content:"";position:absolute;width:360px;height:360px;left:-150px;bottom:-160px;border-radius:50%;background:radial-gradient(circle,rgba(244,124,32,.20),transparent 60%)}
+.login-aside>*{position:relative;z-index:1}
+.login-brand{display:flex;align-items:center;gap:10px}
+.login-brand .wm{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px;line-height:1;display:flex;align-items:baseline;gap:1px}
+.login-brand .b{color:#0B2547}.login-brand .p{color:#F47C20}
+.login-brand.light .b{color:#fff}.login-brand.light .p{color:#F8A45C}
+.la-title{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:32px;line-height:1.16;margin:32px 0 14px;color:#fff}
+.la-sub{color:#bccadd;font-size:13px;line-height:1.62;max-width:392px}
+.la-feats{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-direction:column;gap:13px}
+.la-feats li{display:flex;align-items:center;gap:11px;font-size:12.6px;color:#dde7f3}
+.la-feats li .fi{flex:none;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:rgba(43,166,232,.16);color:#7ec8f5}
+.la-feats li .fi svg{width:16px;height:16px}
+.la-foot{margin-top:auto;color:#8aa0bd;font-size:10.4px;letter-spacing:.05em;padding-top:26px}
+.login-panel{display:flex;align-items:center;justify-content:center;padding:40px 34px;background:#fff}
+.login-card{background:none !important;box-shadow:none !important;border-radius:0 !important;padding:0 !important;width:100%;max-width:372px}
+.login-card .login-brand{margin-bottom:18px}
+.login-card h2{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:23px;color:var(--ink);margin:0}
+.login-card .sub{color:var(--steel);font-size:11.4px;margin:4px 0 22px}
+.in-ico{position:relative;display:flex;align-items:center}
+.in-ico>.ii{position:absolute;left:13px;width:16px;height:16px;color:var(--steel-l);pointer-events:none}
+.in-ico input{padding-left:38px !important;height:46px;border-radius:11px !important;font-size:12.5px !important}
+.in-ico .eye{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--steel-l);cursor:pointer;padding:8px;display:grid;place-items:center}
+.in-ico .eye svg{width:16px;height:16px}.in-ico .eye:hover{color:var(--blue)}
+.lg-row{display:flex;align-items:center;justify-content:space-between;margin:12px 0 2px}
+.chk{display:inline-flex;align-items:center;gap:7px;font-size:11.6px;color:var(--steel);cursor:pointer;user-select:none}
+.chk input{width:15px;height:15px;accent-color:var(--blue);cursor:pointer}
+.lnk{color:var(--blue);font-size:11.6px;font-weight:600;cursor:pointer;text-decoration:none}.lnk:hover{text-decoration:underline}
+.lg-btn{width:100%;display:inline-flex;align-items:center;justify-content:center;height:47px;font-size:13.6px;font-weight:700;color:#fff;border:none;border-radius:12px;margin-top:14px;cursor:pointer;background:linear-gradient(90deg,#1660BE,#2BA6E8);box-shadow:0 12px 24px -10px rgba(22,96,190,.7);transition:transform .15s var(--ease),box-shadow .15s}
+.lg-btn:hover{transform:translateY(-1px);box-shadow:0 16px 32px -10px rgba(22,96,190,.85)}
+.lg-div{display:flex;align-items:center;gap:12px;margin:20px 0 13px;color:var(--steel-l);font-size:9.4px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap}
+.lg-div:before,.lg-div:after{content:"";flex:1;height:1px;background:var(--line)}
+.demo-wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-height:184px;overflow:auto}
+.demo-wrap .demo-row{display:block;width:100%;text-align:left;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:var(--cloud);cursor:pointer;transition:.12s}
+.demo-wrap .demo-row:hover{border-color:var(--blue);background:#fff;box-shadow:0 4px 12px -6px rgba(22,96,190,.4)}
+.demo-wrap .demo-row b{display:block;font-size:10.4px;color:var(--ink);font-weight:700;line-height:1.25}
+.demo-wrap .demo-row span{display:block;font-size:8.6px;color:var(--steel);margin-top:2px;line-height:1.3}
+.lg-help{text-align:center;margin-top:16px;font-size:11.4px;color:var(--steel)}
+@media(max-width:880px){
+  .login{padding:0}
+  .login-shell{grid-template-columns:1fr;max-width:480px;border-radius:0;min-height:100vh;box-shadow:none}
+  .login-aside{display:none}
+  .login-panel{padding:34px 22px;align-items:flex-start}
+  .demo-wrap{grid-template-columns:1fr}
+}
+
 </style>
 </head>
 <body>
 <div id="login" class="login">
-  <div class="login-card">
-    <div class="login-brand"><svg width="38" height="38" viewBox="0 0 120 120"><g transform="rotate(-26 60 60)"><path d="M15,60 A45,25 0 0 1 105,60" fill="none" stroke="#F47C20" stroke-width="12" stroke-linecap="round"/><path d="M105,60 A45,25 0 0 1 15,60" fill="none" stroke="#2BA6E8" stroke-width="12" stroke-linecap="round"/></g><path d="M30,90 L75.9,44.1" fill="none" stroke="#2BA6E8" stroke-width="11" stroke-linecap="round"/><path d="M90,30 L84.3,52.6 L67.4,35.7 Z" fill="#2BA6E8"/></svg><span class="wm"><span style="font-family:'Baloo 2',sans-serif;font-weight:800;color:#0B2547">boom</span><span style="font-family:'Baloo 2',sans-serif;font-weight:800;color:#F47C20;font-size:13.6px">Payroll</span></span></div>
-    <h2>Sign in</h2>
-    <p class="sub">Plant &amp; role based payroll console</p>
-    <div class="field"><label>Username</label><input id="lg_u" placeholder="username"></div>
-    <div class="field"><label>Password</label><input id="lg_p" type="password" placeholder="password" onkeydown="if(event.key==='Enter')submitLogin()"></div>
-    <div id="lg_err" class="lg-err"></div>
-    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="submitLogin()">Sign in</button>
-    <div class="demo"><div class="demo-h">Demo accounts — tap to sign in</div><div id="lg_demo"></div></div>
+  <div class="login-shell">
+    <div class="login-aside">
+      <div class="login-brand light"><svg width="34" height="34" viewBox="0 0 120 120"><g transform="rotate(-26 60 60)"><path d="M15,60 A45,25 0 0 1 105,60" fill="none" stroke="#F47C20" stroke-width="12" stroke-linecap="round"/><path d="M105,60 A45,25 0 0 1 15,60" fill="none" stroke="#2BA6E8" stroke-width="12" stroke-linecap="round"/></g><path d="M30,90 L75.9,44.1" fill="none" stroke="#2BA6E8" stroke-width="11" stroke-linecap="round"/><path d="M90,30 L84.3,52.6 L67.4,35.7 Z" fill="#2BA6E8"/></svg><span class="wm"><span class="b">boom</span><span class="p">Payroll</span></span></div>
+      <div class="aside-body">
+        <h1 class="la-title">Streamlined Payroll &amp;<br>Workforce Management</h1>
+        <p class="la-sub">Your central console for plant &amp; role-based compliance — EPF, ESI, PT, LWF and TDS, computed accurately and statutory-ready in one place.</p>
+        <ul class="la-feats">
+          <li><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V10l6 3V10l6 3V8l6 3v10z"/></svg></span> Plant &amp; contractor-wise workforce</li>
+          <li><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></span> Automated statutory payroll engine</li>
+          <li><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span> Role-based access with full audit trail</li>
+        </ul>
+      </div>
+      <div class="la-foot">India · FY 2025-26 · DPDP-aware · Secured access</div>
+    </div>
+    <div class="login-panel">
+      <div class="login-card">
+        <div class="login-brand"><svg width="34" height="34" viewBox="0 0 120 120"><g transform="rotate(-26 60 60)"><path d="M15,60 A45,25 0 0 1 105,60" fill="none" stroke="#F47C20" stroke-width="12" stroke-linecap="round"/><path d="M105,60 A45,25 0 0 1 15,60" fill="none" stroke="#2BA6E8" stroke-width="12" stroke-linecap="round"/></g><path d="M30,90 L75.9,44.1" fill="none" stroke="#2BA6E8" stroke-width="11" stroke-linecap="round"/><path d="M90,30 L84.3,52.6 L67.4,35.7 Z" fill="#2BA6E8"/></svg><span class="wm"><span class="b">boom</span><span class="p">Payroll</span></span></div>
+        <h2>Sign in to your Console</h2>
+        <p class="sub">Plant &amp; role based payroll console</p>
+        <div class="field"><label>Username</label><div class="in-ico"><svg class="ii" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><input id="lg_u" placeholder="username" autocomplete="username" onkeydown="if(event.key===&apos;Enter&apos;)submitLogin()"></div></div>
+        <div class="field"><label>Password</label><div class="in-ico"><svg class="ii" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><input id="lg_p" type="password" placeholder="password" autocomplete="current-password" onkeydown="if(event.key===&apos;Enter&apos;)submitLogin()"><button type="button" class="eye" title="Show / hide password" onclick="togglePw()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+        <div class="lg-row"><label class="chk"><input type="checkbox" id="lg_remember"><span>Remember me</span></label><a class="lnk" onclick="loginHelp(&apos;forgot&apos;)">Forgot password?</a></div>
+        <div id="lg_err" class="lg-err"></div>
+        <button class="lg-btn" onclick="submitLogin()">Sign in</button>
+        <div class="lg-div">Demo accounts — tap to sign in</div>
+        <div id="lg_demo" class="demo-wrap"></div>
+        <div class="lg-help">Trouble signing in? <a class="lnk" onclick="loginHelp(&apos;help&apos;)">Get help</a></div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="app" style="display:none">
@@ -1163,7 +1234,7 @@ function buildTopbar(){
   document.getElementById('topActions').innerHTML=`${ro?'<span class="ro-pill">Read-only</span>':''}${plant}${runBtn}<div class="uchip"><div class="avatar">${initials(u.name)}</div><div style="line-height:1.1"><div style="font-weight:600;font-size:10.4px">${u.name}</div><div style="font-size:8.8px;color:var(--steel)">${roleObj().name}</div></div></div>`;
   document.getElementById('sideFoot').innerHTML=`<div style="font-weight:600;color:#fff;font-size:10.4px">${state.company}</div><div style="margin:2px 0 0">FY ${state.fy} · ${allowedPlants().length} plant(s) in scope</div><button class="signout" onclick="logout()">Sign out</button>`;
 }
-function renderLoginDemo(){document.getElementById('lg_demo').innerHTML=USERS.map(x=>`<button class="demo-row" onclick="doLogin('${x.u}','${x.p}')"><b>${ROLES[x.role].name} — ${x.name}</b><span>${x.plants==='all'?'all plants':x.plants.map(id=>PLANTS.find(p=>p.id===id).name).join(', ')} · ${ROLES[x.role].allow.length} modules${ROLES[x.role].edit?'':' · read-only'}</span></button>`).join('');}
+function renderLoginDemo(){try{var su=localStorage.getItem('boom_user');if(su){var iu=document.getElementById('lg_u');if(iu)iu.value=su;var rc=document.getElementById('lg_remember');if(rc)rc.checked=true;}}catch(e){}document.getElementById('lg_demo').innerHTML=USERS.map(x=>`<button class="demo-row" onclick="doLogin('${x.u}','${x.p}')"><b>${ROLES[x.role].name} — ${x.name}</b><span>${x.plants==='all'?'all plants':x.plants.map(id=>PLANTS.find(p=>p.id===id).name).join(', ')} · ${ROLES[x.role].allow.length} modules${ROLES[x.role].edit?'':' · read-only'}</span></button>`).join('');}
 function showLogin(){document.getElementById('login').style.display='flex';document.querySelector('.app').style.display='none';}
 function loginErr(m){document.getElementById('lg_err').textContent=m;}
 /* ===== Backend integration: Cloudflare front end -> Node/Express API =====
@@ -1197,7 +1268,9 @@ async function doLogin(u,p){
   }catch(e){ loginErr(e.message||'Login failed'); }
 }
 function doLoginLocal(u,p){const user=USERS.find(x=>x.u===u&&x.p===p);if(!user){loginErr('Invalid username or password');return;}state.auth=user;logAudit('Signed in');state.plantScope=(user.plants==='all'||user.plants.length>1)?'all':user.plants[0];document.getElementById('login').style.display='none';document.querySelector('.app').style.display='grid';state.view=firstAllowed();render();toast('Welcome, '+user.name.split(' ')[0]);}
-function submitLogin(){doLogin(val('lg_u'),val('lg_p'));}
+function togglePw(){var i=document.getElementById('lg_p');if(i)i.type=(i.type==='password')?'text':'password';}
+function loginHelp(k){toast(k==='forgot'?'To reset your password, please contact your system administrator.':'Need help signing in? Contact your boom Payroll administrator.');}
+function submitLogin(){var u=val('lg_u');try{var rc=document.getElementById('lg_remember');if(rc&&rc.checked)localStorage.setItem('boom_user',u);else localStorage.removeItem('boom_user');}catch(e){}doLogin(u,val('lg_p'));}
 function logout(){state.auth=null;API.token=null;loginErr('');document.getElementById('lg_u').value='';document.getElementById('lg_p').value='';showLogin();}
 
 
