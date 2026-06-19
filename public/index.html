@@ -333,6 +333,23 @@
 .logo-prev img{max-width:100%;max-height:100%;object-fit:contain}
 .logo-prev span{font-size:10px;color:var(--steel-l)}
 
+
+/* contractor dashboard KPIs + licence badge */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.kpi-l{font-size:9.6px;font-weight:600;color:var(--steel);text-transform:uppercase;letter-spacing:.04em}
+.kpi-v{font-size:22px;font-weight:800;color:var(--ink);font-family:'Baloo 2',sans-serif;margin:4px 0 2px;line-height:1}
+.kpi-s{font-size:9.6px;color:var(--steel-l)}
+.kpi.warn{border-color:var(--amber);background:var(--amber-bg)}.kpi.warn .kpi-v{color:var(--amber)}
+.kpi.good{border-color:var(--green);background:var(--green-bg)}.kpi.good .kpi-v{color:var(--green)}
+.lic-badge{display:inline-flex;align-items:center;gap:7px;padding:4px 10px;border-radius:9px;background:var(--cloud-2);border:1px solid var(--line)}
+.lic-badge .lic-k{color:var(--steel);font-weight:600;text-transform:uppercase;letter-spacing:.04em;font-size:8.4px}
+.lic-badge .lic-v{font-weight:700;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:10.4px}
+.lic-badge .lic-d{font-weight:600;font-size:9.4px}.lic-badge .lic-d.ok{color:var(--green)}.lic-badge .lic-d.soon{color:var(--amber)}.lic-badge .lic-d.exp{color:var(--red)}
+.tag.r{background:var(--red-bg);color:var(--red)}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){.lic-badge .lic-k{display:none}.kpis{grid-template-columns:1fr 1fr}}
+
 </style>
 </head>
 <body>
@@ -384,7 +401,7 @@
     <div class="top">
       <div style="display:flex;align-items:center;gap:14px">
         <button class="menu-toggle" onclick="toggleSide()"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button><button class="btn btn-ghost btn-sm" id="backBtn" onclick="goBack()" title="Back" style="display:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:-2px"><path d="M15 18l-6-6 6-6"/></svg>Back</button>
-        <div class="tt"><h1 id="pageTitle">Dashboard</h1><p id="pageSub"></p></div>
+        <div class="tt"><h1 id="pageTitle">Dashboard</h1><p id="pageSub"></p></div><span id="licBadge" class="lic-badge" style="display:none"></span>
       </div>
       <div class="actions" id="topActions"></div>
     </div>
@@ -410,15 +427,15 @@ const PT_RULES=[
   ['Delhi / Haryana / UP / Rajasthan','No professional tax'],
 ];
 const PLANTS=[{id:'P1',name:'Pune Plant',city:'Pune, MH'},{id:'P2',name:'Bengaluru R&D',city:'Bengaluru, KA'},{id:'P3',name:'Chennai Unit',city:'Chennai, TN'}];
-const ALLVIEWS=['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','m-reason','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance','audit','settings'];
+const ALLVIEWS=['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-dash','contractor-emp','contractor-workforce','contractor-att','contractor-salary','contractor-compliance','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','m-reason','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance','audit','settings'];
 const ROLES={
   sysadmin:{name:'System Admin',allow:ALLVIEWS,edit:true},
-  payroll:{name:'Payroll Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','m-reason','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance'],edit:true},
-  hr:{name:'HR Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','m-reason','code-setup','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','payslips'],edit:true},
+  payroll:{name:'Payroll Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-dash','contractor-emp','contractor-workforce','contractor-att','contractor-salary','contractor-compliance','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','m-reason','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance'],edit:true},
+  hr:{name:'HR Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-dash','contractor-emp','contractor-workforce','contractor-att','contractor-salary','contractor-compliance','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','m-reason','code-setup','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','payslips'],edit:true},
   manager:{name:'Reporting Manager',allow:['dashboard','leave-apply','leave-balance','payslips'],edit:true},
   finance:{name:'Finance',allow:['dashboard','challans','pf-master','esi-master','pt-master','lwf-master','tds-master','register','fnf','compliance','payslips'],edit:false},
   ess:{name:'Employee (ESS)',allow:['leave-apply','leave-balance','payslips'],edit:false,self:true},
-  contractor:{name:'Contractor Portal',allow:['contractor-emp','contractor-att','contractor-salary','challans','att-import','payslips'],edit:true,con:true},
+  contractor:{name:'Contractor Portal',allow:['contractor-dash','contractor-emp','contractor-workforce','contractor-att','contractor-salary','contractor-compliance','challans','att-import','payslips'],edit:true,con:true},
 };
 const USERS=[
   {u:'admin',p:'admin',name:'Anita Rao',role:'sysadmin',plants:'all'},
@@ -498,10 +515,11 @@ state.contractors=[
   {id:'C2',code:'CLEAN',name:'CleanCo Facilities',addr1:'45 Industrial Layout',addr2:'Whitefield',state:'KA',city:'BLR',pin:'560066',regNo:'CLRA/2023/0789',tan:'BLRC23456G',pan:'AAACC5678L',bankName:'ICICI Bank',bankAcc:'60200088002',ifsc:'ICIC0004567',contactName:'Latha Rao',contactNo:'9820000002',email:'admin@cleanco.in',status:'Hold',gst:'29AAACC5678L1Z3',license:'CLRA/2023/0789',plant:'P2',dept:'D4'},
   {id:'C3',code:'TECHM',name:'TechMan Contract Staffing',addr1:'78 Anna Salai',addr2:'Guindy',state:'TN',city:'CHN',pin:'600032',regNo:'CLRA/2024/0112',tan:'CHET34567H',pan:'AADCT9012M',bankName:'Axis Bank',bankAcc:'91800077003',ifsc:'UTIB0002345',contactName:'Ravi Kumar',contactNo:'9820000003',email:'staffing@techman.in',status:'Active',gst:'33AADCT9012M1Z1',license:'CLRA/2024/0112',plant:'P3',dept:'D1'},
 ];
+state.contractors.forEach(c=>{c.licenseValid=({C0:'',C1:'2026-08-31',C2:'2025-12-31',C3:'2026-07-15'})[c.id]||'';});
 const EMP_DEPT={1:'D5',2:'D1',3:'D2',4:'D3',5:'D1',6:'D1'};
 const EMP_BANK={1:'B3',2:'B1',3:'B3',4:'B2',5:'B1',6:'B4'};
 const EMP_CON={1:'C0',2:'C0',3:'C0',4:'C1',5:'C0',6:'C3'};
-state.employees.forEach(e=>{e.dept=EMP_DEPT[e.id]||'D1';e.bankId=EMP_BANK[e.id]||'B1';e.contractor=EMP_CON[e.id]||'C0';});
+state.employees.forEach(e=>{e.dept=EMP_DEPT[e.id]||'D1';e.bankId=EMP_BANK[e.id]||'B1';e.contractor=EMP_CON[e.id]||'C0';e.workDept=e.workDept||e.dept;});
 try{state.companyLogo=localStorage.getItem('boom_logo')||null;}catch(e){state.companyLogo=null;}
 state.M={
   reason:[{code:'AC01',name:'Biometric punch missing'},{code:'AC02',name:'On official duty / outdoor'},{code:'AC03',name:'Approved leave adjustment'},{code:'AC04',name:'System / data error'},{code:'AC05',name:'Manual override (manager approved)'}],
@@ -685,7 +703,7 @@ const NAV=[
     {id:'lwf-master',label:'LWF Master'},{id:'tds-master',label:'TDS Master'},
     {id:'leave-policy',label:'Leave Policy'},{id:'holiday',label:'Holiday Calendar'}]},
   {group:'contractor',label:'Contractor',icon:IC.master,children:[
-    {id:'contractor-master',label:'Contractor Master'},{id:'contractor-emp',label:'Contractor Employees'},{id:'contractor-att',label:'Contractor Attendance'},{id:'contractor-salary',label:'Contractor Salary'},{id:'challans',label:'Contractor Challans'}]},
+    {id:'contractor-dash',label:'Contractor Dashboard'},{id:'contractor-master',label:'Contractor Master'},{id:'contractor-emp',label:'Contractor Employees'},{id:'contractor-workforce',label:'Workforce Allocation'},{id:'contractor-att',label:'Contractor Attendance'},{id:'contractor-salary',label:'Contractor Salary'},{id:'contractor-compliance',label:'Compliance Register'},{id:'challans',label:'Contractor Challans'}]},
   {group:'hrm',label:'HR Masters',icon:IC.master,children:[
     {id:'m-grade',label:'Grade Master'},{id:'m-category',label:'Category Master'},
     {id:'m-skill',label:'Skill Master'},{id:'m-funcarea',label:'Functional Area'},
@@ -725,6 +743,9 @@ const TITLES={
   'contractor-emp':['Contractor Employees','Contractor-wise employee register.'],
   'contractor-att':['Contractor Attendance','Contractor-wise attendance — set LOP days per worker.'],
   'contractor-salary':['Contractor Salary','Contractor-wise salary generation from CTC, statutory rules & attendance.'],
+  'contractor-dash':['Contractor Dashboard','Workforce, attendance, leave, compliance & challan summary.'],
+  'contractor-workforce':['Workforce Allocation','Assign workers to departments from the Department Master.'],
+  'contractor-compliance':['Compliance Register','Employee-wise statutory contributions for the contractor.'],
   'con-detail':['Contractor record','Full contractor profile — identity, address, statutory, bank & contact.'],
   'challans':['Contractor Challans','PF / ESI / LWF / PT challans per contractor.'],
   'm-grade':['Grade Master','Employee grades.'],'m-category':['Category Master','Employee categories.'],
@@ -760,7 +781,7 @@ function go(v){if(!allowed(v)){toast('You do not have access to that module');re
 
 /* ============================ RENDER ============================ */
 let LAST_VIEW=null,BACK=false;
-const VIEW_PARENT={'emp-detail':'emp-master','con-detail':'contractor-master','contractor-emp':'contractor-master','contractor-att':'contractor-master','contractor-salary':'contractor-master','challans':'contractor-master'};
+const VIEW_PARENT={'emp-detail':'emp-master','con-detail':'contractor-master','contractor-emp':'contractor-master','contractor-att':'contractor-master','contractor-salary':'contractor-master','contractor-workforce':'contractor-master','contractor-compliance':'contractor-master','challans':'contractor-master'};
 function goBack(){if(!state.navHist)state.navHist=[];var _p=VIEW_PARENT[state.view];if(_p&&allowed(_p)){BACK=true;state.view=_p;}else if(state.navHist.length){BACK=true;state.view=state.navHist.pop();}else{BACK=true;state.view=firstAllowed();}var _s=document.getElementById('side');if(_s)_s.classList.remove('open');var _sc=document.getElementById('scrim');if(_sc)_sc.classList.remove('show');render();}
 function render(){
   if(!state.auth)return;
@@ -773,9 +794,10 @@ function render(){
   buildTopbar();
   var _bb=document.getElementById('backBtn');if(_bb)_bb.style.display=(state.navHist&&state.navHist.length)?'':'none';
   var _cb=document.getElementById('coBrand');if(_cb){if(state.companyLogo){_cb.style.display='flex';_cb.innerHTML='<img src="'+state.companyLogo+'" alt=""><span>'+(state.company||'')+'</span>';}else{_cb.style.display='none';_cb.innerHTML='';}}
+  updateLicBadge();
   document.getElementById('pageTitle').textContent=TITLES[state.view][0];
   document.getElementById('pageSub').textContent=TITLES[state.view][1];
-  const V={dashboard:vDashboard,'emp-master':vEmpMaster,'emp-detail':vEmpDetail,'dept-master':vDeptMaster,'bank-master':vBankMaster,'code-setup':vCodeSetup,'contractor-master':vContractorMaster,'con-detail':vConDetail,'contractor-emp':vContractorEmp,'contractor-att':vContractorAtt,'contractor-salary':vContractorSalary,'challans':vChallans,'m-grade':()=>vLookup('grade'),'m-category':()=>vLookup('category'),'m-skill':()=>vLookup('skill'),'m-funcarea':()=>vLookup('funcarea'),'m-qual':()=>vLookup('qual'),'m-country':()=>vLookup('country'),'m-state':()=>vLookup('stateM'),'m-city':()=>vLookup('city'),'m-reason':()=>vLookup('reason'),'code-setup':vCodeSetup,'pf-master':vPFMaster,'esi-master':vESIMaster,'pt-master':vPTMaster,'lwf-master':vLWFMaster,'tds-master':vTDSMaster,'leave-policy':vLeavePolicy,holiday:vHolidays,'leave-apply':vLeaveApply,'leave-balance':vLeaveBalance,'att-regular':vAttReg,'att-import':vAttImport,run:vRun,register:vRegister,fnf:vFNF,payslips:vPayslips,compliance:vCompliance,audit:vAudit,settings:vSettings};
+  const V={dashboard:vDashboard,'emp-master':vEmpMaster,'emp-detail':vEmpDetail,'dept-master':vDeptMaster,'bank-master':vBankMaster,'code-setup':vCodeSetup,'contractor-master':vContractorMaster,'con-detail':vConDetail,'contractor-emp':vContractorEmp,'contractor-att':vContractorAtt,'contractor-salary':vContractorSalary,'contractor-dash':vContractorDash,'contractor-workforce':vContractorWorkforce,'contractor-compliance':vContractorCompliance,'challans':vChallans,'m-grade':()=>vLookup('grade'),'m-category':()=>vLookup('category'),'m-skill':()=>vLookup('skill'),'m-funcarea':()=>vLookup('funcarea'),'m-qual':()=>vLookup('qual'),'m-country':()=>vLookup('country'),'m-state':()=>vLookup('stateM'),'m-city':()=>vLookup('city'),'m-reason':()=>vLookup('reason'),'code-setup':vCodeSetup,'pf-master':vPFMaster,'esi-master':vESIMaster,'pt-master':vPTMaster,'lwf-master':vLWFMaster,'tds-master':vTDSMaster,'leave-policy':vLeavePolicy,holiday:vHolidays,'leave-apply':vLeaveApply,'leave-balance':vLeaveBalance,'att-regular':vAttReg,'att-import':vAttImport,run:vRun,register:vRegister,fnf:vFNF,payslips:vPayslips,compliance:vCompliance,audit:vAudit,settings:vSettings};
   document.getElementById('content').innerHTML=V[state.view]();
   if(state.view==='payslips') buildSlip();
   if(state.view==='att-import') impPreview();
@@ -1491,7 +1513,7 @@ function addContractor(){
   if(!code||!name){toast('Code and name are required');return;}
   const reqd={'Address 1':g('c_addr1'),'Pin code':g('c_pin'),'Registration no':g('c_reg'),'TAN no':g('c_tan'),'PAN no':g('c_pan'),'Bank name':g('c_bname'),'Bank A/C no':g('c_bacc'),'IFSC code':g('c_ifsc'),'Contact name':g('c_cname'),'Contact number':g('c_cno'),'Email ID':g('c_email')};
   for(const k in reqd){if(!reqd[k]){toast(k+' is required');return;}}
-  state.contractors.push({id:'C'+Date.now(),code,name,addr1:g('c_addr1'),addr2:g('c_addr2'),state:g('c_state'),city:g('c_city'),pin:g('c_pin'),regNo:g('c_reg'),tan:g('c_tan').toUpperCase(),pan:g('c_pan').toUpperCase(),bankName:g('c_bname'),bankAcc:g('c_bacc'),ifsc:g('c_ifsc').toUpperCase(),contactName:g('c_cname'),contactNo:g('c_cno'),email:g('c_email'),status:g('c_status')||'Active',gst:(g('c_gst')||'—').toUpperCase(),license:g('c_reg'),plant:g('c_plant'),dept:g('c_dept')});
+  state.contractors.push({id:'C'+Date.now(),code,name,addr1:g('c_addr1'),addr2:g('c_addr2'),state:g('c_state'),city:g('c_city'),pin:g('c_pin'),regNo:g('c_reg'),tan:g('c_tan').toUpperCase(),pan:g('c_pan').toUpperCase(),bankName:g('c_bname'),bankAcc:g('c_bacc'),ifsc:g('c_ifsc').toUpperCase(),contactName:g('c_cname'),contactNo:g('c_cno'),email:g('c_email'),status:g('c_status')||'Active',gst:(g('c_gst')||'—').toUpperCase(),license:g('c_reg'),licenseValid:g('c_lvalid'),plant:g('c_plant'),dept:g('c_dept')});
   logAudit('Added contractor '+code);toast('Contractor added');render();
 }
 function vContractorMaster(){
@@ -1662,7 +1684,7 @@ function saveCon(){
     regNo:g('c_reg'),tan:g('c_tan').toUpperCase(),pan:g('c_pan').toUpperCase(),gst:(g('c_gst')||'—').toUpperCase(),
     bankName:g('c_bname'),bankAcc:g('c_bacc'),ifsc:g('c_ifsc').toUpperCase(),
     contactName:g('c_cname'),contactNo:g('c_cno'),email:g('c_email'),status:g('c_status')||'Active',
-    license:g('c_reg'),plant:g('c_plant'),dept:g('c_dept'),sapCode:g('c_sap'),photo:(state.conForm&&state.conForm.photo)||'',docs:(state.conForm&&state.conForm.docs)||[]};
+    license:g('c_reg'),licenseValid:g('c_lvalid'),plant:g('c_plant'),dept:g('c_dept'),sapCode:g('c_sap'),photo:(state.conForm&&state.conForm.photo)||'',docs:(state.conForm&&state.conForm.docs)||[]};
   if(state.conEdit==='new'){
     data.id='C'+Date.now(); state.contractors.push(data);
     logAudit('Created contractor '+code); toast(name+' created');
@@ -1703,6 +1725,7 @@ function vConDetail(){
     txt('c_pin','Pin code *',c.pin,'411001'))}
   ${pane('statutory',
     txt('c_reg','Registration no. *',c.regNo,'CLRA/2025/0000')+
+    `<div class="field"><label>CLRA licence valid till</label><input id="c_lvalid" type="date" class="editable" value="${c.licenseValid||''}"></div>`+
     txt('c_tan','TAN no. *',c.tan,'PNES12345F')+
     txt('c_pan','PAN no. *',c.pan,'AABCS1234K')+
     txt('c_gst','GST no.',c.gst,'27AABCS1234K1Z5'))}
@@ -1884,13 +1907,118 @@ function vContractorAtt(){const list=conEmps();const ro=!canEdit();return `
   </tbody></table></div>
   <div class="note">Contractor-wise attendance — set Loss-of-Pay (LOP) days; paid days flow into salary automatically.</div>`;}
 function vContractorSalary(){const cur=conScopeId();const c=state.contractors.find(x=>x.id===cur)||state.contractors[0];const list=conEmps();let tG=0,tD=0,tN=0;const rows=list.map(e=>{const cc=compute(e);const a=attOf(e.id);tG+=cc.eGross;tD+=cc.totalDed;tN+=cc.net;return `<tr><td>${empCell(e)}</td><td class="num">${a.paid}/${a.total}</td><td class="num">${inr(cc.eGross)}</td><td class="num">${inr(cc.totalDed)}</td><td class="num"><b>${inr(cc.net)}</b></td><td><button class="btn btn-ghost btn-sm" onclick="viewSlipFor(${e.id})">Slip</button></td></tr>`;}).join('');return `
-  <div class="panel" style="margin-bottom:16px"><div class="row-between">${conPicker()}<div style="text-align:right">${canEdit()?`<button class="btn btn-primary" onclick="genContractorSalary()">Generate salary</button>`:'<span class="ro-pill">Read-only</span>'}</div></div></div>
+  <div class="panel" style="margin-bottom:16px"><div class="row-between">${conPicker()}<div style="display:flex;gap:8px;align-items:center"><button class="btn btn-ghost btn-sm" onclick="exportConSalary()">Export to Excel</button>${canEdit()?`<button class="btn btn-primary" onclick="genContractorSalary()">Generate salary</button>`:'<span class="ro-pill">Read-only</span>'}</div></div></div>
   <div class="panel flush"><table><thead><tr><th>Employee</th><th class="num">Paid days</th><th class="num">Gross</th><th class="num">Deductions</th><th class="num">Net pay</th><th></th></tr></thead><tbody>
   ${list.length?rows:'<tr><td colspan="6" style="color:var(--steel)">No workers under this contractor.</td></tr>'}
   ${list.length?`<tr style="background:var(--ash,#eef2f7);font-weight:700"><td>Total — ${list.length} worker(s)</td><td></td><td class="num">${inr(tG)}</td><td class="num">${inr(tD)}</td><td class="num">${inr(tN)}</td><td></td></tr>`:''}
   </tbody></table></div>
   <div class="note">Contractor-wise salary — computed from CTC, statutory rules and attendance for <b>${c.name}</b>.</div>`;}
 function genContractorSalary(){const cur=conScopeId();const c=state.contractors.find(x=>x.id===cur);const list=conEmps();if(!list.length){toast('No workers under this contractor');return;}const net=list.reduce((s,e)=>s+compute(e).net,0);logAudit('Generated salary for '+(c?c.name:cur)+' — '+list.length+' worker(s)');toast('Salary generated · '+list.length+' worker(s) · Net '+inr(net));}
+
+/* ===== Contractor portal: dashboard, reminders, workforce, compliance, exports, licence ===== */
+function activeContractor(){var mc=myCon();if(mc)return state.contractors.find(c=>c.id===mc)||null;if(['contractor-dash','contractor-emp','contractor-workforce','contractor-att','contractor-salary','contractor-compliance','challans','contractor-master'].indexOf(state.view)>=0)return state.contractors.find(c=>c.id===conScopeId())||null;return null;}
+function licStatus(c){if(!c||!c.licenseValid)return{cls:'',label:'',days:null};var d=new Date(c.licenseValid+'T00:00:00');if(isNaN(d))return{cls:'',label:'',days:null};var days=Math.ceil((d-new Date())/86400000);var fmt=d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});if(days<0)return{cls:'exp',label:'expired '+fmt,days:days};if(days<=60)return{cls:'soon',label:'expires '+fmt,days:days};return{cls:'ok',label:'valid to '+fmt,days:days};}
+function updateLicBadge(){var b=document.getElementById('licBadge');if(!b)return;var c=activeContractor();if(c&&c.license&&c.license!=='—'){var s=licStatus(c);b.style.display='inline-flex';b.innerHTML='<span class="lic-k">CLRA Licence</span><span class="lic-v">'+c.license+'</span>'+(s.label?'<span class="lic-d '+s.cls+'">'+s.label+'</span>':'');}else{b.style.display='none';b.innerHTML='';}}
+function conChallans(){var cur=conScopeId();return state.challans.filter(c=>c.con===cur);}
+function conLeave(){var list=conEmps();var b={EL:0,CL:0,SL:0};list.forEach(function(e){var lb=state.leaveBal[e.id];if(lb){b.EL+=(lb.EL.accrued-lb.EL.used);b.CL+=(lb.CL.accrued-lb.CL.used);b.SL+=(lb.SL.accrued-lb.SL.used);}});return b;}
+function conTotals(){var list=conEmps();var t={pf:0,esi:0,pt:0,lwf:0,tds:0,gross:0,net:0,lop:0,paid:0};list.forEach(function(e){var c=compute(e),a=attOf(e.id);t.pf+=c.eePF+c.erPF;t.esi+=c.eeESI+c.erESI;t.pt+=c.pt;t.lwf+=c.lwf;t.tds+=c.tds;t.gross+=c.eGross;t.net+=c.net;t.lop+=a.lop;t.paid+=a.paid;});return t;}
+function conChallanStats(){var ch=conChallans();var types=['PF','ESI','PT','LWF'];var by={};types.forEach(function(tp){var it=ch.filter(c=>c.type===tp);by[tp]={count:it.length,paid:it.filter(i=>i.status==='Paid').length,pending:it.filter(i=>i.status!=='Paid').length};});var pending=types.filter(tp=>by[tp].paid===0).length;return{types:types,by:by,total:ch.length,pending:pending};}
+
+function vContractorDash(){
+  var c=state.contractors.find(x=>x.id===conScopeId())||state.contractors[0];
+  var list=conEmps();var t=conTotals();var lv=conLeave();var cs=conChallanStats();var ls=licStatus(c);
+  var deptCount={};list.forEach(function(e){var d=e.workDept||e.dept;deptCount[d]=(deptCount[d]||0)+1;});
+  var kpi=function(label,val,sub,cls){return `<div class="kpi ${cls||''}"><div class="kpi-l">${label}</div><div class="kpi-v">${val}</div><div class="kpi-s">${sub||''}</div></div>`;};
+  var rem=[];
+  rem.push({t:'EPF ECR (PF challan)',d:'15th '+nextMonth()+' '+state.payYear,amt:t.pf,st:cs.by.PF.paid?'Filed':'Due'});
+  rem.push({t:'ESIC challan',d:'15th '+nextMonth()+' '+state.payYear,amt:t.esi,st:cs.by.ESI.paid?'Filed':'Due'});
+  rem.push({t:'Professional Tax',d:'As per state',amt:t.pt,st:cs.by.PT.paid?'Filed':'Due'});
+  rem.push({t:'Labour Welfare Fund',d:'As per state cycle',amt:t.lwf,st:cs.by.LWF.paid?'Filed':'Due'});
+  if(ls.label)rem.push({t:'CLRA licence renewal',d:ls.label,amt:null,st:ls.cls==='exp'?'Overdue':(ls.cls==='soon'?'Due soon':'OK')});
+  return `
+  <div class="panel" style="margin-bottom:16px"><div class="row-between">${conPicker()}<div style="text-align:right"><div class="note" style="margin:0">CLRA ${c.license||'—'}</div><div class="note" style="margin:2px 0 0">${ls.label||''}</div></div></div></div>
+  <div class="kpis">
+    ${kpi('Workers',list.length,'on '+(c.code||'')+' rolls')}
+    ${kpi('Monthly net',inr(t.net),'this period')}
+    ${kpi('Paid / LOP days',Math.round(t.paid)+' / '+Math.round(t.lop),'across workers')}
+    ${kpi('Leave balance',(lv.EL+lv.CL+lv.SL),'EL '+lv.EL+' · CL '+lv.CL+' · SL '+lv.SL)}
+    ${kpi('Pending compliances',cs.pending,cs.pending?'need filing':'all filed',cs.pending?'warn':'good')}
+    ${kpi('Challans submitted',cs.total,'PF '+cs.by.PF.count+' · ESI '+cs.by.ESI.count+' · PT '+cs.by.PT.count+' · LWF '+cs.by.LWF.count)}
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="panel"><h3>Challan &amp; compliance reminders</h3><div class="sub">Upcoming statutory deadlines for ${c.name}</div>
+      <table><thead><tr><th>Filing</th><th>Due</th><th class="num">Amount</th><th>Status</th></tr></thead><tbody>
+      ${rem.map(function(r){return `<tr><td><b>${r.t}</b></td><td>${r.d}</td><td class="num">${r.amt==null?'—':inr(r.amt)}</td><td><span class="tag ${(r.st==='Filed'||r.st==='OK')?'g':(r.st==='Overdue'?'r':'a')}">${r.st}</span></td></tr>`;}).join('')}
+      </tbody></table><div class="note">Deadlines are general statutory dates and may shift on holidays. File challans under Contractor Challans.</div></div>
+    <div class="panel"><h3>Workforce by department</h3><div class="sub">Current work allocation</div>
+      <table><thead><tr><th>Department</th><th class="num">Workers</th></tr></thead><tbody>
+      ${Object.keys(deptCount).length?Object.keys(deptCount).map(function(d){return `<tr><td>${deptName(d)}</td><td class="num">${deptCount[d]}</td></tr>`;}).join(''):'<tr><td colspan="2" style="color:var(--steel)">No workers assigned.</td></tr>'}
+      </tbody></table>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" onclick="go('contractor-workforce')">Manage allocation</button><button class="btn btn-ghost btn-sm" onclick="go('contractor-compliance')">Compliance register</button><button class="btn btn-ghost btn-sm" onclick="go('challans')">Challans</button></div>
+    </div>
+  </div>`;
+}
+
+function vContractorWorkforce(){
+  var list=conEmps();var ro=!canEdit();
+  var deptCount={};list.forEach(function(e){var d=e.workDept||e.dept;deptCount[d]=(deptCount[d]||0)+1;});
+  return `
+  <div class="panel" style="margin-bottom:16px"><div class="row-between">${conPicker()}<div style="text-align:right"><div class="note" style="margin:0">${list.length} worker(s)</div><div class="note" style="margin:2px 0 0">Assign to a department from the master</div></div></div></div>
+  <div class="grid2" style="grid-template-columns:1.6fr 1fr">
+    <div class="panel flush"><table><thead><tr><th>Worker</th><th>Home dept</th><th>Plant</th><th>Work department</th></tr></thead><tbody>
+    ${list.length?list.map(function(e){return `<tr><td>${empCell(e)}</td><td>${deptName(e.dept)}</td><td>${(PLANTS.find(p=>p.id===e.plant)||{}).name||e.plant||''}</td><td>${ro?deptName(e.workDept||e.dept):`<select class="editable" onchange="assignWork(${e.id},this.value)">${state.departments.map(function(d){return `<option value="${d.id}" ${(e.workDept||e.dept)===d.id?'selected':''}>${d.code} — ${d.name}</option>`;}).join('')}</select>`}</td></tr>`;}).join(''):'<tr><td colspan="4" style="color:var(--steel)">No workers under this contractor.</td></tr>'}
+    </tbody></table></div>
+    <div class="panel"><h3>Deployment summary</h3><div class="sub">Headcount per department</div>
+      <table><thead><tr><th>Department</th><th class="num">Workers</th></tr></thead><tbody>
+      ${state.departments.map(function(d){return `<tr><td>${d.code} — ${d.name}</td><td class="num">${deptCount[d.id]||0}</td></tr>`;}).join('')}
+      </tbody></table>
+      <div class="note">Departments come from <b>Master Data → Department Master</b>. Each change is recorded in the audit trail.</div>
+    </div>
+  </div>`;
+}
+function assignWork(id,dept){var e=state.employees.find(x=>x.id===id);if(!e)return;var old=e.workDept||e.dept;e.workDept=dept;logAudit('Workforce — '+e.name+' assigned to '+deptName(dept)+(old!==dept?' (was '+deptName(old)+')':''));toast(e.name.split(' ')[0]+' → '+deptName(dept));render();}
+
+function vContractorCompliance(){
+  var c=state.contractors.find(x=>x.id===conScopeId())||state.contractors[0];var list=conEmps();
+  var tot={eePF:0,erPF:0,eeESI:0,erESI:0,pt:0,lwf:0,tds:0};
+  var rows=list.map(function(e){var cc=compute(e);tot.eePF+=cc.eePF;tot.erPF+=cc.erPF;tot.eeESI+=cc.eeESI;tot.erESI+=cc.erESI;tot.pt+=cc.pt;tot.lwf+=cc.lwf;tot.tds+=cc.tds;return `<tr><td>${empCell(e)}</td><td class="mono">${e.uan||'—'}</td><td>${deptName(e.workDept||e.dept)}</td><td class="num">${inr(cc.eePF)}</td><td class="num">${inr(cc.erPF)}</td><td class="num">${inr(cc.eeESI)}</td><td class="num">${inr(cc.erESI)}</td><td class="num">${inr(cc.pt)}</td><td class="num">${inr(cc.lwf)}</td><td class="num">${inr(cc.tds)}</td></tr>`;}).join('');
+  return `
+  <div class="panel" style="margin-bottom:16px"><div class="row-between">${conPicker()}<div style="display:flex;gap:8px;align-items:center"><div class="note" style="margin:0">${list.length} worker(s)</div><button class="btn btn-ghost btn-sm" onclick="exportConCompliance()">Export to Excel</button></div></div></div>
+  <div class="panel flush"><table><thead><tr><th>Worker</th><th>UAN</th><th>Dept</th><th class="num">PF (EE)</th><th class="num">PF (ER)</th><th class="num">ESI (EE)</th><th class="num">ESI (ER)</th><th class="num">PT</th><th class="num">LWF</th><th class="num">TDS</th></tr></thead><tbody>
+  ${list.length?rows:'<tr><td colspan="10" style="color:var(--steel)">No workers under this contractor.</td></tr>'}
+  ${list.length?`<tr style="background:var(--ash,#eef2f7);font-weight:700"><td>Total — ${list.length}</td><td></td><td></td><td class="num">${inr(tot.eePF)}</td><td class="num">${inr(tot.erPF)}</td><td class="num">${inr(tot.eeESI)}</td><td class="num">${inr(tot.erESI)}</td><td class="num">${inr(tot.pt)}</td><td class="num">${inr(tot.lwf)}</td><td class="num">${inr(tot.tds)}</td></tr>`:''}
+  </tbody></table></div>
+  <div class="note">Employee-wise statutory contributions for <b>${c.name}</b> — EPF, ESIC, PT, LWF and TDS — for ECR / challan preparation.</div>`;
+}
+
+function downloadXls(filename,title,headers,rows,totalRow){
+  var esc=function(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');};
+  var H='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel"><head><meta charset="utf-8"></head><body><table border="1">';
+  H+='<tr><td colspan="'+headers.length+'" style="font-weight:bold;font-size:14px">'+esc(title)+'</td></tr>';
+  H+='<tr>'+headers.map(function(x){return '<th>'+esc(x)+'</th>';}).join('')+'</tr>';
+  rows.forEach(function(r){H+='<tr>'+r.map(function(x){return '<td>'+esc(x)+'</td>';}).join('')+'</tr>';});
+  if(totalRow)H+='<tr>'+totalRow.map(function(x){return '<td style="font-weight:bold">'+esc(x)+'</td>';}).join('')+'</tr>';
+  H+='</table></body></html>';
+  var blob=new Blob([H],{type:'application/vnd.ms-excel'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download=filename;a.click();URL.revokeObjectURL(url);
+}
+function exportConSalary(){
+  var c=state.contractors.find(x=>x.id===conScopeId())||state.contractors[0];var list=conEmps();
+  var headers=['Emp Code','Name','Department','Plant','Paid days','LOP','Basic','HRA','Special','Gross','PF (EE)','ESI (EE)','PT','LWF','TDS','Total Ded','Net Pay'];
+  var tg=0,td=0,tn=0;
+  var rows=list.map(function(e){var cc=compute(e),a=attOf(e.id);tg+=cc.eGross;td+=cc.totalDed;tn+=cc.net;return [e.empCode||e.id,e.name,deptName(e.workDept||e.dept),(PLANTS.find(p=>p.id===e.plant)||{}).name||e.plant||'',a.paid,a.lop,Math.round(cc.eBasic),Math.round(cc.eHra),Math.round(cc.eSpecial),Math.round(cc.eGross),Math.round(cc.eePF),Math.round(cc.eeESI),Math.round(cc.pt),Math.round(cc.lwf),Math.round(cc.tds),Math.round(cc.totalDed),Math.round(cc.net)];});
+  var totalRow=['','','','TOTAL','','','','','',Math.round(tg),'','','','','',Math.round(td),Math.round(tn)];
+  downloadXls('salary-register-'+(c.code||'con')+'.xls','Salary Register — '+c.name+' — '+state.payMonth+' '+state.payYear,headers,rows,totalRow);
+  toast('Salary register exported to Excel');
+}
+function exportConCompliance(){
+  var c=state.contractors.find(x=>x.id===conScopeId())||state.contractors[0];var list=conEmps();
+  var headers=['Emp Code','Name','UAN','Department','PF (EE)','PF (ER)','ESI (EE)','ESI (ER)','PT','LWF','TDS'];
+  var t={eePF:0,erPF:0,eeESI:0,erESI:0,pt:0,lwf:0,tds:0};
+  var rows=list.map(function(e){var cc=compute(e);t.eePF+=cc.eePF;t.erPF+=cc.erPF;t.eeESI+=cc.eeESI;t.erESI+=cc.erESI;t.pt+=cc.pt;t.lwf+=cc.lwf;t.tds+=cc.tds;return [e.empCode||e.id,e.name,e.uan||'',deptName(e.workDept||e.dept),Math.round(cc.eePF),Math.round(cc.erPF),Math.round(cc.eeESI),Math.round(cc.erESI),Math.round(cc.pt),Math.round(cc.lwf),Math.round(cc.tds)];});
+  var totalRow=['','','','TOTAL',Math.round(t.eePF),Math.round(t.erPF),Math.round(t.eeESI),Math.round(t.erESI),Math.round(t.pt),Math.round(t.lwf),Math.round(t.tds)];
+  downloadXls('compliance-register-'+(c.code||'con')+'.xls','Compliance Register — '+c.name+' — '+state.payMonth+' '+state.payYear,headers,rows,totalRow);
+  toast('Compliance register exported to Excel');
+}
 </script>
 </body>
 </html>
