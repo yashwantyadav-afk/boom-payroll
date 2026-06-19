@@ -27,9 +27,9 @@
   .app{display:grid;grid-template-columns:252px 1fr;min-height:100vh}
   .side{background:var(--navy);color:#fff;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
   .brand{display:flex;align-items:center;gap:10px;padding:20px 22px 16px}
-  .brand .mk{width:38px;height:38px;flex:none}
-  .brand .wm{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:17.6px;line-height:1;display:flex;align-items:baseline;gap:1px}
-  .brand .wm .b{color:#fff}.brand .wm .p{color:var(--orange);font-size:12.8px}
+  .brand .mk{width:49px;height:49px;flex:none}
+  .brand .wm{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:22.9px;line-height:1;display:flex;align-items:baseline;gap:1px}
+  .brand .wm .b{color:#fff}.brand .wm .p{color:var(--orange);font-size:16.6px}
   .side .reg{font-family:'IBM Plex Mono',monospace;font-size:7.6px;letter-spacing:.18em;color:rgba(255,255,255,.5);padding:0 24px 14px;text-transform:uppercase}
   .nav{display:flex;flex-direction:column;gap:3px;padding:6px 12px;flex:1}
   .nav a{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:9px;color:rgba(255,255,255,.72);font-weight:500;font-size:11.2px;transition:background .15s,color .15s}
@@ -261,12 +261,13 @@
 /* ===== Two-panel login (mockup) ===== */
 .login{padding:24px;overflow-y:auto}
 .login-shell{display:grid;grid-template-columns:1.08fr .92fr;width:100%;max-width:1020px;min-height:460px;margin:auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 50px 120px -40px rgba(0,0,0,.65)}
-.login-aside{position:relative;background:linear-gradient(155deg,#0B2547 0%,#143765 58%,#0E2C54 100%);color:#fff;padding:34px 38px 26px;display:flex;flex-direction:column;overflow:auto}
+.login-aside{position:relative;background:linear-gradient(155deg,#0B2547 0%,#143765 58%,#0E2C54 100%);color:#fff;padding:34px 38px 26px;display:flex;flex-direction:column;overflow:hidden}
 .login-aside:before{content:"";position:absolute;width:420px;height:420px;right:-160px;top:-130px;border-radius:50%;background:radial-gradient(circle,rgba(43,166,232,.28),transparent 62%)}
 .login-aside:after{content:"";position:absolute;width:360px;height:360px;left:-150px;bottom:-160px;border-radius:50%;background:radial-gradient(circle,rgba(244,124,32,.20),transparent 60%)}
 .login-aside>*{position:relative;z-index:1}
 .login-brand{display:flex;align-items:center;gap:10px}
-.login-brand .wm{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:18px;line-height:1;display:flex;align-items:baseline;gap:1px}
+.login-brand .wm{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:23.4px;line-height:1;display:flex;align-items:baseline;gap:1px}
+.login-brand svg{width:44px !important;height:44px !important}
 .login-brand .b{color:#0B2547}.login-brand .p{color:#F47C20}
 .login-brand.light .b{color:#fff}.login-brand.light .p{color:#F8A45C}
 .la-title{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:30px;line-height:1.16;margin:24px 0 12px;color:#fff}
@@ -409,15 +410,15 @@ const PT_RULES=[
   ['Delhi / Haryana / UP / Rajasthan','No professional tax'],
 ];
 const PLANTS=[{id:'P1',name:'Pune Plant',city:'Pune, MH'},{id:'P2',name:'Bengaluru R&D',city:'Bengaluru, KA'},{id:'P3',name:'Chennai Unit',city:'Chennai, TN'}];
-const ALLVIEWS=['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance','audit','settings'];
+const ALLVIEWS=['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','m-reason','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance','audit','settings'];
 const ROLES={
   sysadmin:{name:'System Admin',allow:ALLVIEWS,edit:true},
-  payroll:{name:'Payroll Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance'],edit:true},
-  hr:{name:'HR Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','code-setup','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','payslips'],edit:true},
+  payroll:{name:'Payroll Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','m-reason','code-setup','pf-master','esi-master','pt-master','lwf-master','tds-master','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','run','register','fnf','payslips','compliance'],edit:true},
+  hr:{name:'HR Admin',allow:['dashboard','emp-master','emp-detail','dept-master','bank-master','code-setup','contractor-master','con-detail','contractor-emp','contractor-att','contractor-salary','challans','m-grade','m-category','m-skill','m-funcarea','m-qual','m-country','m-state','m-city','m-reason','code-setup','leave-policy','holiday','leave-apply','leave-balance','att-regular','att-import','payslips'],edit:true},
   manager:{name:'Reporting Manager',allow:['dashboard','leave-apply','leave-balance','payslips'],edit:true},
   finance:{name:'Finance',allow:['dashboard','challans','pf-master','esi-master','pt-master','lwf-master','tds-master','register','fnf','compliance','payslips'],edit:false},
   ess:{name:'Employee (ESS)',allow:['leave-apply','leave-balance','payslips'],edit:false,self:true},
-  contractor:{name:'Contractor Portal',allow:['contractor-emp','contractor-att','contractor-salary'],edit:true,con:true},
+  contractor:{name:'Contractor Portal',allow:['contractor-emp','contractor-att','contractor-salary','challans','att-import','payslips'],edit:true,con:true},
 };
 const USERS=[
   {u:'admin',p:'admin',name:'Anita Rao',role:'sysadmin',plants:'all'},
@@ -503,6 +504,7 @@ const EMP_CON={1:'C0',2:'C0',3:'C0',4:'C1',5:'C0',6:'C3'};
 state.employees.forEach(e=>{e.dept=EMP_DEPT[e.id]||'D1';e.bankId=EMP_BANK[e.id]||'B1';e.contractor=EMP_CON[e.id]||'C0';});
 try{state.companyLogo=localStorage.getItem('boom_logo')||null;}catch(e){state.companyLogo=null;}
 state.M={
+  reason:[{code:'AC01',name:'Biometric punch missing'},{code:'AC02',name:'On official duty / outdoor'},{code:'AC03',name:'Approved leave adjustment'},{code:'AC04',name:'System / data error'},{code:'AC05',name:'Manual override (manager approved)'}],
   grade:[{code:'G1',name:'Grade A (Executive)'},{code:'G2',name:'Grade B (Officer)'},{code:'G3',name:'Grade C (Staff)'},{code:'G4',name:'Grade D (Worker)'}],
   category:[{code:'GEN',name:'General'},{code:'OBC',name:'OBC'},{code:'SC',name:'SC'},{code:'ST',name:'ST'},{code:'EWS',name:'EWS'}],
   skill:[{code:'HSK',name:'Highly Skilled'},{code:'SKL',name:'Skilled'},{code:'SSK',name:'Semi-Skilled'},{code:'USK',name:'Unskilled'}],
@@ -514,6 +516,7 @@ state.M={
 };
 const MKEY={'m-grade':'grade','m-category':'category','m-skill':'skill','m-funcarea':'funcarea','m-qual':'qual','m-country':'country','m-state':'stateM','m-city':'city'};
 const MCFG={
+  reason:{title:'Reason Code',parent:null,used:()=>null,noUsage:true},
   grade:{title:'Grade',parent:null,used:e=>e.grade},
   category:{title:'Category',parent:null,used:e=>e.category},
   skill:{title:'Skill',parent:null,used:e=>e.skill},
@@ -687,7 +690,7 @@ const NAV=[
     {id:'m-grade',label:'Grade Master'},{id:'m-category',label:'Category Master'},
     {id:'m-skill',label:'Skill Master'},{id:'m-funcarea',label:'Functional Area'},
     {id:'m-qual',label:'Qualification'},{id:'m-country',label:'Country Master'},
-    {id:'m-state',label:'State Master'},{id:'m-city',label:'City Master'},{id:'code-setup',label:'Code Setup'}]},
+    {id:'m-state',label:'State Master'},{id:'m-city',label:'City Master'},{id:'m-reason',label:'Reason Code Master'},{id:'code-setup',label:'Code Setup'}]},
   {group:'leave',label:'Leave',icon:IC.att,children:[
     {id:'leave-apply',label:'Apply & Approvals'},{id:'leave-balance',label:'Balances & Encashment'}]},
   {group:'attendance',label:'Attendance',icon:IC.att,children:[
@@ -708,6 +711,7 @@ const TITLES={
   'tds-master':['TDS Master','Income-tax regime, slabs and deductions.'],
   'att-regular':['Attendance · Regularization','Approve requests and adjust loss-of-pay days.'],
   'att-import':['Attendance · Import','Bring in attendance from biometric / CSV.'],
+  'm-reason':['Reason Code Master','Reusable reason codes — used for attendance corrections and other actions.'],
   run:['Run the Payroll','Process this month and review the register.'],
   register:['Payroll Register','Full register with statutory breakup and export.'],
   payslips:['Payslips','Generate and download statutory payslips.'],
@@ -771,7 +775,7 @@ function render(){
   var _cb=document.getElementById('coBrand');if(_cb){if(state.companyLogo){_cb.style.display='flex';_cb.innerHTML='<img src="'+state.companyLogo+'" alt=""><span>'+(state.company||'')+'</span>';}else{_cb.style.display='none';_cb.innerHTML='';}}
   document.getElementById('pageTitle').textContent=TITLES[state.view][0];
   document.getElementById('pageSub').textContent=TITLES[state.view][1];
-  const V={dashboard:vDashboard,'emp-master':vEmpMaster,'emp-detail':vEmpDetail,'dept-master':vDeptMaster,'bank-master':vBankMaster,'code-setup':vCodeSetup,'contractor-master':vContractorMaster,'con-detail':vConDetail,'contractor-emp':vContractorEmp,'contractor-att':vContractorAtt,'contractor-salary':vContractorSalary,'challans':vChallans,'m-grade':()=>vLookup('grade'),'m-category':()=>vLookup('category'),'m-skill':()=>vLookup('skill'),'m-funcarea':()=>vLookup('funcarea'),'m-qual':()=>vLookup('qual'),'m-country':()=>vLookup('country'),'m-state':()=>vLookup('stateM'),'m-city':()=>vLookup('city'),'code-setup':vCodeSetup,'pf-master':vPFMaster,'esi-master':vESIMaster,'pt-master':vPTMaster,'lwf-master':vLWFMaster,'tds-master':vTDSMaster,'leave-policy':vLeavePolicy,holiday:vHolidays,'leave-apply':vLeaveApply,'leave-balance':vLeaveBalance,'att-regular':vAttReg,'att-import':vAttImport,run:vRun,register:vRegister,fnf:vFNF,payslips:vPayslips,compliance:vCompliance,audit:vAudit,settings:vSettings};
+  const V={dashboard:vDashboard,'emp-master':vEmpMaster,'emp-detail':vEmpDetail,'dept-master':vDeptMaster,'bank-master':vBankMaster,'code-setup':vCodeSetup,'contractor-master':vContractorMaster,'con-detail':vConDetail,'contractor-emp':vContractorEmp,'contractor-att':vContractorAtt,'contractor-salary':vContractorSalary,'challans':vChallans,'m-grade':()=>vLookup('grade'),'m-category':()=>vLookup('category'),'m-skill':()=>vLookup('skill'),'m-funcarea':()=>vLookup('funcarea'),'m-qual':()=>vLookup('qual'),'m-country':()=>vLookup('country'),'m-state':()=>vLookup('stateM'),'m-city':()=>vLookup('city'),'m-reason':()=>vLookup('reason'),'code-setup':vCodeSetup,'pf-master':vPFMaster,'esi-master':vESIMaster,'pt-master':vPTMaster,'lwf-master':vLWFMaster,'tds-master':vTDSMaster,'leave-policy':vLeavePolicy,holiday:vHolidays,'leave-apply':vLeaveApply,'leave-balance':vLeaveBalance,'att-regular':vAttReg,'att-import':vAttImport,run:vRun,register:vRegister,fnf:vFNF,payslips:vPayslips,compliance:vCompliance,audit:vAudit,settings:vSettings};
   document.getElementById('content').innerHTML=V[state.view]();
   if(state.view==='payslips') buildSlip();
   if(state.view==='att-import') impPreview();
@@ -1541,9 +1545,9 @@ function vLookup(key){
       ${cfg.parent?`<div class="field"><label>${cfg.parent.label} *</label><select id="lk_${key}_parent">${parentArr.map(p=>`<option value="${p.code}">${p.name}</option>`).join('')}</select></div>`:''}
     </div>
     <div style="display:flex;gap:10px"><button class="btn btn-primary" onclick="addLookup('${key}')">Save</button><button class="btn btn-ghost" onclick="toggleLk('${key}')">Cancel</button></div></div>
-  <div class="panel flush"><table><thead><tr><th>Code</th><th>${cfg.title}</th>${cfg.parent?`<th>${cfg.parent.label}</th>`:''}<th class="num">Employees</th></tr></thead><tbody>
+  <div class="panel flush"><table><thead><tr><th>Code</th><th>${cfg.title}</th>${cfg.parent?`<th>${cfg.parent.label}</th>`:''}${cfg.noUsage?'':'<th class="num">Employees</th>'}</tr></thead><tbody>
   ${arr.map(it=>{const used=emps().filter(e=>cfg.used(e)===it.code).length;const par=cfg.parent?lookupName(cfg.parent.key,it[pfield]):null;
-    return `<tr><td><span class="tag b">${it.code}</span></td><td style="font-weight:600">${it.name}</td>${cfg.parent?`<td>${par}</td>`:''}<td class="num">${used}</td></tr>`;}).join('')}
+    return `<tr><td><span class="tag b">${it.code}</span></td><td style="font-weight:600">${it.name}</td>${cfg.parent?`<td>${par}</td>`:''}${cfg.noUsage?'':`<td class="num">${used}</td>`}</tr>`;}).join('')}
   </tbody></table></div>
   <div class="note">Common master — referenced from the Employee Master (and elsewhere) and reusable across the system. Add new records here and they appear in the relevant dropdowns.</div>`;
 }
@@ -1765,11 +1769,11 @@ function addChallan(){const con=val('ch_con'),type=val('ch_type'),month=val('ch_
 function vChallans(){
   const types=['PF','ESI','LWF','PT'];
   return `
-  <div class="row-between" style="margin-bottom:16px"><div class="sec-title" style="margin:0">${state.challans.length} challan record(s)</div>
+  <div class="row-between" style="margin-bottom:16px"><div class="sec-title" style="margin:0">${chScoped().length} challan record(s)</div>
     <button class="btn btn-orange editable" onclick="toggleChallan()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add challan</button></div>
   <div id="chForm" class="panel" style="display:none;margin-bottom:16px"><h3 style="margin-bottom:14px">New challan</h3>
     <div class="form-grid">
-      <div class="field"><label>Contractor *</label><select id="ch_con" onchange="chEstimate()">${state.contractors.map(c=>`<option value="${c.id}">${c.code} — ${c.name}</option>`).join('')}</select></div>
+      <div class="field"><label>Contractor *</label><select id="ch_con" onchange="chEstimate()">${conScoped().map(c=>`<option value="${c.id}">${c.code} — ${c.name}</option>`).join('')}</select></div>
       <div class="field"><label>Challan type *</label><select id="ch_type" onchange="chEstimate()">${types.map(t=>`<option>${t}</option>`).join('')}</select></div>
       <div class="field"><label>Period (month)</label><select id="ch_month">${MONTHS.map(m=>`<option ${m===state.payMonth?'selected':''}>${m}</option>`).join('')}</select></div>
       <div class="field"><label>Year</label><input id="ch_year" type="number" value="${state.payYear}"></div>
@@ -1782,7 +1786,7 @@ function vChallans(){
     <div class="note">Amount is auto-estimated from the contractor's employees for the selected statutory type — adjust to the actual challan figure.</div>
     <div style="display:flex;gap:10px"><button class="btn btn-primary" onclick="addChallan()">Save challan</button><button class="btn btn-ghost" onclick="toggleChallan()">Cancel</button></div></div>
   <div class="panel flush"><table><thead><tr><th>Contractor</th><th>Type</th><th>Period</th><th>Challan No</th><th class="num">Amount</th><th>Paid date</th><th>Status</th><th>Document</th></tr></thead><tbody>
-  ${state.challans.length?state.challans.map(ch=>{const c=state.contractors.find(x=>x.id===ch.con)||{};return `<tr><td><span class="tag o">${c.code||'—'}</span> ${c.name||''}</td><td><span class="tag b">${ch.type}</span></td><td>${ch.month} ${ch.year}</td><td class="mono">${ch.no}</td><td class="num">${inr(ch.amt)}</td><td>${ch.date||'—'}</td><td><span class="tag ${ch.status==='Paid'?'g':'a'}">${ch.status}</span></td><td>${ch.doc?`<a class="dl" href="${ch.doc.data}" target="_blank" rel="noopener">View</a> <span style="color:var(--steel-l);font-size:10px">${ch.doc.name||''}</span>`:`<label class="btn btn-ghost btn-sm editable" style="cursor:pointer">Attach<input type="file" accept="application/pdf,image/*" hidden onchange="attachChallanDoc(${ch.id},this)"></label>`}</td></tr>`;}).join(''):'<tr><td colspan="8" style="color:var(--steel)">No challans recorded yet.</td></tr>'}
+  ${chScoped().length?chScoped().map(ch=>{const c=state.contractors.find(x=>x.id===ch.con)||{};return `<tr><td><span class="tag o">${c.code||'—'}</span> ${c.name||''}</td><td><span class="tag b">${ch.type}</span></td><td>${ch.month} ${ch.year}</td><td class="mono">${ch.no}</td><td class="num">${inr(ch.amt)}</td><td>${ch.date||'—'}</td><td><span class="tag ${ch.status==='Paid'?'g':'a'}">${ch.status}</span></td><td>${ch.doc?`<a class="dl" href="${ch.doc.data}" target="_blank" rel="noopener">View</a> <span style="color:var(--steel-l);font-size:10px">${ch.doc.name||''}</span>`:`<label class="btn btn-ghost btn-sm editable" style="cursor:pointer">Attach<input type="file" accept="application/pdf,image/*" hidden onchange="attachChallanDoc(${ch.id},this)"></label>`}</td></tr>`;}).join(''):'<tr><td colspan="8" style="color:var(--steel)">No challans recorded yet.</td></tr>'}
   </tbody></table></div>
   <div class="note">Contractor statutory challans — <b>PF, ESI, LWF, PT</b> — recorded per contractor and period, with the <b>challan document</b> (PDF / scan) attached for CLRA / principal-employer compliance.</div>`;
 }
@@ -1860,17 +1864,30 @@ function myCon(){return (state.auth&&state.auth.con)||null;}
 function conScopeId(){const cons=state.contractors;const mc=myCon();if(mc)return mc;if(!conSel||!cons.some(c=>c.id===conSel))conSel=cons[0].id;return conSel;}
 function conPicker(){const cons=state.contractors;const cur=conScopeId();const c=cons.find(x=>x.id===cur)||cons[0];if(myCon())return `<div class="field" style="margin:0;min-width:300px"><label>Contractor</label><div style="font-weight:700;font-size:14px;padding:6px 0">${c.code} — ${c.name}</div></div>`;return `<div class="field" style="margin:0;min-width:300px"><label>Contractor</label><select onchange="conSel=this.value;render()">${cons.map(x=>`<option value="${x.id}" ${x.id===cur?'selected':''}>${x.code} — ${x.name}</option>`).join('')}</select></div>`;}
 function conEmps(){const cur=conScopeId();return emps().filter(e=>e.contractor===cur);}
+function chScoped(){return myCon()?state.challans.filter(c=>c.con===myCon()):state.challans;}
+function conScoped(){return myCon()?state.contractors.filter(c=>c.id===myCon()):state.contractors;}
+function toggleAttFix(){var f=document.getElementById('attFixForm');if(f)f.style.display=(f.style.display==='none'||!f.style.display)?'block':'none';}
+function applyAttFix(){var id=+val('af_emp');var reason=val('af_reason');if(!reason){toast('Reason code is mandatory');return;}var lop=+val('af_lop')||0;var remark=val('af_remark');var a=state.attendance[id]||(state.attendance[id]={totalDays:state.monthDays,lop:0});var old=a.lop;a.lop=Math.max(0,Math.min(lop,a.totalDays));state.attCorrections=state.attCorrections||[];var rn=((state.M.reason||[]).find(r=>r.code===reason)||{}).name||'';var emp=state.employees.find(e=>e.id===id);state.attCorrections.push({empId:id,oldLop:old,newLop:a.lop,reason:reason,reasonName:rn,remark:remark,by:(state.auth&&state.auth.name)||'',at:new Date().toISOString()});logAudit('Attendance corrected — '+(emp?emp.name:id)+' LOP '+old+'\u2192'+a.lop+' ['+reason+' '+rn+(remark?'; '+remark:'')+']');toast('Attendance corrected \u00b7 '+reason);render();}
 function vContractorAtt(){const list=conEmps();const ro=!canEdit();return `
-  <div class="panel" style="margin-bottom:16px"><div class="row-between">${conPicker()}<div style="text-align:right"><div class="note" style="margin:0">Month basis: ${state.monthDays} days</div><div class="note" style="margin:2px 0 0">${list.length} worker(s)</div></div></div></div>
+  <div class="panel" style="margin-bottom:16px"><div class="row-between">${conPicker()}<div style="text-align:right"><div class="note" style="margin:0">Month basis: ${state.monthDays} days</div><div class="note" style="margin:2px 0 0">${list.length} worker(s)</div></div></div><div class="row-between" style="margin-top:12px;border-top:1px solid var(--line);padding-top:12px"><div class="note" style="margin:0">Bulk import, or single-entry correction with a reason code</div><div style="display:flex;gap:8px">${allowed('att-import')?`<button class="btn btn-ghost btn-sm editable" onclick="go('att-import')">Import attendance</button>`:''}${!ro?`<button class="btn btn-orange btn-sm editable" onclick="toggleAttFix()">Correct attendance</button>`:''}</div></div></div>
+  <div id="attFixForm" class="panel" style="display:none;margin-bottom:16px"><h3 style="margin-bottom:12px">Attendance correction</h3>
+    <div class="form-grid">
+      <div class="field"><label>Worker *</label><select id="af_emp">${list.map(e=>`<option value="${e.id}">${e.name} (${e.empCode||e.id})</option>`).join('')}</select></div>
+      <div class="field"><label>Corrected LOP days *</label><input id="af_lop" type="number" min="0" step="0.5" placeholder="0"></div>
+      <div class="field"><label>Reason code *</label><select id="af_reason"><option value="">— select reason —</option>${(state.M.reason||[]).map(r=>`<option value="${r.code}">${r.code} — ${r.name}</option>`).join('')}</select></div>
+      <div class="field"><label>Remark</label><input id="af_remark" placeholder="Optional note"></div>
+    </div>
+    <div class="note">Reason code is <b>mandatory</b> and recorded in the audit trail. Manage codes in HR Masters → Reason Code Master.</div>
+    <div style="display:flex;gap:10px"><button class="btn btn-primary" onclick="applyAttFix()">Apply correction</button><button class="btn btn-ghost" onclick="toggleAttFix()">Cancel</button></div></div>
   <div class="panel flush"><table><thead><tr><th>Employee</th><th>Designation</th><th>Plant</th><th class="num">Month days</th><th class="num">LOP days</th><th class="num">Paid days</th></tr></thead><tbody>
   ${list.length?list.map(e=>{const a=attOf(e.id);const p=(PLANTS.find(x=>x.id===e.plant)||{}).name||e.plant||'';return `<tr><td>${empCell(e)}</td><td>${e.role||''}</td><td>${p}</td><td class="num">${a.total}</td><td class="num">${ro?a.lop:`<input class="lop-in editable" type="number" min="0" max="${a.total}" value="${a.lop}" onchange="setLop(${e.id},+this.value)">`}</td><td class="num">${a.paid}</td></tr>`;}).join(''):'<tr><td colspan="6" style="color:var(--steel)">No workers under this contractor.</td></tr>'}
   </tbody></table></div>
   <div class="note">Contractor-wise attendance — set Loss-of-Pay (LOP) days; paid days flow into salary automatically.</div>`;}
-function vContractorSalary(){const cur=conScopeId();const c=state.contractors.find(x=>x.id===cur)||state.contractors[0];const list=conEmps();let tG=0,tD=0,tN=0;const rows=list.map(e=>{const cc=compute(e);const a=attOf(e.id);tG+=cc.eGross;tD+=cc.totalDed;tN+=cc.net;return `<tr><td>${empCell(e)}</td><td class="num">${a.paid}/${a.total}</td><td class="num">${inr(cc.eGross)}</td><td class="num">${inr(cc.totalDed)}</td><td class="num"><b>${inr(cc.net)}</b></td></tr>`;}).join('');return `
+function vContractorSalary(){const cur=conScopeId();const c=state.contractors.find(x=>x.id===cur)||state.contractors[0];const list=conEmps();let tG=0,tD=0,tN=0;const rows=list.map(e=>{const cc=compute(e);const a=attOf(e.id);tG+=cc.eGross;tD+=cc.totalDed;tN+=cc.net;return `<tr><td>${empCell(e)}</td><td class="num">${a.paid}/${a.total}</td><td class="num">${inr(cc.eGross)}</td><td class="num">${inr(cc.totalDed)}</td><td class="num"><b>${inr(cc.net)}</b></td><td><button class="btn btn-ghost btn-sm" onclick="viewSlipFor(${e.id})">Slip</button></td></tr>`;}).join('');return `
   <div class="panel" style="margin-bottom:16px"><div class="row-between">${conPicker()}<div style="text-align:right">${canEdit()?`<button class="btn btn-primary" onclick="genContractorSalary()">Generate salary</button>`:'<span class="ro-pill">Read-only</span>'}</div></div></div>
-  <div class="panel flush"><table><thead><tr><th>Employee</th><th class="num">Paid days</th><th class="num">Gross</th><th class="num">Deductions</th><th class="num">Net pay</th></tr></thead><tbody>
-  ${list.length?rows:'<tr><td colspan="5" style="color:var(--steel)">No workers under this contractor.</td></tr>'}
-  ${list.length?`<tr style="background:var(--ash,#eef2f7);font-weight:700"><td>Total — ${list.length} worker(s)</td><td></td><td class="num">${inr(tG)}</td><td class="num">${inr(tD)}</td><td class="num">${inr(tN)}</td></tr>`:''}
+  <div class="panel flush"><table><thead><tr><th>Employee</th><th class="num">Paid days</th><th class="num">Gross</th><th class="num">Deductions</th><th class="num">Net pay</th><th></th></tr></thead><tbody>
+  ${list.length?rows:'<tr><td colspan="6" style="color:var(--steel)">No workers under this contractor.</td></tr>'}
+  ${list.length?`<tr style="background:var(--ash,#eef2f7);font-weight:700"><td>Total — ${list.length} worker(s)</td><td></td><td class="num">${inr(tG)}</td><td class="num">${inr(tD)}</td><td class="num">${inr(tN)}</td><td></td></tr>`:''}
   </tbody></table></div>
   <div class="note">Contractor-wise salary — computed from CTC, statutory rules and attendance for <b>${c.name}</b>.</div>`;}
 function genContractorSalary(){const cur=conScopeId();const c=state.contractors.find(x=>x.id===cur);const list=conEmps();if(!list.length){toast('No workers under this contractor');return;}const net=list.reduce((s,e)=>s+compute(e).net,0);logAudit('Generated salary for '+(c?c.name:cur)+' — '+list.length+' worker(s)');toast('Salary generated · '+list.length+' worker(s) · Net '+inr(net));}
